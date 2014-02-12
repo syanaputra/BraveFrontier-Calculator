@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Brave Frontier EXP Calculator Beta ver 0.1.0</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width" />
+		
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type='text/css'>
+		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Lato:300,400,700' type='text/css'>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type='text/css'>
+        <link rel="stylesheet" href="css/bfc-calc.css" type='text/css' data-s="main">
+
+		<!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+		<!-- Heading -->
+		<div class="main">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 text-center big-margin">
+						<h1 class="main-header">Brave Frontier EXP Calculator</h1>
+						<p>This is a <strong>BETA</strong> version <em>0.1.0</em>. Please use it cautiously. More updates are coming soon.</p>
+						<p>Based on <a href="http://bravefrontierglobal.wikia.com/wiki/Experience_Tables" target="_blank">Brave Frontier Wikia</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Calculator -->
+		<div class="">
+			<div class="container">
+				<div class="row">
+					<form class="form-horizontal" role="form" action="javascript:calculate()">
+						<div class="col-md-6">
+							<h2>Basic Info</h2>
+							<div class="form-group">
+								<label for="exp_table" class="col-sm-3 control-label">EXP Table</label>
+								<div class="col-sm-9">
+									<select id="exp_table" class="form-control" onchange="change_max_lv()">
+										<option value="1" selected="selected">Type 1</option>
+										<option value="2">Type 2</option>
+										<option value="3">Type 3</option>
+									</select>
+									<span class="help-block">
+										<strong>EXP Table 1 : </strong>&nbsp; Units up to 3 <i class="fa fa-star"></i> &amp; Initial Units (no. 1-24) <br />
+										<strong>EXP Table 2 : </strong>&nbsp; Units up to 4 <i class="fa fa-star"></i><br />
+										<strong>EXP Table 3 : </strong>&nbsp; Units up to 5 <i class="fa fa-star"></i>
+									</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="current_lv" class="col-sm-3 control-label">Current Lv</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="current_lv" min="1" max="80" required>
+								</div>
+							</div>
+							<hr />
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<div class="checkbox">
+										<label>
+											<input id="exp_to_next_lv_check" type="checkbox" id="rawr" onchange="check_checkbox()"> I want to count the current EXP that I have
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="exp_to_next_lv" class="col-sm-3 control-label">Remaining EXP to Next Level</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="exp_to_next_lv">
+								</div>
+							</div>
+						</div>
+						<hr class="sr-only" />
+						<div class="col-md-6">
+							<h2>Specific Info</h2>
+							<div class="form-group">
+								<label for="exp_to_next_lv" class="col-sm-3 control-label">What would you like to know?</label>
+								<div class="col-sm-9">
+									<select id="calc_selection" class="form-control">
+										<option value="1" selected="selected">How many exp do I need to get to xx level?</option>
+										<option value="2">(NOT IMPLEMENTED) What level will my character be when I give xxx exp?</option>
+									</select>
+								</div>
+							</div>
+							<hr />
+							<div class="form-group">
+								<label for="exp_to_next_lv" class="col-sm-3 control-label">Target Level?</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="target_lv" min="1" max="80" required>
+									<span class="help-block">Max level is: <strong id="max_lv">80</strong></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+								</div>
+							</div>
+							<hr />
+							<div class="form-group">
+								<label for="exp_to_next_lv" class="col-sm-3 control-label">Required EXP</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="out_required_exp" min="1" max="80" readonly="readonly">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
+							
+		
+		<!-- Newsletter -->
+		<div class="newsletter big-margin">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<h3 class="main-header">About This Page</h3>
+						<p>This page is a fan made page that is created to help Brave Frontier players.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.tinytimer.min.js"></script>
+        <script src="js/bfc-calc.js"></script>
+
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-48006628-1', 'memoriesdust.com');
+		  ga('require', 'linkid', 'linkid.js');
+		  ga('send', 'pageview');
+
+		</script>
+		
+		<!-- Put this in the last -->
+		<script src="js/jquery.inview.js"></script>
+	</body>
+</html>
