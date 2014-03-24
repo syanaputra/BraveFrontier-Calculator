@@ -6,9 +6,12 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>Brave Frontier EXP Calculator Beta ver 0.1.0</title>
+        <title>Brave Frontier EXP Calculator Beta ver 0.2.1</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width" />
+		
+		<meta property='og:image' content='http://memoriesdust.com/images/brave-frontier-alim-1.jpg'/>
+		<meta name="google-site-verification" content="ZKWlzNIIaNsSg7AbTT47COPFl3uxz49S36NGUGw-0e4" />
 		
         <link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type='text/css'>
@@ -31,8 +34,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 text-center big-margin">
+						
 						<h1 class="main-header">Brave Frontier EXP Calculator</h1>
-						<p>This is a <strong>BETA</strong> version <em>0.1.0</em>. Please use it cautiously. More updates are coming soon.</p>
+						<p>This is a <strong>BETA</strong> version <em>0.4.0</em>. Please use it cautiously. More updates are coming soon.</p>
 						<p>Based on <a href="http://bravefrontierglobal.wikia.com/wiki/Experience_Tables" target="_blank">Brave Frontier Wikia</a></p>
 					</div>
 				</div>
@@ -90,30 +94,101 @@
 							<div class="form-group">
 								<label for="exp_to_next_lv" class="col-sm-3 control-label">What would you like to know?</label>
 								<div class="col-sm-9">
-									<select id="calc_selection" class="form-control">
+									<select id="calc_selection" class="form-control" onchange="change_selection()">
 										<option value="1" selected="selected">How many exp do I need to get to xx level?</option>
-										<option value="2">(NOT IMPLEMENTED) What level will my character be when I give xxx exp?</option>
+										<option value="2">What level will my character be when I give xxx exp?</option>
 									</select>
 								</div>
 							</div>
 							<hr />
-							<div class="form-group">
-								<label for="exp_to_next_lv" class="col-sm-3 control-label">Target Level?</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="target_lv" min="1" max="80" required>
-									<span class="help-block">Max level is: <strong id="max_lv">80</strong></span>
+							<div id="calc_selection_1" style="display:none;">
+								<div class="form-group">
+									<label for="exp_to_next_lv" class="col-sm-3 control-label">Target Level?</label>
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="target_lv" min="1" max="80">
+										<span class="help-block">Max level is: <strong id="max_lv">80</strong></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-3 col-sm-9">
+										<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+									</div>
+								</div>
+								<hr />
+								<div class="form-group">
+									<label for="exp_to_next_lv" class="col-sm-3 control-label">Required EXP</label>
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="out_required_exp" min="1" max="80" readonly="readonly">
+									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-3 col-sm-9">
-									<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+							<div id="calc_selection_2" style="display:none;">
+								<div class="form-group">
+									<label for="fuse_exp" class="col-sm-3 control-label">Fuse EXP</label>
+									<div class="col-sm-9">
+										<input type="number" class="form-control" id="fuse_exp" min="1">
+									</div>
 								</div>
-							</div>
-							<hr />
-							<div class="form-group">
-								<label for="exp_to_next_lv" class="col-sm-3 control-label">Required EXP</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="out_required_exp" min="1" max="80" readonly="readonly">
+								<div class="form-group">
+									<div class="col-sm-offset-3 col-sm-9">
+										<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+									</div>
+								</div>
+								<hr />
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label for="out_final_level" class="col-sm-6 control-label">Final Level</label>
+											<div class="col-sm-6">
+												<input type="number" class="form-control" id="out_final_level" readonly="readonly">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label for="out_final_exp" class="col-sm-6 control-label">Final EXP</label>
+											<div class="col-sm-6">
+												<input type="number" class="form-control" id="out_final_exp" readonly="readonly">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Great Success)</label>
+											<div class="col-sm-6">
+												<input type="number" class="form-control" id="out_final_level_great" readonly="readonly">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Great Success)</label>
+											<div class="col-sm-6">
+												<input type="number" class="form-control" id="out_final_exp_great" readonly="readonly">
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Super Success)</label>
+											<div class="col-sm-6">
+												<input type="number" class="form-control" id="out_final_level_super" readonly="readonly">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-6">
+										<div class="form-group">
+											<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Super Success)</label>
+											<div class="col-sm-6">
+												<input type="number" class="form-control" id="out_final_exp_super" readonly="readonly">
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -123,14 +198,48 @@
 			</div>
 		</div>
 		
-		
-							
-		
 		<!-- Newsletter -->
 		<div class="newsletter big-margin">
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 text-center">
+						<h2>Contribute</h2>
+						<p>Please help us to implement better functionality. Simply write down the unit name and the exp table it used. Our goal is to have a list of units with its exp table to make Brave Frontier's life easier!</p>
+						<p><em>For Example:</em> <strong>Burning Vargas</strong> uses <strong>EXP Table 2</strong></p>
+						<form class="form-horizontal" role="form" action="javascript:tadah()">
+							<div class="col-md-6 col-md-offset-3">
+								<div class="form-group">
+									<label for="current_lv" class="col-sm-3 control-label">Unit Name</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="u_name" name="u_name" min="1" max="80" required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exp_type" class="col-sm-3 control-label">EXP Table</label>
+									<div class="col-sm-9">
+										<select id="exp_type" name="exp_type" class="form-control">
+											<option value="1" selected="selected">Type 1</option>
+											<option value="2">Type 2</option>
+											<option value="3">Type 3</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="submitted_by" class="col-sm-3 control-label">Your Username</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="submitted_by" name="submitted_by">
+										<span class="help-block">If you'd like your username to be remembered as our precious helper, feel free to write it down.</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-3 col-sm-9">
+										<button type="submit" class="btn btn-unique btn-block">Send</button>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="clearfix"></div>
+						<hr />
 						<h3 class="main-header">About This Page</h3>
 						<p>This page is a fan made page that is created to help Brave Frontier players.</p>
 					</div>
@@ -144,17 +253,43 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.tinytimer.min.js"></script>
         <script src="js/bfc-calc.js"></script>
-
+		
 		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-48006628-1', 'memoriesdust.com');
-		  ga('require', 'linkid', 'linkid.js');
-		  ga('send', 'pageview');
-
+			// AJAX Script
+			function tadah()
+			{
+				var u_name = $("input[name=u_name]").val();
+				var exp_type = $("[name=exp_type]").val();
+				var submitted_by = $("input[name=submitted_by]").val();
+				
+				if(u_name != "" && exp_type !="")
+				{
+					$.post("store.php", {
+						unit_name: u_name,
+						exp_type: exp_type,
+						submitted_by: submitted_by,
+						token: "x",
+					}, function (data) {
+						console.log(data);
+					})
+					.error(function(data) {
+						console.log(data);
+					})
+					.done(function(data) {
+						if(data.status == "error")
+						{
+							alert(data.msg);
+						}
+						else if(data.status == "success")
+						{
+							alert(data.msg);
+							
+							$("input[name=u_name]").val("");
+							$("input[name=submitted_by]").val("");
+						}
+					});
+				}
+			}
 		</script>
 		
 		<!-- Put this in the last -->

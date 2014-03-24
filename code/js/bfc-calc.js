@@ -49,9 +49,73 @@ function calculate()
 		else
 		{
 			// What level will I be when I give xx EXP
+			var fuse_exp = $("#fuse_exp").val();
+			var final_exp, final_level, final_leftover_exp_to_next_lv, final_bool;
+			var final_exp_great, final_level_great, final_leftover_exp_to_next_lv_great, final_bool_great;
+			var final_exp_super, final_level_super, final_leftover_exp_to_next_lv_super, final_bool_super;
+			
+			final_exp = current_exp + parseInt(fuse_exp);
+			final_exp_great = final_exp * 1.5;
+			final_exp_super = final_exp * 2.0;
+			
+			final_bool = false;
+			final_bool_great = false;
+			final_bool_super = false;
+			
+			for(var i = current_lv; i<selected_exp_table.length; i++)
+			{
+				// Normal
+				if (final_exp == selected_exp_table[i] && final_bool == false)
+				{
+					final_level = i;
+					final_leftover_exp_to_next_lv = 0;
+					final_bool = true;
+				}
+				else if (final_exp < selected_exp_table[i] && final_bool == false)
+				{
+					final_level = i-1;
+					final_leftover_exp_to_next_lv = selected_exp_table[i] - final_exp;
+					final_bool = true;
+				}
+				
+				// Great
+				if (final_exp_great == selected_exp_table[i] && final_bool_great == false)
+				{
+					final_level_great = i;
+					final_leftover_exp_to_next_lv_great = 0;
+					final_bool_great = true;
+				}
+				else if (final_exp_great < selected_exp_table[i] && final_bool_great == false)
+				{
+					final_level_great = i-1;
+					final_leftover_exp_to_next_lv_great = selected_exp_table[i] - final_exp_great;
+					final_bool_great = true;
+				}
+				
+				// Super
+				if (final_exp_super == selected_exp_table[i] && final_bool_super == false)
+				{
+					final_level_super = i;
+					final_leftover_exp_to_next_lv_super = 0;
+					final_bool_super = true;
+				}
+				else if (final_exp_super < selected_exp_table[i] && final_bool_super == false)
+				{
+					final_level_super = i-1;
+					final_leftover_exp_to_next_lv_super = selected_exp_table[i] - final_exp_super;
+					final_bool_super = true;
+				}
+			}
 			
 			// Output
-			alert("Not Implemented yet");
+			$("#out_final_level").val(final_level);
+			$("#out_final_exp").val(final_leftover_exp_to_next_lv);
+			
+			$("#out_final_level_great").val(final_level_great);
+			$("#out_final_exp_great").val(final_leftover_exp_to_next_lv_great);
+			
+			$("#out_final_level_super").val(final_level_super);
+			$("#out_final_exp_super").val(final_leftover_exp_to_next_lv_super);
 		}
 	}
 }
@@ -69,6 +133,17 @@ function change_max_lv()
 	$("#max_lv").text(max_lv);
 	$("#current_lv").attr("max",max_lv);
 	$("#target_lv").attr("max",max_lv);
+}
+
+function change_selection()
+{
+	$("#calc_selection_1").hide();
+	$("#calc_selection_2").hide();
+	switch($("#calc_selection").val())
+	{
+		case "1": $("#calc_selection_1").show(); break;
+		case "2": $("#calc_selection_2").show(); break;
+	}
 }
 
 function check_checkbox()
@@ -318,4 +393,5 @@ $(document).ready(function() {
 	init_exp_table();
 	check_checkbox();
 	change_max_lv();
+	change_selection();
 });
