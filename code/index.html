@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>Brave Frontier EXP Calculator Beta ver 0.2.1</title>
+        <title>Brave Frontier EXP Calculator Beta ver 0.6.0</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width" />
 		
@@ -34,10 +34,14 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 text-center big-margin">
-						
 						<h1 class="main-header">Brave Frontier EXP Calculator</h1>
-						<p>This is a <strong>BETA</strong> version <em>0.4.0</em>. Please use it cautiously. More updates are coming soon.</p>
+						<p>This is EXP Calculator version <em>0.6.0</em> for Brave Frontier game. Please use it cautiously. More updates are coming soon.</p>
 						<p>Based on <a href="http://bravefrontierglobal.wikia.com/wiki/Experience_Tables" target="_blank">Brave Frontier Wikia</a></p>
+						<hr />
+						<h4>new update</h4>
+						<p>New Metal EXP Calculator (below EXP Calculator) to help getting the idea how many metal monsters you will need to fuse.<br />Remember that fusing monster with same element grants 50% more EXP.</p>
+						<p><strong>Note:</strong> Hope you guys enjoyed our April Fools joke last time :)</p>
+						<hr />
 					</div>
 				</div>
 			</div>
@@ -197,8 +201,141 @@
 				</div>
 			</div>
 		</div>
+		<hr />
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- Brave Frontier EXP Calc -->
+					<ins class="adsbygoogle"
+						 style="display:inline-block;width:728px;height:90px"
+						 data-ad-client="ca-pub-1215612485510932"
+						 data-ad-slot="6004914203"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<!-- Metal God Calculator -->
+		<div class="">
+			<div class="container">
+				<div class="row">
+					<div class="form-horizontal">
+						<div class="col-md-6">
+							<h2>Metal Calculator <small style="color:red;">(NEW)</small></h2>
+							<p>Fusing metal monster with the same element gives them <strong>50% more EXP</strong>.</p>
+							<div class="form-group">
+								<label for="metal_god" class="col-sm-3 control-label">Metal God</label>
+								<div class="col-sm-4">
+									<input type="number" class="form-control" id="metal_god" placeholder="0" onkeyup="metal_exp()" />
+								</div>
+								<div class="col-sm-5">
+									<div class="checkbox">
+										<label>
+											<input id="metal_god_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="metal_king" class="col-sm-3 control-label">Metal King</label>
+								<div class="col-sm-4">
+									<input type="number" class="form-control" id="metal_king" placeholder="0" onkeyup="metal_exp()" />
+								</div>
+								<div class="col-sm-5">
+									<div class="checkbox">
+										<label>
+											<input id="metal_king_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="metal_slime" class="col-sm-3 control-label">Metal Slime</label>
+								<div class="col-sm-4">
+									<input type="number" class="form-control" id="metal_slime" placeholder="0" onkeyup="metal_exp()" />
+								</div>
+								<div class="col-sm-5">
+									<div class="checkbox">
+										<label>
+											<input id="metal_slime_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+								</div>
+							</div>
+							<hr />
+							<div class="form-group">
+								<label for="metal_exp" class="col-sm-3 control-label">Total Received EXP</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="metal_exp" readonly="readonly">
+								</div>
+							</div>
+						</div>
+						<hr class="sr-only" />
+						<div class="col-md-6">
+							<h2>Metal EXP Table <small style="color:red;">(NEW)</small></h2>
+							<table class="table table-striped table-bordered">
+								<thead>
+									<tr>
+										<th>Metal Type</th>
+										<th>Normal EXP</th>
+										<th>Same Element EXP</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Metal God</td>
+										<td>51518</td>
+										<td>77277</td>
+									</tr>
+									<tr>
+										<td>Metal King</td>
+										<td>11012</td>
+										<td>16518</td>
+									</tr>
+									<tr>
+										<td>Metal Slime</td>
+										<td>1506</td>
+										<td>2259</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<!-- Newsletter -->
+		<div class="newsletter big-margin">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-md-8 col-md-offset-2 text-center">
+						<h2>Contribution</h2>
+						<p>Thank you very much for you guys who have helped us to get this data. <a href="#contribute">If you want to contribute, please use the form below to contribute</a>.</p>
+						<table id="contribution" class="table table-striped">
+							<thead>
+								<tr>
+									<th width="45%">Name</th>
+									<th width="30%">Exp Table</th>
+									<th width="25%">People Contributing</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="newsletter big-margin">
 			<div class="container">
 				<div class="row">
@@ -239,9 +376,17 @@
 							</div>
 						</form>
 						<div class="clearfix"></div>
-						<hr />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="newsletter big-margin">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 text-center">
 						<h3 class="main-header">About This Page</h3>
-						<p>This page is a fan made page that is created to help Brave Frontier players.</p>
+						<p>This page is a fan made page that is created to help Brave Frontier players. Thank you very much for coming to this page and using the calculator.</p>
+						<p>I hope you guys find this tool useful. If you have any question, suggestion or feedback, please send me an email at <a href="mailto:bravefrontier@memoriesdust.com">bravefrontier@memoriesdust.com</a>.</p>
 					</div>
 				</div>
 			</div>
@@ -290,6 +435,31 @@
 					});
 				}
 			}
+			
+			function load_contribution()
+			{
+				$("#contribution tbody").children().remove();
+				$.post("table.php", {}, function (data) {
+					console.log(data);
+				})
+				.error(function(data) {
+					console.log(data);
+				})
+				.done(function(data) {
+					if(typeof data.d != "undefined")
+					{
+						var d = data.d;
+						for(var i=0; i<d.length; i++)
+						{
+							$("#contribution tbody").append("<tr><td>"+d[i].name+"</td><td>"+d[i].exp_type+"</td><td>"+d[i].counter+"</td></tr>");
+						}
+					}
+				});
+			}
+			
+			$(function() {
+				load_contribution();
+			});
 		</script>
 		
 		<!-- Put this in the last -->

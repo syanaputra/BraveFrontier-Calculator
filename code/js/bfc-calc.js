@@ -3,6 +3,38 @@ var exp_table_2 = [];
 var exp_table_3 = [];
 var count_remaining_exp = false;
 
+function metal_exp()
+{
+	var metal_god_same 		= 77277;
+	var metal_god 			= 51518;
+	var metal_king_same 	= 16518;
+	var metal_king 			= 11012;
+	var metal_slime_same 	= 2259;
+	var metal_slime 		= 1506;
+	
+	var total_exp = 0;
+	
+	// Metal God
+	if($("#metal_god_same_check").is(":checked"))
+		total_exp += (metal_god_same * $("#metal_god").val());
+	else
+		total_exp += (metal_god * $("#metal_god").val());
+	
+	// Metal King
+	if($("#metal_king_same_check").is(":checked"))
+		total_exp += (metal_king_same * $("#metal_king").val());
+	else
+		total_exp += (metal_king * $("#metal_king").val());
+		
+	// Metal Slime
+	if($("#metal_slime_same_check").is(":checked"))
+		total_exp += (metal_slime_same * $("#metal_slime").val());
+	else
+		total_exp += (metal_slime * $("#metal_slime").val());
+	
+	$("#metal_exp").val(total_exp);
+}
+
 function calculate()
 {
 	// Which calculation are we doing?
