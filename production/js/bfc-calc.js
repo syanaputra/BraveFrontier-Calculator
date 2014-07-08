@@ -5,6 +5,8 @@ var count_remaining_exp = false;
 
 function metal_exp()
 {
+	var metal_crystal_same	= 227286;
+	var metal_crystal		= 151524;
 	var metal_god_same 		= 77277;
 	var metal_god 			= 51518;
 	var metal_king_same 	= 16518;
@@ -12,8 +14,14 @@ function metal_exp()
 	var metal_slime_same 	= 2259;
 	var metal_slime 		= 1506;
 	
-	var total_exp = 0;
+	var total_exp = 0, total_exp_great = 0, total_exp_super = 0;
 	
+	// Metal Crystal
+	if($("#metal_crystal_same_check").is(":checked"))
+		total_exp += (metal_crystal_same * $("#metal_crystal").val());
+	else
+		total_exp += (metal_crystal * $("#metal_crystal").val());
+		
 	// Metal God
 	if($("#metal_god_same_check").is(":checked"))
 		total_exp += (metal_god_same * $("#metal_god").val());
@@ -32,7 +40,31 @@ function metal_exp()
 	else
 		total_exp += (metal_slime * $("#metal_slime").val());
 	
+	total_exp_great = total_exp * 1.5;
+	total_exp_super = total_exp * 2.0;
+	
 	$("#metal_exp").val(total_exp);
+	$("#metal_exp_great").val(total_exp_great);
+	$("#metal_exp_super").val(total_exp_super);
+}
+
+function jewel_exp()
+{
+	var jewel_god 			= 50000;
+	var jewel_king 			= 20000;
+	var jewel_ghost 		= 7000;
+	
+	var total_zel = 0, jewel_god_zel = 0, jewel_king_zel = 0, jewel_ghost_zel = 0;
+	
+	jewel_god_zel = jewel_god * $("#jewel_god").val();
+	jewel_king_zel = jewel_king * $("#jewel_king").val();
+	jewel_ghost_zel = jewel_ghost * $("#jewel_ghost").val();
+	total_zel = jewel_god_zel + jewel_king_zel + jewel_ghost_zel;
+	
+	$("#jewel_ghost_output").val(jewel_ghost_zel);
+	$("#jewel_king_output").val(jewel_king_zel);
+	$("#jewel_god_output").val(jewel_god_zel);
+	$("#jewel_zel").val(total_zel);
 }
 
 function calculate()
@@ -157,9 +189,9 @@ function change_max_lv()
 	var max_lv = "";
 	switch($("#exp_table").val())
 	{
-		case "1": max_lv = "80"; break;
-		case "2": max_lv = "40"; break;
-		case "3": max_lv = "80"; break;
+		case "1": max_lv = "100"; break;
+		case "2": max_lv = "80"; break;
+		case "3": max_lv = "100"; break;
 		default: max_lv = "???";
 	}
 	$("#max_lv").text(max_lv);
@@ -274,6 +306,26 @@ function init_exp_table()
 	exp_table_1[78] = 533511;
 	exp_table_1[79] = 551002;
 	exp_table_1[80] = 568832;
+	exp_table_1[81] = 587004;
+	exp_table_1[82] = 605520;
+	exp_table_1[83] = 624382;
+	exp_table_1[84] = 643592;
+	exp_table_1[85] = 663153;
+	exp_table_1[86] = 683066;
+	exp_table_1[87] = 703334;
+	exp_table_1[88] = 723958;
+	exp_table_1[89] = 744941;
+	exp_table_1[90] = 766285;
+	exp_table_1[91] = 787991;
+	exp_table_1[92] = 810062;
+	exp_table_1[93] = 832500;
+	exp_table_1[94] = 855307;
+	exp_table_1[95] = 878485;
+	exp_table_1[96] = 902036;
+	exp_table_1[97] = 925961;
+	exp_table_1[98] = 950263;
+	exp_table_1[99] = 974944;
+	exp_table_1[100] = 1000006;
 	
 	// EXP Table 2
 	exp_table_2[1] = 0;
@@ -335,7 +387,27 @@ function init_exp_table()
 	exp_table_2[57] = 360979;
 	exp_table_2[58] = 377310;
 	exp_table_2[59] = 394077;
-	exp_table_2[60] = 411283;
+	exp_table_2[60] = 411286;
+	exp_table_2[61] = 428935;
+	exp_table_2[62] = 447031;
+	exp_table_2[63] = 465577;
+	exp_table_2[64] = 484577;
+	exp_table_2[65] = 504035;
+	exp_table_2[66] = 523955;
+	exp_table_2[67] = 544340;
+	exp_table_2[68] = 565193;
+	exp_table_2[69] = 586518;
+	exp_table_2[70] = 608319;
+	exp_table_2[71] = 630600;
+	exp_table_2[72] = 653362;
+	exp_table_2[73] = 676610;
+	exp_table_2[74] = 700349;
+	exp_table_2[75] = 724580;
+	exp_table_2[76] = 749307;
+	exp_table_2[77] = 774534;
+	exp_table_2[78] = 800263;
+	exp_table_2[79] = 826499;
+	exp_table_2[80] = 853244;
 
 	// EXP Table 3
 	exp_table_3[1] = 0;
@@ -418,6 +490,26 @@ function init_exp_table()
 	exp_table_3[78] = 1067016;
 	exp_table_3[79] = 1101997;
 	exp_table_3[80] = 1137658;
+	exp_table_3[81] = 1174002;
+	exp_table_3[82] = 1211034;
+	exp_table_3[83] = 1248758;
+	exp_table_3[84] = 1287179;
+	exp_table_3[85] = 1326300;
+	exp_table_3[86] = 1366126;
+	exp_table_3[87] = 1406661;
+	exp_table_3[88] = 1447909;
+	exp_table_3[89] = 1489875;
+	exp_table_3[90] = 1532562;
+	exp_table_3[91] = 1575975;
+	exp_table_3[92] = 1620117;
+	exp_table_3[93] = 1664993;
+	exp_table_3[94] = 1710607;
+	exp_table_3[95] = 1756962;
+	exp_table_3[96] = 1804063;
+	exp_table_3[97] = 1851914;
+	exp_table_3[98] = 1900518;
+	exp_table_3[99] = 1949880;
+	exp_table_3[100] = 2000006;
 }
 
 

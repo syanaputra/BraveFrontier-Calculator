@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Brave Frontier EXP Calculator</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width" />
+		
+		<meta property='og:image' content='http://memoriesdust.com/images/brave-frontier-alim-1.jpg'/>
+		<meta name="google-site-verification" content="ZKWlzNIIaNsSg7AbTT47COPFl3uxz49S36NGUGw-0e4" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+		
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type='text/css'>
+		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Lato:300,400,700' type='text/css'>
+        <link rel="stylesheet" href="css/bootstrap.min.css" type='text/css'>
+        <link rel="stylesheet" href="css/main.css" type='text/css'>
+        <link rel="stylesheet" href="css/bfc-calc.css" type='text/css' data-s="main">
+
+		<!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+		<nav class="navbar navbar-inverse navbar-bf" role="navigation">
+		  <div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="pull-left" href="/"> <img src="images/logo.png" alt="BF-Calc" /></a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				<li class="active">
+					<a href="#">
+						EXP Calculator
+						<div class="nav-desc">Calculates required EXP<br />for your unit</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						Metal Calculator
+						<div class="nav-desc">How many exp you can<br />get with your metal units</div>
+					</a>
+				</li>
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+		
+		<div class="container">
+			<div class="page-wrapper">
+				<div class="row">
+					<div class="col-xs-12">
+						<h1>EXP Calculator</h1>
+						<p>Calculates required experience for your hero to reach maximum level.</p>
+						<hr class="large" />
+						<h2>Basic Information</h2>
+						<div class="row">
+							<div class="col-md-6">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<footer>
+					<div class="row">
+						<div class="col-xs-12"><p align="center">This site is hosted by <a href="http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=hepapatitis" target="_blank" rel="nofollow">HostGator</a></p></div>
+					</div>
+				</footer>
+			</div>
+		</div>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.tinytimer.min.js"></script>
+        <script src="js/bfc-calc.js"></script>
+		
+		<script>
+			// AJAX Script
+			function tadah()
+			{
+				var u_name = $("input[name=u_name]").val();
+				var exp_type = $("[name=exp_type]").val();
+				var submitted_by = $("input[name=submitted_by]").val();
+				
+				if(u_name != "" && exp_type !="")
+				{
+					$.post("store.php", {
+						unit_name: u_name,
+						exp_type: exp_type,
+						submitted_by: submitted_by,
+						token: "x",
+					}, function (data) {
+						console.log(data);
+					})
+					.error(function(data) {
+						console.log(data);
+					})
+					.done(function(data) {
+						if(data.status == "error")
+						{
+							alert(data.msg);
+						}
+						else if(data.status == "success")
+						{
+							alert(data.msg);
+							
+							$("input[name=u_name]").val("");
+							$("input[name=submitted_by]").val("");
+						}
+					});
+				}
+			}
+			
+			function send_form()
+			{
+				var name = $("input[name=feedback_name]").val();
+				var email = $("[name=feedback_email]").val();
+				var comments = $("textarea[name=feedback_message]").val();
+				
+				if(name != "" && email != "" && comments != "")
+				{
+					$.post("send-email.php", {
+						name: name,
+						email: email,
+						comments: comments,
+						token: "x",
+					}, function (data) {
+						console.log(data);
+					})
+					.error(function(data) {
+						console.log(data);
+					})
+					.done(function(data) {
+						if(data.status == "error")
+						{
+							alert(data.msg);
+						}
+						else if(data.status == "success")
+						{
+							alert(data.msg);
+							
+							$("input[name=feedback_name]").val("");
+							$("input[name=feedback_email]").val("");
+							$("textarea[name=feedback_message]").val("");
+						}
+					});
+				}
+				else
+				{
+					alert("Please complete the form");
+				}
+			}
+			
+			function load_contribution()
+			{
+				$("#contribution tbody").children().remove();
+				$.post("table.php", {}, function (data) {
+					console.log(data);
+				})
+				.error(function(data) {
+					console.log(data);
+				})
+				.done(function(data) {
+					if(typeof data.d != "undefined")
+					{
+						var d = data.d;
+						for(var i=0; i<d.length; i++)
+						{
+							$("#contribution tbody").append("<tr><td>"+d[i].name+"</td><td>"+d[i].exp_type+"</td><td>"+d[i].counter+"</td></tr>");
+						}
+					}
+				});
+			}
+			
+			$(function() {
+				load_contribution();
+			});
+		</script>
+		<script>
+		  /*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-48006628-3', 'bf-calc.com');
+		  ga('require', 'linkid', 'linkid.js');
+		  ga('require', 'displayfeatures');
+		  ga('send', 'pageview');
+*/
+		</script>
+		
+		<!-- Put this in the last -->
+		<script src="js/jquery.inview.js"></script>
+	</body>
+</html>

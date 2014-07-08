@@ -1,0 +1,66 @@
+html, body {
+	font-family:"Roboto", "Helvetica", "Helvetica Neue", Arial;
+	background:#c5c5c5;
+	color:#777777;
+}
+
+/* ========================================
+	Navigation
+======================================== */
+.navbar {
+	margin-bottom:0;
+}
+
+.navbar-bf {
+	background:#282828;
+	color:#999;
+	text-transform:uppercase;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+	background:#3d3d3d;
+	color:#cccccc;
+}
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+	background:#3d3d3d;
+}
+
+.navbar-nav li a {
+	padding:30px 25px;
+	height:120px;
+	font-weight:600;
+	transition:ease-in-out all 180ms;
+}
+
+.nav-desc {
+	font-size:12px;
+	color:#888;
+	line-height:125%;
+	margin-top:5px;
+}
+
+/* ========================================
+	Content
+======================================== */
+.page-wrapper {
+	padding:20px 36px;
+	background:#f0f0f0;
+	margin:auto -15px;
+}
+
+/* ========================================
+	Typography
+======================================== */
+h1,h2,h3,h4,h5,h6 { text-transform:uppercase; }
+p { text-transform:uppercase; }
+h1 { font-size:26px; letter-spacing:-0.5px; font-weight:600; color:#282828; }
+h2 { font-size:23px; letter-spacing:-0.5px; font-weight:500px; color:#444444; }
+h3 { font-size:21px; }
+h4 { font-size:19px; }
+h5 { font-size:15px; }
+h6 { font-size:14px; }
+
+hr { border-top: 1px solid #dedede; }
+hr.small { margin:20px 0; }
+hr.medium { margin:25px 0; }
+hr.large{ margin:32px 0; }
