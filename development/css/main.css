@@ -9,10 +9,11 @@ html, body {
 ======================================== */
 .navbar {
 	margin-bottom:0;
+	border-radius:0;
 }
 
 .navbar-bf {
-	background:#282828;
+	background:#1D1D1D;
 	color:#999;
 	text-transform:uppercase;
 }
@@ -166,6 +167,10 @@ hr.large{ margin:32px 0; }
 	font-size:13px;
 	padding:13px 3px;
 	transition:all linear 100ms;
+}
+
+.tu-cost:after {
+	clear:both;
 }
 
 .tu-total-title {
