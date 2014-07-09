@@ -39,6 +39,25 @@ html, body {
 	margin-top:5px;
 }
 
+.menu-highlight {
+	background:#ff9900;
+	color:#fff;
+	padding:1px 4px;
+	text-transform:uppercase;
+	position:absolute;
+	top:5px;
+	right:5px;
+	font-size:10px;
+	font-weight:normal;
+	border-radius:3px;
+	display:block;
+}
+
+.menu-highlight.red {
+	background:#d34a4a;
+	color:#fff;
+}
+
 /* ========================================
 	Content
 ======================================== */
@@ -64,3 +83,41 @@ hr { border-top: 1px solid #dedede; }
 hr.small { margin:20px 0; }
 hr.medium { margin:25px 0; }
 hr.large{ margin:32px 0; }
+
+/* ========================================
+	Unit Selection
+======================================== */
+.unit-selection-container {
+	text-align:center;
+}
+.unit-selection {
+	display:inline-block;
+	width:125px;
+	padding:15px;
+	text-align:center;
+	background:#fff;
+	border-radius:4px;
+	margin:1px;
+	border:2px solid transparent;
+	transition:ease-in-out all 180ms;
+}
+.unit-selection:hover {
+	border:2px solid #bbb;
+	cursor:pointer;
+}
+.unit-selection.active {
+	border:2px solid #ffafaf;
+}
+.unit-selection-desc {
+	text-align:center;
+	font-size:12px;
+	text-transform:uppercase;
+	margin-top:7px;
+}
+
+/* ========================================
+	Footer
+======================================== */
+.footer {
+	margin:30px 0;
+}
