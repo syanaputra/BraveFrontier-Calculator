@@ -56,7 +56,7 @@
 				</li>
 				
 				<li>
-					<a href="#" role="tab" data-toggle="tab">
+					<a href="#nav-team-unit-calc" role="tab" data-toggle="tab">
 						Team Unit Calculator <span class="menu-highlight red">New</span>
 						<div class="nav-desc">Calculates total cost<br /> of your dream units</div>
 					</a>
@@ -245,6 +245,39 @@
 					</div>
 				</div>
 				<!-- end: EXP Calculator -->
+				
+				<!-- start: Team Unit Calculator -->
+				<div id="nav-team-unit-calc" class="row tab-pane fade in active">
+					<div class="col-xs-12">
+						<h1>Team Unit Calculator</h1>
+						<p>Calculates Total Cost of your dream units. Don't let the 6-star upgrade upset your team balance.</p>
+						<hr class="large" />
+						<div class="row">
+							<form class="form-horizontal" role="form" action="javascript:calculate()">
+								<div class="col-md-7">
+									<h2>Choose Units</h2>
+									<p>Click the unit icon to add it to your dream team.</p>
+									<hr />
+									<label for="tu-search">Search Unit</label>
+									<input type="text" class="form-control" name="tu-search" id="tu-search" placeholder="Unit Name" onkeyup="tu_search()" />
+									<div class="tu-units-container" id="tu-unit-list"></div>
+								</div>
+								<hr class="sr-only" />
+								<div class="col-md-5">
+									<h2>Your Dream Team</h2>
+									<p>Click remove to delete unit from your dream team.</p>
+									<hr />
+									<div class="tu-units-container" id="tu-dream-team"></div>
+									<div class="tu-units-total">
+										<div class="tu-total-title">Total Cost</div>
+										<div class="tu-total-number" id="tu-total-cost">0</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- end: Team Unit Calculator -->
 				
 				<!-- start: Metal Calculator -->
 				<div id="nav-metal-calc" class="row tab-pane fade">
@@ -467,7 +500,6 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.tinytimer.min.js"></script>
         <script src="js/bfc-calc.js"></script>
 		
 		<script>

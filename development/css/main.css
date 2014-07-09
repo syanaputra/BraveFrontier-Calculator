@@ -116,6 +116,84 @@ hr.large{ margin:32px 0; }
 }
 
 /* ========================================
+	Team Units Calculator
+======================================== */
+.tu-units-container {
+	max-height:400px;
+	overflow-y:auto;
+	margin:10px 0;
+	background:#fff;
+	border:1px solid #ccc;
+}
+
+.tu-unit {
+	border-bottom:1px solid #e0e0e0;
+	padding:5px 8px;
+	transition:all linear 100ms;
+	clear:both;
+}
+
+.tu-unit:last-child {
+	border-bottom:0;
+}
+
+.tu-unit:hover {
+	background:#ddd;
+	padding-left:14px;
+	color:#000;
+	cursor:pointer;
+}
+.tu-unit:hover .tu-cost {
+	color:#000;
+}
+
+.tu-unit.empty  {
+	font-style:italic;
+	color:#aaa;
+	background:#f0f0f0;
+}
+
+.tu-title {
+	display:inline-block;
+	margin-left:5px;
+}
+
+.tu-cost {
+	display:inline-block;
+	float:right;
+	color:#aaa;
+	text-transform:uppercase;
+	font-size:13px;
+	padding:13px 3px;
+	transition:all linear 100ms;
+}
+
+.tu-total-title {
+	font-size:20px;
+	text-transform:uppercase;
+	float:left;
+	letter-spacing:-1px;
+}
+
+.tu-total-number {
+	font-size:20px;
+	color:#000;
+	float:right;
+}
+
+.tu-units-total {
+	background:#fff;
+	border:1px solid #ccc;
+	float:left;
+	width:100%;
+	padding:10px;
+}
+
+.tu-units-total:after {
+	clear:both;
+}
+
+/* ========================================
 	Footer
 ======================================== */
 .footer {
