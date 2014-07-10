@@ -6,11 +6,15 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>Brave Frontier EXP Calculator</title>
-        <meta name="description" content="" />
+        <title>Brave Frontier Calculator | EXP Calculator, Team Unit Calculator, Metal Calculator, Zel Calculator</title>
+        <meta name="description" content="BF-Calc is fan-made tools to help Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator." />
         <meta name="viewport" content="width=device-width" />
 		
+		<meta property="og:title" content="Brave Frontier Calculator | EXP Calculator, Team Unit Calculator, Metal Calculator, Zel Calculator">
 		<meta property='og:image' content='http://memoriesdust.com/images/brave-frontier-alim-1.jpg'/>
+		<meta property="og:description" content="BF-Calc is fan-made tools to help Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.">
+		<meta property="og:site_name" content="BF-Calc">
+		<meta property="og:url" content="http://bf-calc.com">
 		<meta name="google-site-verification" content="ZKWlzNIIaNsSg7AbTT47COPFl3uxz49S36NGUGw-0e4" />
 		
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
@@ -20,7 +24,6 @@
 		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Lato:300,400,700' type='text/css'>
         <link rel="stylesheet" href="css/bootstrap.min.css" type='text/css'>
         <link rel="stylesheet" href="css/main.css" type='text/css'>
-        <link rel="stylesheet" href="css/bfc-calc.css" type='text/css' data-s="main">
 
 		<!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,49 +33,50 @@
 		<![endif]-->
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53be261e36ea8e1a"></script>
     </head>
     <body>
 		<nav class="navbar navbar-inverse navbar-bf" role="navigation">
 		  <div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bf-navigation">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			  </button>
-			  <a class="pull-left" href="#home"> <img src="images/logo.png" alt="BF-Calc" /></a>
+			  <a class="main-logo" href="#nav-home" role="tab" data-toggle="tab"> <img src="images/logo.png" alt="BF-Calc" /></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bf-navigation">
 			  <ul class="nav navbar-nav" role="tablist">
-				<li class="active">
+				<li>
 					<a href="#nav-exp-calc" role="tab" data-toggle="tab">
-						EXP Calculator
-						<div class="nav-desc">Calculates required EXP<br />for your unit</div>
+						EXP Calc
+						<div class="nav-desc">Calculates required EXP for your unit</div>
 					</a>
 				</li>
 				
 				<li>
 					<a href="#nav-team-unit-calc" role="tab" data-toggle="tab">
-						Team Unit Calculator <span class="menu-highlight red">New</span>
-						<div class="nav-desc">Calculates total cost<br /> of your dream units</div>
+						Team Unit Calc <span class="menu-highlight red">New</span>
+						<div class="nav-desc">Calculates total cost of your dream units</div>
 					</a>
 				</li>
 				
 				<li>
 					<a href="#nav-metal-calc" role="tab" data-toggle="tab">
-						Metal Calculator
-						<div class="nav-desc">Calculates exp you can<br />get with your metal units</div>
+						Metal Calc
+						<div class="nav-desc">Calculates total exp of your metal units</div>
 					</a>
 				</li>
 				
 				<li>
 					<a href="#nav-zel-calc" role="tab" data-toggle="tab">
-						Zel Calculator
-						<div class="nav-desc">Calculates zel you can<br />get with your jewel units</div>
+						Zel Calc
+						<div class="nav-desc">Calculates total zel of your jewel units</div>
 					</a>
 				</li>
 			  </ul>
@@ -81,406 +85,608 @@
 		</nav>
 		
 		<div class="container">
-			<div class="page-wrapper tab-content">
-				<!-- start: EXP Calculator -->
-				<div id="nav-exp-calc" class="row tab-pane fade in active">
-					<div class="col-xs-12">
-						<h1>EXP Calculator</h1>
-						<p>Calculates required experience for your hero to reach maximum level.</p>
-						<hr class="large" />
-						<div class="row">
-							<form class="form-horizontal" role="form" action="javascript:calculate()">
-								<div class="col-md-6">
-									<h2>Basic Information</h2>
-									<p>Fill in your unit information</p>
+			<div class="page-wrapper">
+				<div class="tab-content">
+					<!-- start: EXP Calculator -->
+					<div id="nav-home" class="row tab-pane fade in active">
+						<div class="col-xs-12">
+							<h1>Welcome to BF-Calc <small>(a.k.a Brave Frontier Calculator)</small></h1>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-xs-12 col-md-6">
+							<h2>Greetings</h2>
+							<p>
+								Hello and welcome to <strong>Brave Frontier Calculator</strong>!
+								First of all, thank you very much for coming to this page and using the calculator.
+								This website is a fan made page that is created to help Brave Frontier players based on <a target="_blank" href="http://bravefrontierglobal.wikia.com">Brave Frontier Wikia</a>. Be sure to check the Wiki too!
+							</p>
+							<p>
+								BF-Calc is fan-made tools to help Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.
+							</p>
+							<p>
+								I hope you guys find this tool useful. If you have any question, suggestion or feedback, feel free to send me an email at <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#114;&#97;&#118;&#101;&#102;&#114;&#111;&#110;&#116;&#105;&#101;&#114;&#64;&#109;&#101;&#109;&#111;&#114;&#105;&#101;&#115;&#100;&#117;&#115;&#116;&#46;&#99;&#111;&#109;">&#98;&#114;&#97;&#118;&#101;&#102;&#114;&#111;&#110;&#116;&#105;&#101;&#114;&#64;&#109;&#101;&#109;&#111;&#114;&#105;&#101;&#115;&#100;&#117;&#115;&#116;&#46;&#99;&#111;&#109;</a> or send me a query by form.
+							</p>
+							<h2>Change Logs</h2>
+							<div class="changelogs-container">
+								<h3>ver 1.0.1</h3>
+								<ul>
+									<li>
+										Added search by Element on <strong>Team Unit Calculator</strong><br />
+										<em>Make life easier this way</em>
+									</li>
+									<li>
+										Added Min. Summoner level on  <strong>Team Unit Calculator</strong><br />
+										<em>So player know when they can use their dream team</em>
+									</li>
+								</ul>
+								
+								<h3>ver 1.0.0</h3>
+								<ul>
+									<li>
+										New Website Look &lt;3<br />
+										<em>Hope you guys like it</em>
+									</li>
+									<li>
+										New Calculator - <strong>Team Unit Calculator</strong><br />
+										<em>Calculates the total team cost of your 5 units.</em>
+									</li>
+									<li>Updated the look of EXP calculator a little bit</li>
+								</ul>
+								
+								<h3>ver 0.7.1</h3>
+								<ul>
+									<li>
+										Updated EXP Tables
+										<ul>
+											<li>Type 2 now goes up to LV 80</li>
+											<li>Type 3 now goes up to LV 100</li>
+										</ul>
+									</li>
+									<li>Updated Display on Basic Info</li>
+									<li>Cleaned some wrong data in Contribution</li>
+								</ul>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-md-6">
+							<h2>Suggestions &amp; Comments</h2>
+							<p>This may not be the best site that you'll encounter. But I'm more than happy to assist your journey in Brave Frontier.</p>
+							<p>If you have any feedback, suggestions, or comments feel free to use this form. I'll try my best to support you guys :)</p>
+							<div class="row">
+							<form class="form-horizontal" role="form" id="feedback-form" action="javascript:send_form()">
+								<div class="col-xs-12">
 									<div class="form-group">
-										<label for="exp_table" class="col-sm-3 control-label">EXP Table</label>
+										<label for="feedback_name" class="col-sm-3 control-label">Name</label>
 										<div class="col-sm-9">
-											<div class="unit-selection-container">
-												<div id="us_1" class="unit-selection active" onclick="unit_selection('1')">
-													<div>Type 1</div>
-													<div class="unit-selection-desc">Initial Next LV value of 10</div>
-												</div>
-												<div id="us_2" class="unit-selection" onclick="unit_selection('2')">
-													<div>Type 2</div>
-													<div class="unit-selection-desc">Initial Next LV value of 15</div>
-												</div>
-												<div id="us_3" class="unit-selection" onclick="unit_selection('3')">
-													<div>Type 3</div>
-													<div class="unit-selection-desc">Initial Next LV value of 21</div>
-												</div>
-											</div>
+											<input type="text" class="form-control" id="feedback_name" name="feedback_name" required>
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="current_lv" class="col-sm-3 control-label">Current Lv</label>
+										<label for="feedback_email" class="col-sm-3 control-label">Email</label>
 										<div class="col-sm-9">
-											<input type="number" class="form-control" id="current_lv" min="1" max="80" required>
+											<input type="email" class="form-control" id="feedback_email" name="feedback_email" required>
 										</div>
 									</div>
-									<hr />
+									<div class="form-group">
+										<label for="feedback_message" class="col-sm-3 control-label">Message</label>
+										<div class="col-sm-9">
+											<textarea class="form-control" id="feedback_message" name="feedback_message" required></textarea>
+											<span class="help-block">Please write it as friendly as you can :)</span>
+										</div>
+									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-3 col-sm-9">
-											<div class="checkbox">
-												<label>
-													<input id="exp_to_next_lv_check" type="checkbox" id="rawr" onchange="check_checkbox()"> I want to count the current EXP that I have
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="exp_to_next_lv" class="col-sm-3 control-label">Remaining EXP to Next Level</label>
-										<div class="col-sm-9">
-											<input type="number" class="form-control" id="exp_to_next_lv">
-										</div>
-									</div>
-								</div>
-								<hr class="sr-only" />
-								<div class="col-md-6">
-									<h2>Specific Info</h2>
-									<p>Alright, now what is it that you want to know?</p>
-									<div class="form-group">
-										<label for="exp_to_next_lv" class="col-sm-3 control-label">What would you like to know?</label>
-										<div class="col-sm-9">
-											<select id="calc_selection" class="form-control" onchange="change_selection()">
-												<option value="1" selected="selected">How many exp do I need to get to xx level?</option>
-												<option value="2">What level will my character be when I give xxx exp?</option>
-											</select>
-										</div>
-									</div>
-									<hr />
-									<div id="calc_selection_1" style="display:none;">
-										<div class="form-group">
-											<label for="exp_to_next_lv" class="col-sm-3 control-label">Target Level?</label>
-											<div class="col-sm-9">
-												<input type="number" class="form-control" id="target_lv" min="1" max="80">
-												<span class="help-block">Max level is: <strong id="max_lv">100</strong></span>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-sm-offset-3 col-sm-9">
-												<button type="submit" class="btn btn-unique btn-block">Calculate</button>
-											</div>
-										</div>
-										<hr />
-										<div class="form-group">
-											<label for="exp_to_next_lv" class="col-sm-3 control-label">Required EXP</label>
-											<div class="col-sm-9">
-												<input type="number" class="form-control" id="out_required_exp" readonly="readonly">
-											</div>
-										</div>
-									</div>
-									<div id="calc_selection_2" style="display:none;">
-										<div class="form-group">
-											<label for="fuse_exp" class="col-sm-3 control-label">Fuse EXP</label>
-											<div class="col-sm-9">
-												<input type="number" class="form-control" id="fuse_exp" min="1">
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-sm-offset-3 col-sm-9">
-												<button type="submit" class="btn btn-unique btn-block">Calculate</button>
-											</div>
-										</div>
-										<hr />
-										<div class="row">
-											<div class="col-xs-6">
-												<div class="form-group">
-													<label for="out_final_level" class="col-sm-6 control-label">Final Level</label>
-													<div class="col-sm-6">
-														<input type="number" class="form-control" id="out_final_level" readonly="readonly">
-													</div>
-												</div>
-											</div>
-											<div class="col-xs-6">
-												<div class="form-group">
-													<label for="out_final_exp" class="col-sm-6 control-label">Final EXP</label>
-													<div class="col-sm-6">
-														<input type="number" class="form-control" id="out_final_exp" readonly="readonly">
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-xs-6">
-												<div class="form-group">
-													<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Great Success)</label>
-													<div class="col-sm-6">
-														<input type="number" class="form-control" id="out_final_level_great" readonly="readonly">
-													</div>
-												</div>
-											</div>
-											<div class="col-xs-6">
-												<div class="form-group">
-													<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Great Success)</label>
-													<div class="col-sm-6">
-														<input type="number" class="form-control" id="out_final_exp_great" readonly="readonly">
-													</div>
-												</div>
-											</div>
-										</div>
-										
-										<div class="row">
-											<div class="col-xs-6">
-												<div class="form-group">
-													<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Super Success)</label>
-													<div class="col-sm-6">
-														<input type="number" class="form-control" id="out_final_level_super" readonly="readonly">
-													</div>
-												</div>
-											</div>
-											<div class="col-xs-6">
-												<div class="form-group">
-													<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Super Success)</label>
-													<div class="col-sm-6">
-														<input type="number" class="form-control" id="out_final_exp_super" readonly="readonly">
-													</div>
-												</div>
-											</div>
+											<button type="submit" class="btn btn-unique btn-block">Send</button>
 										</div>
 									</div>
 								</div>
 							</form>
 						</div>
+						<div class="clearfix"></div>
 					</div>
-				</div>
-				<!-- end: EXP Calculator -->
-				
-				<!-- start: Team Unit Calculator -->
-				<div id="nav-team-unit-calc" class="row tab-pane fade">
-					<div class="col-xs-12">
-						<h1>Team Unit Calculator</h1>
-						<p>Calculates Total Cost of your dream units. Don't let the 6-star upgrade upset your team balance.</p>
-						<hr class="large" />
-						<div class="row">
-							<form class="form-horizontal" role="form" action="javascript:calculate()">
-								<div class="col-md-7">
-									<h2>Choose Units</h2>
-									<p>Click the unit icon to add it to your dream team.</p>
-									<hr />
-									<label for="tu-search">Search Unit</label>
-									<input type="text" class="form-control" name="tu-search" id="tu-search" placeholder="Unit Name" onkeyup="tu_search()" />
-									<div class="tu-units-container" id="tu-unit-list"></div>
-								</div>
-								<hr class="sr-only" />
-								<div class="col-md-5">
-									<h2>Your Dream Team</h2>
-									<p>Click remove to delete unit from your dream team.</p>
-									<hr />
-									<div class="tu-units-container" id="tu-dream-team"></div>
-									<div class="tu-units-total">
-										<div class="tu-total-title">Total Cost</div>
-										<div class="tu-total-number" id="tu-total-cost">0</div>
-									</div>
-								</div>
-							</form>
-						</div>
 					</div>
-				</div>
-				<!-- end: Team Unit Calculator -->
-				
-				<!-- start: Metal Calculator -->
-				<div id="nav-metal-calc" class="row tab-pane fade">
-					<div class="col-xs-12">
-						<h1>Metal Calculator</h1>
-						<p>Calculates total experience that you can get from your Metal Units.</p>
-						<hr class="large" />
-						<div class="row">
-							<div class="form-horizontal">
+					<div id="nav-exp-calc" class="row tab-pane fade">
+						<div class="col-xs-12">
+							<h1>EXP Calculator</h1>
+							<p>Calculates required experience for your hero to reach maximum level.</p>
+							<hr class="large" />
+							<div class="row">
 								<div class="col-md-6">
-									<h2>Calculator</h2>
-									<p>Fusing metal monster with the same element gives them <strong>50% more EXP</strong>.</p>
-									<div class="form-group">
-										<label for="metal_god" class="col-sm-3 control-label">Metal Crystal</label>
-										<div class="col-sm-4">
-											<input type="number" class="form-control" id="metal_crystal" placeholder="0" onkeyup="metal_exp()" />
-										</div>
-										<div class="col-sm-5">
-											<div class="checkbox">
-												<label>
-													<input id="metal_crystal_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
-												</label>
+									<form class="form-horizontal" role="form" action="javascript:calculate()">
+										<h2>Basic Information</h2>
+										<p>Fill in your unit information</p>
+										<div class="form-group">
+											<label for="exp_table" class="col-sm-3 control-label">EXP Table</label>
+											<div class="col-sm-9">
+												<div class="unit-selection-container">
+													<div id="us_1" class="unit-selection active" onclick="unit_selection('1')">
+														<div>Type 1</div>
+														<div class="unit-selection-desc">Initial Next LV value of 10</div>
+													</div>
+													<div id="us_2" class="unit-selection" onclick="unit_selection('2')">
+														<div>Type 2</div>
+														<div class="unit-selection-desc">Initial Next LV value of 15</div>
+													</div>
+													<div id="us_3" class="unit-selection" onclick="unit_selection('3')">
+														<div>Type 3</div>
+														<div class="unit-selection-desc">Initial Next LV value of 21</div>
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="metal_god" class="col-sm-3 control-label">Metal God</label>
-										<div class="col-sm-4">
-											<input type="number" class="form-control" id="metal_god" placeholder="0" onkeyup="metal_exp()" />
-										</div>
-										<div class="col-sm-5">
-											<div class="checkbox">
-												<label>
-													<input id="metal_god_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
-												</label>
+										<div class="form-group">
+											<label for="current_lv" class="col-sm-3 control-label">Current Lv</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="current_lv" min="1" max="80" required>
 											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="metal_king" class="col-sm-3 control-label">Metal King</label>
-										<div class="col-sm-4">
-											<input type="number" class="form-control" id="metal_king" placeholder="0" onkeyup="metal_exp()" />
-										</div>
-										<div class="col-sm-5">
-											<div class="checkbox">
-												<label>
-													<input id="metal_king_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
-												</label>
+										<hr />
+										<div class="form-group">
+											<div class="col-sm-offset-3 col-sm-9">
+												<div class="checkbox">
+													<label>
+														<input id="exp_to_next_lv_check" type="checkbox" id="rawr" onchange="check_checkbox()"> I want to count the current EXP that I have
+													</label>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="metal_slime" class="col-sm-3 control-label">Metal Slime</label>
-										<div class="col-sm-4">
-											<input type="number" class="form-control" id="metal_slime" placeholder="0" onkeyup="metal_exp()" />
-										</div>
-										<div class="col-sm-5">
-											<div class="checkbox">
-												<label>
-													<input id="metal_slime_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
-												</label>
+										<div class="form-group">
+											<label for="exp_to_next_lv" class="col-sm-3 control-label">Remaining EXP to Next Level</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="exp_to_next_lv">
 											</div>
 										</div>
-									</div>
-									<hr />
-									<div class="form-group">
-										<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Normal</em>)</label>
-										<div class="col-sm-9">
-											<input type="number" class="form-control" id="metal_exp" readonly="readonly">
+										<hr class="large" />
+										<h2>Specific Info</h2>
+										<p>Alright, now what is it that you want to know?</p>
+										<div class="form-group">
+											<label for="exp_to_next_lv" class="col-sm-3 control-label">What would you like to know?</label>
+											<div class="col-sm-9">
+												<select id="calc_selection" class="form-control" onchange="change_selection()">
+													<option value="1" selected="selected">How many exp do I need to get to xx level?</option>
+													<option value="2">What level will my character be when I give xxx exp?</option>
+												</select>
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Great</em>)</label>
-										<div class="col-sm-9">
-											<input type="number" class="form-control" id="metal_exp_great" readonly="readonly">
+										<hr />
+										<div id="calc_selection_1" style="display:none;">
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Target Level?</label>
+												<div class="col-sm-9">
+													<input type="number" class="form-control" id="target_lv" min="1" max="80">
+													<span class="help-block">Max level is: <strong id="max_lv">100</strong></span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-offset-3 col-sm-9">
+													<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+												</div>
+											</div>
+											<hr />
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Required EXP</label>
+												<div class="col-sm-9">
+													<input type="number" class="form-control" id="out_required_exp" readonly="readonly">
+												</div>
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Super</em>)</label>
-										<div class="col-sm-9">
-											<input type="number" class="form-control" id="metal_exp_super" readonly="readonly">
+										<div id="calc_selection_2" style="display:none;">
+											<div class="form-group">
+												<label for="fuse_exp" class="col-sm-3 control-label">Fuse EXP</label>
+												<div class="col-sm-9">
+													<input type="number" class="form-control" id="fuse_exp" min="1">
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-offset-3 col-sm-9">
+													<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+												</div>
+											</div>
+											<hr />
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_level" class="col-sm-6 control-label">Final Level</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_level" readonly="readonly">
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_exp" class="col-sm-6 control-label">Final EXP</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_exp" readonly="readonly">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Great Success)</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_level_great" readonly="readonly">
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Great Success)</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_exp_great" readonly="readonly">
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Super Success)</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_level_super" readonly="readonly">
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Super Success)</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_exp_super" readonly="readonly">
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
-									</div>
+									</form>
 								</div>
-								<hr class="sr-only" />
 								<div class="col-md-6">
-									<h2>Metal EXP Table</h2>
-									<table class="table table-striped table-bordered">
-										<thead>
-											<tr>
-												<th>Metal Type</th>
-												<th>Normal EXP</th>
-												<th>Same Element EXP</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Metal Crystal</td>
-												<td>151524</td>
-												<td>227286</td>
-											</tr>
-											<tr>
-												<td>Metal God</td>
-												<td>51518</td>
-												<td>77277</td>
-											</tr>
-											<tr>
-												<td>Metal King</td>
-												<td>11012</td>
-												<td>16518</td>
-											</tr>
-											<tr>
-												<td>Metal Slime</td>
-												<td>1506</td>
-												<td>2259</td>
-											</tr>
-										</tbody>
-									</table>
+									<h2>Contributed Unit EXP Table</h2>
+									<p>Thank you very much for you guys who have helped us to gather this data. I'm aware that there are some <strong>wrong data</strong> which I'm going to fix in the future.</p>
+									<div class="contribution-table-container">
+										<table id="contribution" class="table table-striped">
+											<thead>
+												<tr>
+													<th width="45%">Unit Name</th>
+													<th width="25%">Exp Table</th>
+													<th width="30%">People Contributing</th>
+												</tr>
+											</thead>
+											<tbody>
+												
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- end: Metal Calculator -->
-				
-				
-				<!-- start: Zel Calculator -->
-				<div id="nav-zel-calc" class="row tab-pane fade">
-					<div class="col-xs-12">
-						<h1>Zel Calculator</h1>
-						<p>Calculates total Zel that you can get from your Jewel Units.</p>
-						<hr class="large" />
-						<div class="row">
-							<div class="form-horizontal">
-								<div class="col-md-6">
-									<h2>Calculator</h2>
-									<div class="form-group">
-										<label for="jewel_god" class="col-sm-3 control-label">Jewel God</label>
-										<div class="col-sm-4">
-											<input type="number" class="form-control" id="jewel_god" placeholder="0" onkeyup="jewel_exp()" />
+					<!-- end: EXP Calculator -->
+					
+					<!-- start: Team Unit Calculator -->
+					<div id="nav-team-unit-calc" class="row tab-pane fade">
+						<div class="col-xs-12">
+							<h1>Team Unit Calculator</h1>
+							<p>Calculates Total Cost of your dream units. Don't let the 6-star upgrade upset your team balance.</p>
+							<hr class="large" />
+							<div class="row">
+								<form class="form-horizontal" role="form" action="javascript:calculate()">
+									<div class="col-md-7">
+										<h2>Choose Units</h2>
+										<p>Click the unit icon to add it to your dream team.</p>
+										<hr />
+										<div class="row">
+											<div class="col-xs-8">
+												<label for="tu-search">Search Unit</label>
+												<input type="text" class="form-control" name="tu-search" id="tu-search" placeholder="Unit Name" onkeyup="tu_search()" />
+											</div>
+											<div class="col-xs-4">
+												<label for="tu-search">Element</label>
+												<select class="form-control" name="tu-search-element" id="tu-search-element" onchange="tu_search()">
+													<option value="" selected="selected">All</option>
+													<option value="Fire">Fire</option>
+													<option value="Water">Water</option>
+													<option value="Thunder">Thunder</option>
+													<option value="Earth">Earth</option>
+													<option value="Light">Light</option>
+													<option value="Dark">Dark</option>
+												</select>
+											</div>
 										</div>
-										<div class="col-sm-5 hidden-xs">
-											<input type="number" class="form-control" id="jewel_god_output" readonly="readonly" />
+										<div class="tu-units-container" id="tu-unit-list"></div>
+									</div>
+									<hr class="sr-only" />
+									<div class="col-md-5">
+										<h2>Your Dream Team</h2>
+										<p>Click remove to delete unit from your dream team.</p>
+										<hr />
+										<div class="tu-units-container" id="tu-dream-team"></div>
+										<div class="tu-units-total">
+											<div class="tu-total-title">Total Cost</div>
+											<div class="tu-total-number" id="tu-total-cost">0</div>
+										</div>
+										<div class="tu-units-total">
+											<div class="tu-total-title">Min. Summoner LV</div>
+											<div class="tu-total-number" id="tu-summoner-lv">0</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<label for="jewel_god" class="col-sm-3 control-label">Jewel King</label>
-										<div class="col-sm-4">
-											<input type="number" class="form-control" id="jewel_king" placeholder="0" onkeyup="jewel_exp()" />
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- end: Team Unit Calculator -->
+					
+					<!-- start: Metal Calculator -->
+					<div id="nav-metal-calc" class="row tab-pane fade">
+						<div class="col-xs-12">
+							<h1>Metal Calculator</h1>
+							<p>Calculates total experience that you can get from your Metal Units.</p>
+							<hr class="large" />
+							<div class="row">
+								<div class="form-horizontal">
+									<div class="col-md-6">
+										<h2>Calculator</h2>
+										<p>Fusing metal monster with the same element gives them <strong>50% more EXP</strong>.</p>
+										<div class="form-group">
+											<label for="metal_god" class="col-sm-3 control-label">Metal Crystal</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="metal_crystal" placeholder="0" onkeyup="metal_exp()" />
+											</div>
+											<div class="col-sm-5">
+												<div class="checkbox">
+													<label>
+														<input id="metal_crystal_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+													</label>
+												</div>
+											</div>
 										</div>
-										<div class="col-sm-5 hidden-xs">
-											<input type="number" class="form-control" id="jewel_king_output" readonly="readonly" />
+										<div class="form-group">
+											<label for="metal_god" class="col-sm-3 control-label">Metal God</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="metal_god" placeholder="0" onkeyup="metal_exp()" />
+											</div>
+											<div class="col-sm-5">
+												<div class="checkbox">
+													<label>
+														<input id="metal_god_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_king" class="col-sm-3 control-label">Metal King</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="metal_king" placeholder="0" onkeyup="metal_exp()" />
+											</div>
+											<div class="col-sm-5">
+												<div class="checkbox">
+													<label>
+														<input id="metal_king_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_slime" class="col-sm-3 control-label">Metal Slime</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="metal_slime" placeholder="0" onkeyup="metal_exp()" />
+											</div>
+											<div class="col-sm-5">
+												<div class="checkbox">
+													<label>
+														<input id="metal_slime_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+													</label>
+												</div>
+											</div>
+										</div>
+										<hr />
+										<div class="form-group">
+											<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Normal</em>)</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="metal_exp" readonly="readonly">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Great</em>)</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="metal_exp_great" readonly="readonly">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Super</em>)</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="metal_exp_super" readonly="readonly">
+											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<label for="jewel_ghost" class="col-sm-3 control-label">Jewel Ghost</label>
-										<div class="col-sm-4">
-											<input type="number" class="form-control" id="jewel_ghost" placeholder="0" onkeyup="jewel_exp()" />
-										</div>
-										<div class="col-sm-5 hidden-xs">
-											<input type="number" class="form-control" id="jewel_ghost_output" readonly="readonly" />
-										</div>
+									<hr class="sr-only" />
+									<div class="col-md-6">
+										<h2>Metal EXP Table</h2>
+										<table class="table table-striped table-bordered">
+											<thead>
+												<tr>
+													<th>Metal Type</th>
+													<th>Normal EXP</th>
+													<th>Same Element EXP</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Metal Crystal</td>
+													<td>151524</td>
+													<td>227286</td>
+												</tr>
+												<tr>
+													<td>Metal God</td>
+													<td>51518</td>
+													<td>77277</td>
+												</tr>
+												<tr>
+													<td>Metal King</td>
+													<td>11012</td>
+													<td>16518</td>
+												</tr>
+												<tr>
+													<td>Metal Slime</td>
+													<td>1506</td>
+													<td>2259</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-									<hr />
-									<div class="form-group">
-										<label for="jewel_zel" class="col-sm-3 control-label">Total Zel Gained</label>
-										<div class="col-sm-9">
-											<input type="number" class="form-control" id="jewel_zel" readonly="readonly">
-										</div>
-									</div>
-								</div>
-								<hr class="sr-only" />
-								<div class="col-md-6">
-									<h2>Jewel Zel Table</h2>
-									<table class="table table-striped table-bordered">
-										<thead>
-											<tr>
-												<th>Jewel Type</th>
-												<th>Zel when Sold</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Jewel God</td>
-												<td>50000</td>
-											</tr>
-											<tr>
-												<td>Jewel King</td>
-												<td>20000</td>
-											</tr>
-											<tr>
-												<td>Jewel Ghost</td>
-												<td>7000</td>
-											</tr>
-										</tbody>
-									</table>
 								</div>
 							</div>
 						</div>
 					</div>
+					<!-- end: Metal Calculator -->
+					
+					
+					<!-- start: Zel Calculator -->
+					<div id="nav-zel-calc" class="row tab-pane fade">
+						<div class="col-xs-12">
+							<h1>Zel Calculator</h1>
+							<p>Calculates total Zel that you can get from your Jewel Units.</p>
+							<hr class="large" />
+							<div class="row">
+								<div class="form-horizontal">
+									<div class="col-md-6">
+										<h2>Calculator</h2>
+										<div class="form-group">
+											<label for="jewel_god" class="col-sm-3 control-label">Jewel God</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="jewel_god" placeholder="0" onkeyup="jewel_exp()" />
+											</div>
+											<div class="col-sm-5 hidden-xs">
+												<input type="number" class="form-control" id="jewel_god_output" readonly="readonly" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="jewel_god" class="col-sm-3 control-label">Jewel King</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="jewel_king" placeholder="0" onkeyup="jewel_exp()" />
+											</div>
+											<div class="col-sm-5 hidden-xs">
+												<input type="number" class="form-control" id="jewel_king_output" readonly="readonly" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="jewel_ghost" class="col-sm-3 control-label">Jewel Ghost</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="jewel_ghost" placeholder="0" onkeyup="jewel_exp()" />
+											</div>
+											<div class="col-sm-5 hidden-xs">
+												<input type="number" class="form-control" id="jewel_ghost_output" readonly="readonly" />
+											</div>
+										</div>
+										<hr />
+										<div class="form-group">
+											<label for="jewel_zel" class="col-sm-3 control-label">Total Zel Gained</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="jewel_zel" readonly="readonly">
+											</div>
+										</div>
+									</div>
+									<hr class="sr-only" />
+									<div class="col-md-6">
+										<h2>Jewel Zel Table</h2>
+										<table class="table table-striped table-bordered">
+											<thead>
+												<tr>
+													<th>Jewel Type</th>
+													<th>Zel when Sold</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Jewel God</td>
+													<td>50000</td>
+												</tr>
+												<tr>
+													<td>Jewel King</td>
+													<td>20000</td>
+												</tr>
+												<tr>
+													<td>Jewel Ghost</td>
+													<td>7000</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end: Zel Calculator -->
 				</div>
-				<!-- end: Zel Calculator -->
+				<hr class="large" />
+				<!-- start:Paypal -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<h2>Donate</h2>
+						<p>Once again, thank you for using this tool. This tool is <strong>FREE OF CHARGE</strong>. However if you feel like donating or buying me a coffee, please use the following PayPal button. 20% of the donations will go to charity :)</p>
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+						">
+						<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+						</form>
+					</div>
+					<div class="col-sm-6 hidden-xs">
+						<h2>Share</h2>
+						<p>All tools in this site are thanks to your support and encouragement. Thank you so much for sharing this site with others.</p>
+						<!-- Go to www.addthis.com/dashboard to customize your tools -->
+						<div class="addthis_sharing_toolbox"></div>
+					</div>
+				</div>
+				<!-- end:Paypal -->
+				<hr class="large hidden-xs" />
+				<!-- start:Google Ads -->
+				<div class="row">
+					<div class="col-xs-12 text-center hidden-xs">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<!-- Brave Frontier EXP Calc -->
+						<ins class="adsbygoogle"
+							 style="display:inline-block;width:728px;height:90px"
+							 data-ad-client="ca-pub-1215612485510932"
+							 data-ad-slot="6004914203"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>				
+					</div>
+				</div>
+				<!-- end:Google Ads -->
+				<hr />
+				<!-- start:Google Ads -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 text-center">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<!-- Brave Frontier Mobile Banner -->
+						<ins class="adsbygoogle"
+							 style="display:inline-block;width:320px;height:50px"
+							 data-ad-client="ca-pub-1215612485510932"
+							 data-ad-slot="7364322204"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 text-center">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<!-- Brave Frontier Mobile Banner -->
+						<ins class="adsbygoogle"
+							 style="display:inline-block;width:320px;height:50px"
+							 data-ad-client="ca-pub-1215612485510932"
+							 data-ad-slot="7364322204"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
+				</div>
+				<!-- end:Google Ads -->
 			</div>
+			
 			
 			<footer class="footer">
 				<div class="row">
@@ -605,7 +811,7 @@
 			});
 		</script>
 		<script>
-		  /*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -614,10 +820,6 @@
 		  ga('require', 'linkid', 'linkid.js');
 		  ga('require', 'displayfeatures');
 		  ga('send', 'pageview');
-*/
 		</script>
-		
-		<!-- Put this in the last -->
-		<script src="js/jquery.inview.js"></script>
 	</body>
 </html>
