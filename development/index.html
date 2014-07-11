@@ -108,6 +108,21 @@
 							</p>
 							<h2>Change Logs</h2>
 							<div class="changelogs-container">
+								<h3>ver 1.0.2</h3>
+								<ul>
+									<li>
+										<strong>Contribution</strong> is back<br />
+										<em>Some people were asking me about it. Now you can search the unit name via dropdown box instead of typing.</em>
+									</li>
+									<li>
+										Fixed bug on <strong>Metal &amp; Zel Calculator</strong><br />
+										<em>It wasn't calculating when up &amp; down arrow was pressed</em>
+									</li>
+									<li>
+										Fixed icon issue on <strong>Team Unit Calculator</strong>
+									</li>
+								</ul>
+								
 								<h3>ver 1.0.1</h3>
 								<ul>
 									<li>
@@ -358,6 +373,41 @@
 											</tbody>
 										</table>
 									</div>
+									<h2>Contribute</h2>
+									<p>Please help us to implement better functionality. Simply select the unit and the exp table it used. Our goal is to have a list of units with its exp table to make Brave Frontier's life easier!</p>
+									<p><em>For Example:</em> <strong>Lava</strong> uses <strong>EXP Table 1</strong></p>
+									<form class="form-horizontal" role="form" action="javascript:tadah()">
+										<div class="col-xs-12"">
+											<div class="form-group">
+												<label for="current_lv" class="col-sm-3 control-label">Unit Name</label>
+												<div class="col-sm-9">
+													<select id="u_name" name="u_name" class="form-control" required></select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="exp_type" class="col-sm-3 control-label">EXP Table</label>
+												<div class="col-sm-9">
+													<select id="exp_type" name="exp_type" class="form-control">
+														<option value="1" selected="selected">Type 1</option>
+														<option value="2">Type 2</option>
+														<option value="3">Type 3</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="submitted_by" class="col-sm-3 control-label">Your Username</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="submitted_by" name="submitted_by">
+													<span class="help-block">If you'd like your username to be remembered as our precious helper, feel free to write it down.</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-offset-3 col-sm-9">
+													<button type="submit" class="btn btn-unique btn-block">Send</button>
+												</div>
+											</div>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -431,7 +481,7 @@
 										<div class="form-group">
 											<label for="metal_god" class="col-sm-3 control-label">Metal Crystal</label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="metal_crystal" placeholder="0" onkeyup="metal_exp()" />
+												<input type="number" class="form-control" id="metal_crystal" placeholder="0" onkeyup="metal_exp()" onchange="metal_exp()" />
 											</div>
 											<div class="col-sm-5">
 												<div class="checkbox">
@@ -444,7 +494,7 @@
 										<div class="form-group">
 											<label for="metal_god" class="col-sm-3 control-label">Metal God</label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="metal_god" placeholder="0" onkeyup="metal_exp()" />
+												<input type="number" class="form-control" id="metal_god" placeholder="0" onkeyup="metal_exp()" onchange="metal_exp()" />
 											</div>
 											<div class="col-sm-5">
 												<div class="checkbox">
@@ -457,7 +507,7 @@
 										<div class="form-group">
 											<label for="metal_king" class="col-sm-3 control-label">Metal King</label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="metal_king" placeholder="0" onkeyup="metal_exp()" />
+												<input type="number" class="form-control" id="metal_king" placeholder="0" onkeyup="metal_exp()" onchange="metal_exp()" />
 											</div>
 											<div class="col-sm-5">
 												<div class="checkbox">
@@ -470,7 +520,7 @@
 										<div class="form-group">
 											<label for="metal_slime" class="col-sm-3 control-label">Metal Slime</label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="metal_slime" placeholder="0" onkeyup="metal_exp()" />
+												<input type="number" class="form-control" id="metal_slime" placeholder="0" onkeyup="metal_exp()" onchange="metal_exp()" />
 											</div>
 											<div class="col-sm-5">
 												<div class="checkbox">
@@ -555,7 +605,7 @@
 										<div class="form-group">
 											<label for="jewel_god" class="col-sm-3 control-label">Jewel God</label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="jewel_god" placeholder="0" onkeyup="jewel_exp()" />
+												<input type="number" class="form-control" id="jewel_god" placeholder="0" onkeyup="jewel_exp()" onchange="jewel_exp()" />
 											</div>
 											<div class="col-sm-5 hidden-xs">
 												<input type="number" class="form-control" id="jewel_god_output" readonly="readonly" />
@@ -564,7 +614,7 @@
 										<div class="form-group">
 											<label for="jewel_god" class="col-sm-3 control-label">Jewel King</label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="jewel_king" placeholder="0" onkeyup="jewel_exp()" />
+												<input type="number" class="form-control" id="jewel_king" placeholder="0" onkeyup="jewel_exp()" onchange="jewel_exp()" />
 											</div>
 											<div class="col-sm-5 hidden-xs">
 												<input type="number" class="form-control" id="jewel_king_output" readonly="readonly" />
@@ -573,7 +623,7 @@
 										<div class="form-group">
 											<label for="jewel_ghost" class="col-sm-3 control-label">Jewel Ghost</label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="jewel_ghost" placeholder="0" onkeyup="jewel_exp()" />
+												<input type="number" class="form-control" id="jewel_ghost" placeholder="0" onkeyup="jewel_exp()" onchange="jewel_exp()" />
 											</div>
 											<div class="col-sm-5 hidden-xs">
 												<input type="number" class="form-control" id="jewel_ghost_output" readonly="readonly" />
@@ -712,9 +762,9 @@
 			// AJAX Script
 			function tadah()
 			{
-				var u_name = $("input[name=u_name]").val();
+				var u_name = $("[name=u_name]").val();
 				var exp_type = $("[name=exp_type]").val();
-				var submitted_by = $("input[name=submitted_by]").val();
+				var submitted_by = $("[name=submitted_by]").val();
 				
 				if(u_name != "" && exp_type !="")
 				{
@@ -740,6 +790,7 @@
 							
 							$("input[name=u_name]").val("");
 							$("input[name=submitted_by]").val("");
+							load_contribution();
 						}
 					});
 				}

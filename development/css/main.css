@@ -273,7 +273,7 @@ hr.large{ margin:32px 0; }
 	}
 	
 	.contribution-table-container {
-		max-height:780px;
+		max-height:580px;
 	}
 }
 @media (min-width: 1200px) {
@@ -282,6 +282,6 @@ hr.large{ margin:32px 0; }
 	}
 	
 	.contribution-table-container {
-		max-height:670px;
+		max-height:400px;
 	}
 }
