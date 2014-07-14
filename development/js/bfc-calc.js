@@ -11,17 +11,23 @@ var units = [];
 var units_by_name = [];
 var summoners = [];
 
+// Metal Units
+var metal_crystal_same	= 227286;
+var metal_crystal		= 151524;
+var metal_god_same 		= 77277;
+var metal_god 			= 51518;
+var metal_king_same 	= 16518;
+var metal_king 			= 11012;
+var metal_slime_same 	= 2259;
+var metal_slime 		= 1506;
+
+// Jewel Units
+var jewel_god 			= 50000;
+var jewel_king 			= 20000;
+var jewel_ghost 		= 7000;
+	
 function metal_exp()
 {
-	var metal_crystal_same	= 227286;
-	var metal_crystal		= 151524;
-	var metal_god_same 		= 77277;
-	var metal_god 			= 51518;
-	var metal_king_same 	= 16518;
-	var metal_king 			= 11012;
-	var metal_slime_same 	= 2259;
-	var metal_slime 		= 1506;
-	
 	var total_exp = 0, total_exp_great = 0, total_exp_super = 0;
 	
 	// Metal Crystal
@@ -58,10 +64,6 @@ function metal_exp()
 
 function jewel_exp()
 {
-	var jewel_god 			= 50000;
-	var jewel_king 			= 20000;
-	var jewel_ghost 		= 7000;
-	
 	var total_zel = 0, jewel_god_zel = 0, jewel_king_zel = 0, jewel_ghost_zel = 0;
 	
 	jewel_god_zel = jewel_god * $("#jewel_god").val();
@@ -115,8 +117,35 @@ function calculate()
 			var target_lv = $("#target_lv").val();
 			var required_exp = selected_exp_table[target_lv] - current_exp;
 			
+			// Calculate Overall Metal Units needed
+			var m_crystal, m_god, m_king, m_slime;
+			var tmp_m1, tmp_m2, tmp_m3, tmp_m4;
+			
+			m_crystal = Math.floor(required_exp / metal_crystal_same);
+			tmp_m1 = required_exp - (m_crystal * metal_crystal_same);
+			
+			m_god = Math.floor(tmp_m1 / metal_god_same);
+			tmp_m2 = tmp_m1 - (m_god * metal_god_same);
+			
+			m_king = Math.floor(tmp_m2 / metal_king_same);
+			tmp_m3 = tmp_m2 - (m_king * metal_king_same);
+			
+			m_slime = Math.floor(tmp_m3 / metal_slime_same);
+			tmp_m4 = tmp_m3 - (m_slime * metal_slime_same);
+			
+			if(tmp_m4 > 0)
+				m_slime++;
+				
+			
 			// Output
+			// -- Req Exp
 			$("#out_required_exp").val(required_exp);
+			
+			// -- Req Metal Units
+			$("#req_m_crystal").text(m_crystal);
+			$("#req_m_god").text(m_god);
+			$("#req_m_king").text(m_king);
+			$("#req_m_slime").text(m_slime);
 		}
 		else
 		{

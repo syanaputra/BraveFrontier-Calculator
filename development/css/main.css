@@ -235,6 +235,18 @@ hr.large{ margin:32px 0; }
 }
 
 /* ========================================
+	Required Metal Unit
+======================================== */
+.req_metal_unit {
+	display:inline-block;
+	padding:3px;
+	border:1px solid #ddd;
+	border-radius:3px;
+	background:#fff;
+	margin:3px;
+}
+
+/* ========================================
 	Footer
 ======================================== */
 .footer {
