@@ -267,6 +267,11 @@ hr.large{ margin:32px 0; }
 	.contribution-table-container {
 		max-height:300px;
 	}
+	
+	.row-ads {
+		margin-left:-36px !important;
+		margin-right:-36px !important;
+	}
 }
 @media (min-width: 768px) and (max-width: 992px) {
 	.navbar-nav li a {
@@ -277,6 +282,11 @@ hr.large{ margin:32px 0; }
 	
 	.contribution-table-container {
 		max-height:300px;
+	}
+	
+	.row-ads {
+		margin-left:-36px !important;
+		margin-right:-36px !important;
 	}
 }
 @media (min-width: 993px) and (max-width: 1199px) {
