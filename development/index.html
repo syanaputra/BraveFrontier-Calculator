@@ -48,7 +48,8 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			  </button>
-			  <a class="main-logo" href="#nav-home" role="tab" data-toggle="tab"> <img src="images/logo.png" alt="BF-Calc" /></a>
+			  <a class="navbar-brand visible-xs" href="#nav-home" role="tab" data-toggle="tab"> BF-Calc</a>
+			  <a class="main-logo hidden-xs" href="#nav-home" role="tab" data-toggle="tab"> <img src="images/logo.png" alt="BF-Calc" /></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -92,7 +93,17 @@
 					<!-- start: EXP Calculator -->
 					<div id="nav-home" class="row tab-pane fade in active">
 						<div class="col-xs-12">
-							<h1>Welcome to BF-Calc <small>(a.k.a Brave Frontier Calculator)</small></h1>
+							<h1>Welcome to BF-Calc <small class="hidden-xs">(a.k.a Brave Frontier Calculator)</small></h1>
+							
+							<div class="visible-xs">
+								<h2>Quick Navigations</h2>
+								<div class="row">
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-exp-calc" role="tab" data-toggle="tab">EXP Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-team-unit-calc" role="tab" data-toggle="tab">Team Unit Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-metal-calc" role="tab" data-toggle="tab">Metal Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-zel-calc" role="tab" data-toggle="tab">Zel Calc</a></div>
+								</div>
+							</div>
 						</div>
 						<div class="clearfix"></div>
 						<div class="col-xs-12 col-md-6">
@@ -110,6 +121,19 @@
 							</p>
 							<h2>Change Logs</h2>
 							<div class="changelogs-container">
+								<h3>ver 1.1.1</h3>
+								<ul>
+									<li>
+										Improved Touch Responsiveness in Mobile &amp; Tablet
+									</li>
+									<li>
+										Added a <strong>Quick Navigations</strong> for Mobile
+									</li>
+									<li>
+										Various other improvements for Mobile User
+									</li>
+								</ul>
+								
 								<h3>ver 1.1.0</h3>
 								<ul>
 									<li>
@@ -789,8 +813,10 @@
 
         <script src="js/bootstrap.min.js"></script>
         <script src="js/select2.js"></script>
+        <script src="js/fastclick.js"></script>
 
         <script src="js/bfc-calc.js"></script>
+        <script src="js/init.js"></script>
 		
 		<script>
 			// AJAX Script
@@ -869,31 +895,6 @@
 					alert("Please complete the form");
 				}
 			}
-			
-			function load_contribution()
-			{
-				$("#contribution tbody").children().remove();
-				$.post("table.php", {}, function (data) {
-					console.log(data);
-				})
-				.error(function(data) {
-					console.log(data);
-				})
-				.done(function(data) {
-					if(typeof data.d != "undefined")
-					{
-						var d = data.d;
-						for(var i=0; i<d.length; i++)
-						{
-							$("#contribution tbody").append("<tr><td>"+d[i].name+"</td><td>"+d[i].exp_type+"</td><td>"+d[i].counter+"</td></tr>");
-						}
-					}
-				});
-			}
-			
-			$(function() {
-				load_contribution();
-			});
 		</script>
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
