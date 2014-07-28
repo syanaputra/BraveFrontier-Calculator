@@ -11,6 +11,11 @@ var units = [];
 var units_by_name = [];
 var summoners = [];
 
+// EXP Modifier
+var EXP_NORMAL_MODIFIER	= 1;
+var EXP_GREAT_MODIFIER 	= 1.5;
+var EXP_SUPER_MODIFIER 	= 2;
+
 // Metal Units
 var metal_crystal_same	= 227286;
 var metal_crystal		= 151524;
@@ -54,8 +59,8 @@ function metal_exp()
 	else
 		total_exp += (metal_slime * $("#metal_slime").val());
 	
-	total_exp_great = total_exp * 1.5;
-	total_exp_super = total_exp * 2.0;
+	total_exp_great = total_exp * EXP_GREAT_MODIFIER;
+	total_exp_super = total_exp * EXP_SUPER_MODIFIER;
 	
 	$("#metal_exp").val(total_exp);
 	$("#metal_exp_great").val(total_exp_great);
@@ -118,10 +123,12 @@ function calculate()
 			var required_exp = selected_exp_table[target_lv] - current_exp;
 			
 			// Calculate Overall Metal Units needed
-			var m_crystal, m_god, m_king, m_slime;
+			var m_crystal, m_god, m_king, m_slime;			// Normal
+			var m_crystal_g, m_god_g, m_king_g, m_slime_g;	// Great
+			var m_crystal_s, m_god_s, m_king_s, m_slime_s;	// Super
 			var tmp_m1, tmp_m2, tmp_m3, tmp_m4;
 			
-			// Minus with Metal Crystal
+			// Minus with Metal Crystal (NORMAL)
 			m_crystal = Math.floor(required_exp / metal_crystal_same);
 			tmp_m1 = required_exp - (m_crystal * metal_crystal_same);
 			
@@ -136,17 +143,63 @@ function calculate()
 			
 			if(tmp_m4 > 0)
 				m_slime++;
-				
 			
+			
+			// Minus with Metal Crystal (GREAT)
+			m_crystal_g = Math.floor(required_exp / (metal_crystal_same * EXP_GREAT_MODIFIER));
+			tmp_m1 = required_exp - (m_crystal_g * (metal_crystal_same * EXP_GREAT_MODIFIER));
+			
+			m_god_g = Math.floor(tmp_m1 / (metal_god_same * EXP_GREAT_MODIFIER));
+			tmp_m2 = tmp_m1 - (m_god_g * (metal_god_same * EXP_GREAT_MODIFIER));
+			
+			m_king_g = Math.floor(tmp_m2 / (metal_king_same * EXP_GREAT_MODIFIER));
+			tmp_m3 = tmp_m2 - (m_king_g * (metal_king_same * EXP_GREAT_MODIFIER));
+			
+			m_slime_g = Math.floor(tmp_m3 / (metal_slime_same * EXP_GREAT_MODIFIER));
+			tmp_m4 = tmp_m3 - (m_slime_g * (metal_slime_same * EXP_GREAT_MODIFIER));
+			
+			if(tmp_m4 > 0)
+				m_slime_g++;			
+			
+			
+			// Minus with Metal Crystal (SUPER)
+			m_crystal_s = Math.floor(required_exp / (metal_crystal_same * EXP_SUPER_MODIFIER));
+			tmp_m1 = required_exp - (m_crystal_s * (metal_crystal_same * EXP_SUPER_MODIFIER));
+			
+			m_god_s = Math.floor(tmp_m1 / (metal_god_same * EXP_SUPER_MODIFIER));
+			tmp_m2 = tmp_m1 - (m_god_s * (metal_god_same * EXP_SUPER_MODIFIER));
+			
+			m_king_s = Math.floor(tmp_m2 / (metal_king_same * EXP_SUPER_MODIFIER));
+			tmp_m3 = tmp_m2 - (m_king_s * (metal_king_same * EXP_SUPER_MODIFIER));
+			
+			m_slime_s = Math.floor(tmp_m3 / (metal_slime_same * EXP_SUPER_MODIFIER));
+			tmp_m4 = tmp_m3 - (m_slime_s * (metal_slime_same * EXP_SUPER_MODIFIER));
+			
+			if(tmp_m4 > 0)
+				m_slime_g++;	
+				
+				
 			// Output
 			// -- Req Exp
 			$("#out_required_exp").val(required_exp);
 			
-			// -- Req Metal Units
+			// -- Req Metal Units (NORMAL)
 			$("#req_m_crystal").text(m_crystal);
 			$("#req_m_god").text(m_god);
 			$("#req_m_king").text(m_king);
 			$("#req_m_slime").text(m_slime);
+			
+			// -- Req Metal Units (GREAT)
+			$("#req_m_crystal_g").text(m_crystal_g);
+			$("#req_m_god_g").text(m_god_g);
+			$("#req_m_king_g").text(m_king_g);
+			$("#req_m_slime_g").text(m_slime_g);
+			
+			// -- Req Metal Units (SUPER)
+			$("#req_m_crystal_s").text(m_crystal_s);
+			$("#req_m_god_s").text(m_god_s);
+			$("#req_m_king_s").text(m_king_s);
+			$("#req_m_slime_s").text(m_slime_s);
 		}
 		else
 		{
@@ -157,8 +210,8 @@ function calculate()
 			var final_exp_super, final_level_super, final_leftover_exp_to_next_lv_super, final_bool_super;
 			
 			final_exp = current_exp + parseInt(fuse_exp);
-			final_exp_great = final_exp * 1.5;
-			final_exp_super = final_exp * 2.0;
+			final_exp_great = final_exp * EXP_GREAT_MODIFIER;
+			final_exp_super = final_exp * EXP_SUPER_MODIFIER;
 			
 			final_bool = false;
 			final_bool_great = false;
