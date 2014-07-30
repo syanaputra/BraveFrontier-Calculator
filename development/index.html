@@ -57,28 +57,28 @@
 			<div class="collapse navbar-collapse" id="bf-navigation">
 			  <ul class="nav navbar-nav" role="tablist">
 				<li>
-					<a href="#nav-exp-calc" role="tab" data-toggle="tab">
+					<a href="#nav-exp-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'EXP']);">
 						EXP Calc <span class="menu-highlight orange">Updated</span>
 						<div class="nav-desc">Calculates required EXP for your unit</div>
 					</a>
 				</li>
 				
 				<li>
-					<a href="#nav-team-unit-calc" role="tab" data-toggle="tab">
-						Team Unit Calc <span class="menu-highlight red">New</span>
+					<a href="#nav-team-unit-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Team Unit']);">
+						Team Unit Calc
 						<div class="nav-desc">Calculates total cost of your dream units</div>
 					</a>
 				</li>
 				
 				<li>
-					<a href="#nav-metal-calc" role="tab" data-toggle="tab">
+					<a href="#nav-metal-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Metal']);">
 						Metal Calc
 						<div class="nav-desc">Calculates total exp of your metal units</div>
 					</a>
 				</li>
 				
 				<li>
-					<a href="#nav-zel-calc" role="tab" data-toggle="tab">
+					<a href="#nav-zel-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Zel']);">
 						Zel Calc
 						<div class="nav-desc">Calculates total zel of your jewel units</div>
 					</a>
@@ -99,10 +99,10 @@
 							<div class="visible-xs">
 								<h2>Quick Navigations</h2>
 								<div class="row">
-									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-exp-calc" role="tab" data-toggle="tab">EXP Calc</a></div>
-									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-team-unit-calc" role="tab" data-toggle="tab">Team Unit Calc</a></div>
-									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-metal-calc" role="tab" data-toggle="tab">Metal Calc</a></div>
-									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-zel-calc" role="tab" data-toggle="tab">Zel Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-exp-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'EXP']);">EXP Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-team-unit-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Team Unit']);">Team Unit Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-metal-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Metal']);">Metal Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-zel-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Zel']);">Zel Calc</a></div>
 								</div>
 							</div>
 						</div>
@@ -122,13 +122,19 @@
 							</p>
 							<h2>Change Logs</h2>
 							<div class="changelogs-container">
+								<h3>ver 1.1.3</h3>
+								<ul>
+									<li>
+										Added back <strong>Type 1, Type 2, Type 3</strong>description
+									</li>
+								</ul>
+								
 								<h3>ver 1.1.2</h3>
 								<ul>
 									<li>
 										Added Great &amp; Super Success into <strong>Required Metal Units</strong>
 									</li>
 								</ul>
-								
 								
 								<h3>ver 1.1.1</h3>
 								<ul>
@@ -266,6 +272,11 @@
 											<label for="unit-to-level" class="col-sm-3 control-label">Search Unit</label>
 											<div class="col-sm-9">
 												<input type="text" class="form-control" id="unit-to-level" required>
+												<ul class="help-block">
+													<li><strong>Type 1:</strong> Initial Next LV value of 10</li>
+													<li><strong>Type 2:</strong> Initial Next LV value of 15</li>
+													<li><strong>Type 3:</strong> Initial Next LV value of 21</li>
+												</ul>
 											</div>
 										</div>
 											<!-- <div class="col-sm-9"> -->
