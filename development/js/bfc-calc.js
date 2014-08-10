@@ -20,11 +20,12 @@ function goclone(source) {
 
 function auto_validate() {
 	var $tmp = $(this);
-	if($tmp.val() > $tmp.attr("max"))
+	var $val = parseInt($tmp.val());
+	if($val > parseInt($tmp.attr("max")))
 	{
 		$tmp.val($tmp.attr("max"));
 	}
-	else if($tmp.val() < 1)
+	else if($val < 1)
 	{
 		$tmp.val(1);
 	}
@@ -871,6 +872,7 @@ function init_units()
 			}
 			
 			init_unit_exp_tables();
+			init_contributor_unit();
 			tu_team_refresh();
 			
 			window.clearInterval(timer_looker);
@@ -910,9 +912,9 @@ function compare(a,b) {
 
 function init_unit_exp_tables() {
   var exp_table_units = goclone(units);
-  exp_table_units.unshift({"id":"10003","name":"Type 3","text":"Type 3","exp_table":"3", "max_lv":100});
-  exp_table_units.unshift({"id":"10002","name":"Type 2","text":"Type 2","exp_table":"2", "max_lv":80});
-  exp_table_units.unshift({"id":"10001","name":"Type 1","text":"Type 1","exp_table":"1", "max_lv":100});
+  exp_table_units.unshift({"id":"10003","name":"Type 3","text":"Type 3","exp_table":"3", "max_lv":"100", "element":"Dark"});
+  exp_table_units.unshift({"id":"10002","name":"Type 2","text":"Type 2","exp_table":"2", "max_lv":"80", "element":"Dark"});
+  exp_table_units.unshift({"id":"10001","name":"Type 1","text":"Type 1","exp_table":"1", "max_lv":"100", "element":"Dark"});
 
   function format(x) {
 	//if (!x.icon) return x.name; // optgroup
@@ -936,6 +938,5 @@ $(document).ready(function() {
 	change_selection();
 	
 	init_units();
-	init_contributor_unit();
 	init_summoners();
 });

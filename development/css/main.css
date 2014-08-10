@@ -161,6 +161,47 @@ hr.large{ margin:32px 0; }
 }
 
 /* ========================================
+	Load Save Data for EXP Calculator
+======================================== */
+.last_units {
+	padding:5px;
+	background:#eaeaea;
+	border:1px solid #ddd;
+}
+
+.last_unit {
+	display:inline-block;
+	padding:5px;
+	background:#fff;
+	border:1px solid #ddd;
+	border-radius:5px;
+	line-height:100%;
+}
+
+.last_unit:hover {
+	text-decoration:none;
+	border:1px solid #aaa;
+	color:#888;
+}
+
+.last_unit_img {
+	display:inline-block;
+	float:left;
+	margin-right:3px;
+}
+
+.last_unit_name {
+	display:inline-block;
+	font-size:13px;
+}
+
+.last_unit_name span {
+	display:block;
+	text-transform:uppercase;
+	font-size:12px;
+}
+
+/* ========================================
 	Team Units Calculator
 ======================================== */
 .tu-units-container {
