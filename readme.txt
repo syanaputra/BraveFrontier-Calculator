@@ -23,7 +23,7 @@ _________        .__               .__          __
 |                                                         |
 '========================================================='
 
-Hello, this is Brave Frontier Calculator Beta v0.1.0
+Brave Frontier Calculator is a fan made tool that is created to help Brave Frontier players, based on Brave Frontier Wikia. We want Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.
 
 
 .=========================================================.

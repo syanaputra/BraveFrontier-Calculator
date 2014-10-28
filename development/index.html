@@ -13,7 +13,7 @@
 		<meta property="og:title" content="Brave Frontier Calculator | EXP Calculator, Team Unit Calculator, Metal Calculator, Zel Calculator">
 		<meta property='og:image' content='http://memoriesdust.com/images/brave-frontier-alim-1.jpg'/>
 		<meta property="og:description" content="BF-Calc is fan-made tools to help Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.">
-		<meta property="og:site_name" content="BF-Calc">
+		<meta property="og:site_name" content="BF-Calc: Brave Frontier Calculator">
 		<meta property="og:url" content="http://bf-calc.com">
 		<meta name="google-site-verification" content="ZKWlzNIIaNsSg7AbTT47COPFl3uxz49S36NGUGw-0e4" />
 		
@@ -37,6 +37,18 @@
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53be261e36ea8e1a"></script>
+		
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-48006628-3', 'bf-calc.com');
+		  ga('require', 'linkid', 'linkid.js');
+		  ga('require', 'displayfeatures');
+		  ga('send', 'pageview');
+		</script>
     </head>
     <body>
 		<nav class="navbar navbar-inverse navbar-bf" role="navigation">
@@ -57,28 +69,28 @@
 			<div class="collapse navbar-collapse" id="bf-navigation">
 			  <ul class="nav navbar-nav" role="tablist">
 				<li>
-					<a href="#nav-exp-calc" role="tab" data-toggle="tab" onclick="ga.send(['event', 'Navigation', 'Click', 'EXP']);">
+					<a href="#nav-exp-calc" role="tab" data-toggle="tab">
 						EXP Calc <span class="menu-highlight orange">Updated</span>
 						<div class="nav-desc">Calculates required EXP for your unit</div>
 					</a>
 				</li>
 				
 				<li>
-					<a href="#nav-team-unit-calc" role="tab" data-toggle="tab" onclick="ga.send(['event', 'Navigation', 'Click', 'Team Unit']);">
-						Team Unit Calc <span class="menu-highlight orange">Updated</span>
+					<a href="#nav-team-unit-calc" role="tab" data-toggle="tab">
+						Team Unit Calc
 						<div class="nav-desc">Calculates total cost of your dream units</div>
 					</a>
 				</li>
 				
 				<li>
-					<a href="#nav-metal-calc" role="tab" data-toggle="tab" onclick="ga.send(['event', 'Navigation', 'Click', 'Metal']);">
+					<a href="#nav-metal-calc" role="tab" data-toggle="tab">
 						Metal Calc
 						<div class="nav-desc">Calculates total exp of your metal units</div>
 					</a>
 				</li>
 				
 				<li>
-					<a href="#nav-zel-calc" role="tab" data-toggle="tab" onclick="ga.send(['event', 'Navigation', 'Click', 'Zel']);">
+					<a href="#nav-zel-calc" role="tab" data-toggle="tab">
 						Zel Calc
 						<div class="nav-desc">Calculates total zel of your jewel units</div>
 					</a>
@@ -138,6 +150,51 @@
 							</p>
 							<h2>Change Logs</h2>
 							<div class="changelogs-container">
+								<h3>ver 1.2.0</h3>
+								<ul>
+									<li>
+										Added <strong>Exclude</strong> functions on Req. Metal Units
+										Added <strong>Req. Metal Units of Different Element</strong> into EXP Calculator
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.9</h3>
+								<p>Hi guys, thank you for all your messages and feedback. I am sorry for unable to get back to you the last month because email has been playing up. I have added all the new units, however I don't have any information what EXP Tables they're using yet. If you could, please let me know which EXP Tables they're using, and I'll put it up within 24 hours.</p>
+								<ul>
+									<li>
+										Added more <strong>6-Star Units</strong> into database
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.8</h3>
+								<ul>
+									<li>
+										Added <strong>Today's Daily Vortex</strong> and <strong>Today's Available Key</strong><br />
+										<em>
+											I know it's kind of obvious, but hopefully it helps for new players.<br />
+											<strong>Today's Daily Vortex</strong> only shows the general daily vortex. It excludes special events.
+										</em>
+									</li>
+									<li>
+										Added <strong>Lazy Loader</strong> for Team Unit Builder<br />
+										<em>This way, you won't need to load hundreds of icons when loading this page.</em>
+									</li>
+									<li>
+										Added 3 new units into the calculator: Bordebegia, Gravion, and Leorone.
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.7</h3>
+								<ul>
+									<li>
+										Updated Summoner Level and Total Cost per level on <strong>Team Unit Calculator</strong><br />
+										<em>Yay! Moar 6-star units in early level :D</em>
+									</li>
+									<li>
+										Added 16 new units into the calculator. Unfortunately I don't know some of their exp table. I'd very appreciate your help :)
+									</li>
+								</ul>
+								
 								<h3>ver 1.1.6b</h3>
 								<ul>
 									<li>
@@ -329,30 +386,30 @@
 							<p>Calculates required experience for your hero to reach maximum level.</p>
 							<div class="alert alert-warning alert-dismissible" role="alert">
 								<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-								Hi guys, at the moment we are missing a couple of <strong>EXP Table</strong> for the following unit. If you know any of them, please let us know :)<br />
-								<code>Fire Demon Princess Rin</code>
+								Thanks for all your help to fill in the missing units! We're just missing a couple of <strong>EXP Table</strong> for the following unit. If you know any of them, please let us know :)<br />
+								<code>Goltovah, Jaegar, Ristrall, Raiden, Mila, Bahvel</code>
 							</div>
 							<hr class="large" />
 							<div class="row">
 								<div class="col-md-6">
-									<h2>Basic Information</h2>
-									<p>Fill in your unit information. If you cannot find the specified unit, please use the Type 1, Type 2, Type 3 as alternatives.</p>
-									
-									<h3>EXP Calc History</h3>
-									<div id="last_units" class="last_units">
-										<a id="unit_1" class="last_unit" href="javascript:void(0)" onclick="load_data(1)">
-											<div class="last_unit_img"><img src="http://img3.wikia.nocookie.net/__cb20131008160641/bravefrontierglobal/images/thumb/f/f4/Unit_ills_thum_10011.png/42px-Unit_ills_thum_10011.png" /></div>
-											<div class="last_unit_name">Fire Vargas <span>Lv 1</span></div>
-										</a>
-										<a id="unit_2" class="last_unit" href="javascript:void(0)" onclick="load_data(2)">
-											<div class="last_unit_img"><img src="http://img3.wikia.nocookie.net/__cb20131008160641/bravefrontierglobal/images/thumb/f/f4/Unit_ills_thum_10011.png/42px-Unit_ills_thum_10011.png" /></div>
-											<div class="last_unit_name">Fire Vargas <span>Lv 5</span></div>
-										</a>
-									</div>
-									
-									<hr />
-									
 									<form class="form-horizontal" role="form" action="javascript:calculate()">
+										<h2>Basic Information</h2>
+										<p>Fill in your unit information. If you cannot find the specified unit, please use the Type 1, Type 2, Type 3 as alternatives.</p>
+										<!--
+										<h3>EXP Calc History</h3>
+										<div id="last_units" class="last_units">
+											<a id="unit_1" class="last_unit" href="javascript:void(0)" onclick="load_data(1)">
+												<div class="last_unit_img"><img src="http://img3.wikia.nocookie.net/__cb20131008160641/bravefrontierglobal/images/thumb/f/f4/Unit_ills_thum_10011.png/42px-Unit_ills_thum_10011.png"></div>
+												<div class="last_unit_name">Fire Vargas <span>Lv 1</span></div>
+											</a>
+											<a id="unit_2" class="last_unit" href="javascript:void(0)" onclick="load_data(2)">
+												<div class="last_unit_img"><img src="http://img3.wikia.nocookie.net/__cb20131008160641/bravefrontierglobal/images/thumb/f/f4/Unit_ills_thum_10011.png/42px-Unit_ills_thum_10011.png"></div>
+												<div class="last_unit_name">Fire Vargas <span>Lv 5</span></div>
+											</a>
+										</div>
+										
+										<hr />
+										-->
 										<div class="form-group">
 											<label for="unit-to-level" class="col-sm-3 control-label">Search Unit</label>
 											<div class="col-sm-9">
@@ -437,33 +494,66 @@
 												</div>
 											</div>
 											<h3>Req. Metal Units</h3>
+											<h4>Same Element</h4>
 											<div class="form-group">
 												<label for="exp_to_next_lv" class="col-sm-3 control-label">Normal Success <small>(Same Element)</small></label>
 												<div class="col-sm-9">
-													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_m_crystal" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_m_god" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_m_king" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_m_slime" class="metal-counter">0</span></div>
+													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_sm_crystal" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_crystal_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
 													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="exp_to_next_lv" class="col-sm-3 control-label">Great Success <small>(Same Element)</small></label>
 												<div class="col-sm-9">
-													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_m_crystal_g" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_m_god_g" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_m_king_g" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_m_slime_g" class="metal-counter">0</span></div>
+													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_sm_crystal_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_crystal_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime_g" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
 													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="exp_to_next_lv" class="col-sm-3 control-label">Super Success <small>(Same Element)</small></label>
 												<div class="col-sm-9">
-													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_m_crystal_s" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_m_god_s" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_m_king_s" class="metal-counter">0</span></div>
-													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_m_slime_s" class="metal-counter">0</span></div>
+													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_sm_crystal_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_crystal_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime_s" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+											
+											<h4>Different Element</h4>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Normal Success <small>(Different Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="dr_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_dm_crystal" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_crystal_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Great Success <small>(Different Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="dr_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_dm_crystal_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_crystal_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime_g" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Super Success <small>(Different Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="dr_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_dm_crystal_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_crystal_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime_s" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
 													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
 												</div>
 											</div>
@@ -627,7 +717,9 @@
 												</select>
 											</div>
 										</div>
-										<div class="tu-units-container" id="tu-unit-list"></div>
+										<div class="tu-units-container" id="tu-unit-list">
+											<div class="data-loading">Loading...</div>
+										</div>
 									</div>
 									<hr class="sr-only" />
 									<div class="col-md-5">
@@ -852,6 +944,21 @@
 					<!-- end: Zel Calculator -->
 				</div>
 				<hr class="large" />
+				<!-- start:Info -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<h2>Today's Daily Vortex</h2>
+						<div class="text-center" id="vortex-image"></div>
+						<!--<p class="text-center"><strong>Ending in:</strong><br /><span id="daily-vortex-countdown" class="countdown"></span></p>-->
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<h2>Today's Available Key</h2>
+						<div class="text-center" id="daily-key-image"></div>
+						<!--<p class="text-center"><strong>Ending in:</strong><br /><span id="daily-key-countdown" class="countdown"></span></p>-->
+					</div>
+				</div>
+				<!-- end:Info -->
+				<hr />
 				<!-- start:Paypal -->
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
@@ -891,21 +998,35 @@
 					</div>
 					
 					<div class="col-xs-12 col-sm-6 text-center">
-						<!-- start:Chitika Ads -->
-						<script type="text/javascript">
-						  ( function() {
-							if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
-							var unit = {"calltype":"async[2]","publisher":"hepapatitis","width":300,"height":250,"sid":"Chitika Default"};
-							var placement_id = window.CHITIKA.units.length;
-							window.CHITIKA.units.push(unit);
-							document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
-						}());
-						</script>
-						<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
-						<!-- end:Chitika Ads -->
+						<!-- start:Hostgator -->
+						<a href="http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=hepapatitis-"><img src="http://tracking.hostgator.com/img/Discount_Shared/Hostgator-new-_AN--300x250-.gif" border="0"></a>
+						<!-- end:Hostgator -->
 					</div>
 				</div>
 				<!-- end:Ads -->
+				<hr />
+				<!-- start:Disqus -->
+				<div class="row">
+					<div class="col-xs-12">
+						<h2>Discussion</h2>
+						<p>Please use this board for discussion, feature feedback, or any other discussions. Please be polite and respect each other :)</p>
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">
+							/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+							var disqus_shortname = 'bf-calc'; // required: replace example with your forum shortname
+
+							/* * * DON'T EDIT BELOW THIS LINE * * */
+							(function() {
+								var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+								dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+								(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+							})();
+						</script>
+						<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+						<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+					</div>
+				</div>
+				<!-- end:Disqus -->
 			</div>
 			
 			
@@ -925,11 +1046,16 @@
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-
+		
         <script src="js/bootstrap.min.js"></script>
         <script src="js/select2.js"></script>
         <script src="js/fastclick.js"></script>
 
+		<script src="js/jquery.countdown.js" type="text/javascript"></script>
+		<!--[if lt IE 9]>
+			<script src="js/respond.js"></script>
+		<![endif]-->
+		<script src="js/jquery.lazyload.min.js"></script>
         <script src="js/bfc-calc.js"></script>
         <script src="js/init.js"></script>
 		
@@ -1010,17 +1136,6 @@
 					alert("Please complete the form");
 				}
 			}
-		</script>
-		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-48006628-3', 'bf-calc.com');
-		  ga('require', 'linkid', 'linkid.js');
-		  ga('require', 'displayfeatures');
-		  ga('send', 'pageview');
 		</script>
 	</body>
 </html>

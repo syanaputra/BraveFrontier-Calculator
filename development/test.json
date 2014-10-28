@@ -1,0 +1,46 @@
+{
+    "d": [
+        {
+            "name": "Burning Vargas",
+            "exp_type": "2",
+            "counter": "3"
+        },
+        {
+            "name": "Holy Queen Luna",
+            "exp_type": "2",
+            "counter": "1"
+        },
+        {
+            "name": "Lava Phoenix",
+            "exp_type": "3",
+            "counter": "1"
+        },
+        {
+            "name": "Lich",
+            "exp_type": "2",
+            "counter": "1"
+        },
+        {
+            "name": "Memetes",
+            "exp_type": "3",
+            "counter": "1"
+        },
+        {
+            "name": "Skeleton",
+            "exp_type": "1",
+            "counter": "1"
+        },
+        {
+            "name": "Spark Kick Zeln",
+            "exp_type": "2",
+            "counter": "1"
+        },
+        {
+            "name": "Undine",
+            "exp_type": "2",
+            "counter": "1"
+        }
+    ],
+    "status": "success",
+    "msg": "Thank you for your contribution!"
+}

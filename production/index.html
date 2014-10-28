@@ -6,18 +6,27 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>Brave Frontier EXP Calculator</title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width" />
+        <title>Brave Frontier Calculator | EXP Calculator, Team Unit Calculator, Metal Calculator, Zel Calculator</title>
+        <meta name="description" content="BF-Calc is fan-made tools to help Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator." />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 		
+		<meta property="og:title" content="Brave Frontier Calculator | EXP Calculator, Team Unit Calculator, Metal Calculator, Zel Calculator">
 		<meta property='og:image' content='http://memoriesdust.com/images/brave-frontier-alim-1.jpg'/>
+		<meta property="og:description" content="BF-Calc is fan-made tools to help Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.">
+		<meta property="og:site_name" content="BF-Calc: Brave Frontier Calculator">
+		<meta property="og:url" content="http://bf-calc.com">
 		<meta name="google-site-verification" content="ZKWlzNIIaNsSg7AbTT47COPFl3uxz49S36NGUGw-0e4" />
+		
+		<link rel="icon" type="image/png" href="images/icon-32.png">
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
 		
         <link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type='text/css'>
 		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Lato:300,400,700' type='text/css'>
         <link rel="stylesheet" href="css/bootstrap.min.css" type='text/css'>
-        <link rel="stylesheet" href="css/bfc-calc.css" type='text/css' data-s="main">
+        <link rel="stylesheet" href="css/select2.css" type='text/css'>
+        <link rel="stylesheet" href="css/select2-bootstrap.css" type='text/css'>
+        <link rel="stylesheet" href="css/main.css" type='text/css'>
 
 		<!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,666 +36,8 @@
 		<![endif]-->
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-    </head>
-    <body>
-		<!-- Heading -->
-		<div class="main">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-md-6 col-md-offset-3 text-center big-margin">
-						<h1 class="main-header">Brave Frontier EXP Calculator</h1>
-						<p>This is EXP Calculator version <em>0.7.1</em> for Brave Frontier game. Please use it cautiously. More updates are coming soon.</p>
-						<p>Based on <a href="http://bravefrontierglobal.wikia.com/wiki/Experience_Tables" target="_blank">Brave Frontier Wikia</a></p>
-						<hr />
-						<h4>new update</h4>
-						<p>
-							<strong>Updated EXP Tables</strong><br />
-							<u>Type 2</u> goes up to LV 80<br />
-							<u>Type 3</u> goes up to LV 100
-						</p>
-						<p><strong>Updated display on Basic Info</strong></p>
-						<p>
-							<strong>Cleaned some wrong data in <u>Contribution</u></strong><br />
-							<em>Please let me know if there's something wrong.<br />I'm not fully knowledgeable about this :(</em>
-						</p>
-						<hr />
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end:Heading -->
-		<!-- EXP Calculator -->
-		<div class="">
-			<div class="container">
-				<div class="row">
-					<form class="form-horizontal" role="form" action="javascript:calculate()">
-						<div class="col-md-6">
-							<h2>Basic Info <small style="color:red;">(UPDATED)</small></h2>
-							<div class="form-group">
-								<label for="exp_table" class="col-sm-3 control-label">EXP Table</label>
-								<div class="col-sm-9">
-									<select id="exp_table" class="form-control" onchange="change_max_lv()">
-										<option value="1" selected="selected">Type 1 - [Base 10 (Heroes)]</option>
-										<option value="2">Type 2 - [Base 15]</option>
-										<option value="3">Type 3 - [Base 21]</option>
-									</select>
-									<span class="help-block">
-										<strong>EXP Table 1 : </strong> Units that have an initial <strong>Next Lv</strong> value of <strong>10</strong><br />
-										<strong>EXP Table 2 : </strong> Units that have an initial <strong>Next Lv</strong> value of <strong>15</strong><br />
-										<strong>EXP Table 3 : </strong> Units that have an initial <strong>Next Lv</strong> value of <strong>21</strong></i>
-									</span>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="current_lv" class="col-sm-3 control-label">Current Lv</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="current_lv" min="1" max="80" required>
-								</div>
-							</div>
-							<hr />
-							<div class="form-group">
-								<div class="col-sm-offset-3 col-sm-9">
-									<div class="checkbox">
-										<label>
-											<input id="exp_to_next_lv_check" type="checkbox" id="rawr" onchange="check_checkbox()"> I want to count the current EXP that I have
-										</label>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="exp_to_next_lv" class="col-sm-3 control-label">Remaining EXP to Next Level</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="exp_to_next_lv">
-								</div>
-							</div>
-						</div>
-						<hr class="sr-only" />
-						<div class="col-md-6">
-							<h2>Specific Info</h2>
-							<div class="form-group">
-								<label for="exp_to_next_lv" class="col-sm-3 control-label">What would you like to know?</label>
-								<div class="col-sm-9">
-									<select id="calc_selection" class="form-control" onchange="change_selection()">
-										<option value="1" selected="selected">How many exp do I need to get to xx level?</option>
-										<option value="2">What level will my character be when I give xxx exp?</option>
-									</select>
-								</div>
-							</div>
-							<hr />
-							<div id="calc_selection_1" style="display:none;">
-								<div class="form-group">
-									<label for="exp_to_next_lv" class="col-sm-3 control-label">Target Level?</label>
-									<div class="col-sm-9">
-										<input type="number" class="form-control" id="target_lv" min="1" max="80">
-										<span class="help-block">Max level is: <strong id="max_lv">100</strong></span>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-3 col-sm-9">
-										<button type="submit" class="btn btn-unique btn-block">Calculate</button>
-									</div>
-								</div>
-								<hr />
-								<div class="form-group">
-									<label for="exp_to_next_lv" class="col-sm-3 control-label">Required EXP</label>
-									<div class="col-sm-9">
-										<input type="number" class="form-control" id="out_required_exp" readonly="readonly">
-									</div>
-								</div>
-							</div>
-							<div id="calc_selection_2" style="display:none;">
-								<div class="form-group">
-									<label for="fuse_exp" class="col-sm-3 control-label">Fuse EXP</label>
-									<div class="col-sm-9">
-										<input type="number" class="form-control" id="fuse_exp" min="1">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-3 col-sm-9">
-										<button type="submit" class="btn btn-unique btn-block">Calculate</button>
-									</div>
-								</div>
-								<hr />
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label for="out_final_level" class="col-sm-6 control-label">Final Level</label>
-											<div class="col-sm-6">
-												<input type="number" class="form-control" id="out_final_level" readonly="readonly">
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label for="out_final_exp" class="col-sm-6 control-label">Final EXP</label>
-											<div class="col-sm-6">
-												<input type="number" class="form-control" id="out_final_exp" readonly="readonly">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Great Success)</label>
-											<div class="col-sm-6">
-												<input type="number" class="form-control" id="out_final_level_great" readonly="readonly">
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Great Success)</label>
-											<div class="col-sm-6">
-												<input type="number" class="form-control" id="out_final_exp_great" readonly="readonly">
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								<div class="row">
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Super Success)</label>
-											<div class="col-sm-6">
-												<input type="number" class="form-control" id="out_final_level_super" readonly="readonly">
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-6">
-										<div class="form-group">
-											<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Super Success)</label>
-											<div class="col-sm-6">
-												<input type="number" class="form-control" id="out_final_exp_super" readonly="readonly">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12"></div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<!-- end:EXP Calculator -->
-		<hr />
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 text-center">
-					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<!-- Brave Frontier EXP Calc -->
-					<ins class="adsbygoogle"
-						 style="display:inline-block;width:728px;height:90px"
-						 data-ad-client="ca-pub-1215612485510932"
-						 data-ad-slot="6004914203"></ins>
-					<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
-				</div>
-			</div>
-		</div>
-		<hr />
-		<!-- Metal God Calculator -->
-		<div class="">
-			<div class="container">
-				<div class="row">
-					<div class="form-horizontal">
-						<div class="col-md-6">
-							<h2>Metal Calculator</h2>
-							<p>Fusing metal monster with the same element gives them <strong>50% more EXP</strong>.</p>
-							<div class="form-group">
-								<label for="metal_god" class="col-sm-3 control-label">Metal Crystal</label>
-								<div class="col-sm-4">
-									<input type="number" class="form-control" id="metal_crystal" placeholder="0" onkeyup="metal_exp()" />
-								</div>
-								<div class="col-sm-5">
-									<div class="checkbox">
-										<label>
-											<input id="metal_crystal_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
-										</label>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="metal_god" class="col-sm-3 control-label">Metal God</label>
-								<div class="col-sm-4">
-									<input type="number" class="form-control" id="metal_god" placeholder="0" onkeyup="metal_exp()" />
-								</div>
-								<div class="col-sm-5">
-									<div class="checkbox">
-										<label>
-											<input id="metal_god_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
-										</label>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="metal_king" class="col-sm-3 control-label">Metal King</label>
-								<div class="col-sm-4">
-									<input type="number" class="form-control" id="metal_king" placeholder="0" onkeyup="metal_exp()" />
-								</div>
-								<div class="col-sm-5">
-									<div class="checkbox">
-										<label>
-											<input id="metal_king_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
-										</label>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="metal_slime" class="col-sm-3 control-label">Metal Slime</label>
-								<div class="col-sm-4">
-									<input type="number" class="form-control" id="metal_slime" placeholder="0" onkeyup="metal_exp()" />
-								</div>
-								<div class="col-sm-5">
-									<div class="checkbox">
-										<label>
-											<input id="metal_slime_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
-										</label>
-									</div>
-								</div>
-							</div>
-							<hr />
-							<div class="form-group">
-								<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Normal</em>)</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="metal_exp" readonly="readonly">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Great</em>)</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="metal_exp_great" readonly="readonly">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Super</em>)</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="metal_exp_super" readonly="readonly">
-								</div>
-							</div>
-						</div>
-						<hr class="sr-only" />
-						<div class="col-md-6">
-							<h2>Metal EXP Table</h2>
-							<table class="table table-striped table-bordered">
-								<thead>
-									<tr>
-										<th>Metal Type</th>
-										<th>Normal EXP</th>
-										<th>Same Element EXP</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Metal Crystal</td>
-										<td>151524</td>
-										<td>227286</td>
-									</tr>
-									<tr>
-										<td>Metal God</td>
-										<td>51518</td>
-										<td>77277</td>
-									</tr>
-									<tr>
-										<td>Metal King</td>
-										<td>11012</td>
-										<td>16518</td>
-									</tr>
-									<tr>
-										<td>Metal Slime</td>
-										<td>1506</td>
-										<td>2259</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end:Metal God Calculator -->
-		<hr />
-		<!-- Jewel Calculator -->
-		<div class="">
-			<div class="container">
-				<div class="row">
-					<div class="form-horizontal">
-						<div class="col-md-6">
-							<h2>Jewel Calculator</h2>
-							<div class="form-group">
-								<label for="jewel_god" class="col-sm-3 control-label">Jewel God</label>
-								<div class="col-sm-4">
-									<input type="number" class="form-control" id="jewel_god" placeholder="0" onkeyup="jewel_exp()" />
-								</div>
-								<div class="col-sm-5 hidden-xs">
-									<input type="number" class="form-control" id="jewel_god_output" readonly="readonly" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="jewel_god" class="col-sm-3 control-label">Jewel King</label>
-								<div class="col-sm-4">
-									<input type="number" class="form-control" id="jewel_king" placeholder="0" onkeyup="jewel_exp()" />
-								</div>
-								<div class="col-sm-5 hidden-xs">
-									<input type="number" class="form-control" id="jewel_king_output" readonly="readonly" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="jewel_ghost" class="col-sm-3 control-label">Jewel Ghost</label>
-								<div class="col-sm-4">
-									<input type="number" class="form-control" id="jewel_ghost" placeholder="0" onkeyup="jewel_exp()" />
-								</div>
-								<div class="col-sm-5 hidden-xs">
-									<input type="number" class="form-control" id="jewel_ghost_output" readonly="readonly" />
-								</div>
-							</div>
-							<hr />
-							<div class="form-group">
-								<label for="jewel_zel" class="col-sm-3 control-label">Total Zel Gained</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="jewel_zel" readonly="readonly">
-								</div>
-							</div>
-						</div>
-						<hr class="sr-only" />
-						<div class="col-md-6">
-							<h2>Jewel Zel Table</h2>
-							<table class="table table-striped table-bordered">
-								<thead>
-									<tr>
-										<th>Jewel Type</th>
-										<th>Zel when Sold</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Jewel God</td>
-										<td>50000</td>
-									</tr>
-									<tr>
-										<td>Jewel King</td>
-										<td>20000</td>
-									</tr>
-									<tr>
-										<td>Jewel Ghost</td>
-										<td>7000</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end:Jewel Calculator -->
-		<hr />
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 text-center">
-					<a href="http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=hepapatitis" rel="nofollow">
-						<img alt="" width="200" height="200" src="http://www.hostgator.com/images/banners/200x200/Orange-200x200.gif">
-					</a>
-					<a class="hidden-xs" href="http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=hepapatitis" rel="nofollow">
-						<img alt="" width="200" height="200" src="http://www.hostgator.com/images/banners/200x200/New-200x200.gif">
-					</a>
-				</div>
-				<div class="col-xs-12 col-sm-6 text-center">
-					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<!-- Brave Frontier Mobile Banner -->
-					<ins class="adsbygoogle"
-						 style="display:inline-block;width:320px;height:50px"
-						 data-ad-client="ca-pub-1215612485510932"
-						 data-ad-slot="7364322204"></ins>
-					<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
-					
-					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<!-- Brave Frontier Mobile Banner -->
-					<ins class="adsbygoogle"
-						 style="display:inline-block;width:320px;height:50px"
-						 data-ad-client="ca-pub-1215612485510932"
-						 data-ad-slot="7364322204"></ins>
-					<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
-				</div>
-			</div>
-		</div>
+		<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53be261e36ea8e1a"></script>
 		
-		<!-- Newsletter -->
-		<div class="newsletter big-margin">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-md-8 col-md-offset-2 text-center">
-						<h2>Contribution</h2>
-						<p>Thank you very much for you guys who have helped us to get this data. <a href="#contribute">If you want to contribute, please use the form below to contribute</a>.</p>
-						<table id="contribution" class="table table-striped">
-							<thead>
-								<tr>
-									<th width="45%">Name</th>
-									<th width="30%">Exp Table</th>
-									<th width="25%">People Contributing</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="newsletter big-margin">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-md-6 col-md-offset-3 text-center">
-						<h2>Contribute</h2>
-						<p>Please help us to implement better functionality. Simply write down the unit name and the exp table it used. Our goal is to have a list of units with its exp table to make Brave Frontier's life easier!</p>
-						<p><em>For Example:</em> <strong>Burning Vargas</strong> uses <strong>EXP Table 2</strong></p>
-						<form class="form-horizontal" role="form" action="javascript:tadah()">
-							<div class="col-xs-12"">
-								<div class="form-group">
-									<label for="current_lv" class="col-sm-3 control-label">Unit Name</label>
-									<div class="col-sm-9">
-										<input type="text" class="form-control" id="u_name" name="u_name" required>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="exp_type" class="col-sm-3 control-label">EXP Table</label>
-									<div class="col-sm-9">
-										<select id="exp_type" name="exp_type" class="form-control">
-											<option value="1" selected="selected">Type 1</option>
-											<option value="2">Type 2</option>
-											<option value="3">Type 3</option>
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="submitted_by" class="col-sm-3 control-label">Your Username</label>
-									<div class="col-sm-9">
-										<input type="text" class="form-control" id="submitted_by" name="submitted_by">
-										<span class="help-block">If you'd like your username to be remembered as our precious helper, feel free to write it down.</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-3 col-sm-9">
-										<button type="submit" class="btn btn-unique btn-block">Send</button>
-									</div>
-								</div>
-							</div>
-						</form>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="newsletter big-margin">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-md-6 col-md-offset-3 text-center">
-						<h2>Feedbacks &amp; Suggestions &amp; Comments</h2>
-						<p>This may not be the best site that you'll encounter. But I'm more than happy to assist your journey in Brave Frontier.</p>
-						<p>If you have any feedback, suggestions, or comments feel free to use this form. I'll try my best to support you guys :)</p>
-						<div class="row">
-						<form class="form-horizontal" role="form" id="feedback-form" action="javascript:send_form()">
-							<div class="col-xs-12">
-								<div class="form-group">
-									<label for="feedback_name" class="col-sm-3 control-label">Name</label>
-									<div class="col-sm-9">
-										<input type="text" class="form-control" id="feedback_name" name="feedback_name" required>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="feedback_email" class="col-sm-3 control-label">Email</label>
-									<div class="col-sm-9">
-										<input type="email" class="form-control" id="feedback_email" name="feedback_email" required>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="feedback_message" class="col-sm-3 control-label">Message</label>
-									<div class="col-sm-9">
-										<textarea class="form-control" id="feedback_message" name="feedback_message" required></textarea>
-										<span class="help-block">Please write it as friendly as you can :)</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-3 col-sm-9">
-										<button type="submit" class="btn btn-unique btn-block">Send</button>
-									</div>
-								</div>
-							</div>
-						</form>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="newsletter big-margin">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 text-center">
-						<h3 class="main-header">About This Page</h3>
-						<p>This page is a fan made page that is created to help Brave Frontier players. Thank you very much for coming to this page and using the calculator.</p>
-						<p>I hope you guys find this tool useful. If you have any question, suggestion or feedback, please send me an email at <a href="mailto:bravefrontier@memoriesdust.com">bravefrontier@memoriesdust.com</a>.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<p align="center">This site is hosted by <a href="http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=hepapatitis" target="_blank" rel="nofollow">HostGator</a></p>
-		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.tinytimer.min.js"></script>
-        <script src="js/bfc-calc.js"></script>
-		
-		<script>
-			// AJAX Script
-			function tadah()
-			{
-				var u_name = $("input[name=u_name]").val();
-				var exp_type = $("[name=exp_type]").val();
-				var submitted_by = $("input[name=submitted_by]").val();
-				
-				if(u_name != "" && exp_type !="")
-				{
-					$.post("store.php", {
-						unit_name: u_name,
-						exp_type: exp_type,
-						submitted_by: submitted_by,
-						token: "x",
-					}, function (data) {
-						console.log(data);
-					})
-					.error(function(data) {
-						console.log(data);
-					})
-					.done(function(data) {
-						if(data.status == "error")
-						{
-							alert(data.msg);
-						}
-						else if(data.status == "success")
-						{
-							alert(data.msg);
-							
-							$("input[name=u_name]").val("");
-							$("input[name=submitted_by]").val("");
-						}
-					});
-				}
-			}
-			
-			function send_form()
-			{
-				var name = $("input[name=feedback_name]").val();
-				var email = $("[name=feedback_email]").val();
-				var comments = $("textarea[name=feedback_message]").val();
-				
-				if(name != "" && email != "" && comments != "")
-				{
-					$.post("send-email.php", {
-						name: name,
-						email: email,
-						comments: comments,
-						token: "x",
-					}, function (data) {
-						console.log(data);
-					})
-					.error(function(data) {
-						console.log(data);
-					})
-					.done(function(data) {
-						if(data.status == "error")
-						{
-							alert(data.msg);
-						}
-						else if(data.status == "success")
-						{
-							alert(data.msg);
-							
-							$("input[name=feedback_name]").val("");
-							$("input[name=feedback_email]").val("");
-							$("textarea[name=feedback_message]").val("");
-						}
-					});
-				}
-				else
-				{
-					alert("Please complete the form");
-				}
-			}
-			
-			function load_contribution()
-			{
-				$("#contribution tbody").children().remove();
-				$.post("table.php", {}, function (data) {
-					console.log(data);
-				})
-				.error(function(data) {
-					console.log(data);
-				})
-				.done(function(data) {
-					if(typeof data.d != "undefined")
-					{
-						var d = data.d;
-						for(var i=0; i<d.length; i++)
-						{
-							$("#contribution tbody").append("<tr><td>"+d[i].name+"</td><td>"+d[i].exp_type+"</td><td>"+d[i].counter+"</td></tr>");
-						}
-					}
-				});
-			}
-			
-			$(function() {
-				load_contribution();
-			});
-		</script>
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -697,10 +48,1014 @@
 		  ga('require', 'linkid', 'linkid.js');
 		  ga('require', 'displayfeatures');
 		  ga('send', 'pageview');
-
 		</script>
+    </head>
+    <body>
+		<nav class="navbar navbar-inverse navbar-bf" role="navigation">
+		  <div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bf-navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand visible-xs" href="#nav-home" role="tab" data-toggle="tab"> BF-Calc</a>
+			  <a class="main-logo hidden-xs" href="#nav-home" role="tab" data-toggle="tab"> <img src="images/logo.png" alt="BF-Calc" /></a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bf-navigation">
+			  <ul class="nav navbar-nav" role="tablist">
+				<li>
+					<a href="#nav-exp-calc" role="tab" data-toggle="tab">
+						EXP Calc <span class="menu-highlight orange">Updated</span>
+						<div class="nav-desc">Calculates required EXP for your unit</div>
+					</a>
+				</li>
+				
+				<li>
+					<a href="#nav-team-unit-calc" role="tab" data-toggle="tab">
+						Team Unit Calc
+						<div class="nav-desc">Calculates total cost of your dream units</div>
+					</a>
+				</li>
+				
+				<li>
+					<a href="#nav-metal-calc" role="tab" data-toggle="tab">
+						Metal Calc
+						<div class="nav-desc">Calculates total exp of your metal units</div>
+					</a>
+				</li>
+				
+				<li>
+					<a href="#nav-zel-calc" role="tab" data-toggle="tab">
+						Zel Calc
+						<div class="nav-desc">Calculates total zel of your jewel units</div>
+					</a>
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		</nav>
 		
-		<!-- Put this in the last -->
-		<script src="js/jquery.inview.js"></script>
+		<div class="container">
+			<div class="page-wrapper">
+				<!-- start:Google Ads -->
+				<div class="row row-ads">
+					<div class="col-xs-12 text-center">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<!-- Responsive AdSense -->
+						<ins class="adsbygoogle"
+							 style="display:block"
+							 data-ad-client="ca-pub-1215612485510932"
+							 data-ad-slot="8366264603"
+							 data-ad-format="auto"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>						
+					</div>
+				</div>
+				<hr class="small hidden-xs" />
+				<!-- end:Google Ads -->
+				<div class="tab-content">
+					<!-- start: EXP Calculator -->
+					<div id="nav-home" class="row tab-pane fade in active">
+						<div class="col-xs-12">
+							<h1>Welcome to BF-Calc <small class="hidden-xs">(a.k.a Brave Frontier Calculator)</small></h1>
+							
+							<div class="visible-xs">
+								<h2>Quick Navigations</h2>
+								<div class="row">
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-exp-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'EXP']);">EXP Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-team-unit-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Team Unit']);">Team Unit Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-metal-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Metal']);">Metal Calc</a></div>
+									<div class="col-xs-6"><a class="btn btn-block btn-default" href="#nav-zel-calc" role="tab" data-toggle="tab" onclick="_gaq.push(['_trackEvent', 'Navigation', 'Click', 'Zel']);">Zel Calc</a></div>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-xs-12 col-md-6">
+							<h2>Greetings</h2>
+							<p>
+								Hello and welcome to <strong>Brave Frontier Calculator</strong>!
+								First of all, thank you very much for coming to this page and using the calculator.
+								This website is a fan made page that is created to help Brave Frontier players based on <a target="_blank" href="http://bravefrontierglobal.wikia.com">Brave Frontier Wikia</a>. Be sure to check the Wiki too!
+							</p>
+							<p>
+								BF-Calc is fan-made tools to help Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.
+							</p>
+							<p>
+								I hope you guys find this tool useful. If you have any question, suggestion or feedback, feel free to send me an email at <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#114;&#97;&#118;&#101;&#102;&#114;&#111;&#110;&#116;&#105;&#101;&#114;&#64;&#109;&#101;&#109;&#111;&#114;&#105;&#101;&#115;&#100;&#117;&#115;&#116;&#46;&#99;&#111;&#109;">&#98;&#114;&#97;&#118;&#101;&#102;&#114;&#111;&#110;&#116;&#105;&#101;&#114;&#64;&#109;&#101;&#109;&#111;&#114;&#105;&#101;&#115;&#100;&#117;&#115;&#116;&#46;&#99;&#111;&#109;</a> or send me a query by form.
+							</p>
+							<h2>Change Logs</h2>
+							<div class="changelogs-container">
+								<h3>ver 1.2.0</h3>
+								<ul>
+									<li>
+										Added <strong>Exclude</strong> functions on Req. Metal Units
+										Added <strong>Req. Metal Units of Different Element</strong> into EXP Calculator
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.9</h3>
+								<p>Hi guys, thank you for all your messages and feedback. I am sorry for unable to get back to you the last month because email has been playing up. I have added all the new units, however I don't have any information what EXP Tables they're using yet. If you could, please let me know which EXP Tables they're using, and I'll put it up within 24 hours.</p>
+								<ul>
+									<li>
+										Added more <strong>6-Star Units</strong> into database
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.8</h3>
+								<ul>
+									<li>
+										Added <strong>Today's Daily Vortex</strong> and <strong>Today's Available Key</strong><br />
+										<em>
+											I know it's kind of obvious, but hopefully it helps for new players.<br />
+											<strong>Today's Daily Vortex</strong> only shows the general daily vortex. It excludes special events.
+										</em>
+									</li>
+									<li>
+										Added <strong>Lazy Loader</strong> for Team Unit Builder<br />
+										<em>This way, you won't need to load hundreds of icons when loading this page.</em>
+									</li>
+									<li>
+										Added 3 new units into the calculator: Bordebegia, Gravion, and Leorone.
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.7</h3>
+								<ul>
+									<li>
+										Updated Summoner Level and Total Cost per level on <strong>Team Unit Calculator</strong><br />
+										<em>Yay! Moar 6-star units in early level :D</em>
+									</li>
+									<li>
+										Added 16 new units into the calculator. Unfortunately I don't know some of their exp table. I'd very appreciate your help :)
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.6b</h3>
+								<ul>
+									<li>
+										Fixed bug in <strong>EXP Calculator</strong> where Current Lv automatically set to max level and remained unchangeable<br />
+										<em>Thanks for letting me know about this!</em>
+									</li>
+									<li>
+										Fixed bug in <strong>Unit Contribution</strong> Form where Units are not loaded properly
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.6</h3>
+								<p>Hi guys, this time there are quite a lot of updates mostly on <strong>EXP Calculator</strong>. I'm eager to do a mobile app for this website, for the start I'll work on Android version first <em>(Google Play only charges $25 fee lifetime while Apple charges $99/year, that's why I choose Android first)</em>.</p>
+								<ul>
+									<li>
+										<strong>EXP Calculator</strong> now has a new dropdown option: <strong>How many exp do I need to get to MAX level</strong><br />
+										<em>This will be automatically chosen when the page is loaded. Thanks for the idea moogle!</em>
+									</li>
+									<li>
+										<strong>EXP Calculator</strong> now automatically roll the target &amp; current level to maximum level if it is exceeded<br />
+									</li>
+									<li>
+										<strong>REQ. METAL UNITS</strong> in <strong>EXP Calculator</strong> now show correct elemental metal units<br />
+										<em>Just a visual upgrade, the calculation is still pretty much the same. Stay tuned!</em>
+									</li>
+									<li>
+										<strong>EXP Calculator</strong> &amp; <strong>Team Units Calculator</strong> now show the same Unit Name<br />
+										<em>Fixed the typo on <strong>Team Units Calculator</strong></em>
+									</li>
+									<li>
+										Added more units to <strong>EXP Calculator</strong> &amp; <strong>Team Units Calculator</strong>
+										<em>Thanks for the information regarding <u>Paris</u> guys!</em>
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.5</h3>
+								<ul>
+									<li>
+										Added more units to <strong>EXP Calculator</strong>
+									</li>
+									<li>
+										Added more units to <strong>Team Units Calculator</strong><br />
+										<em>Thanks for letting me know Mon!</em>
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.4</h3>
+								<ul>
+									<li>
+										Added missing unit's EXP Table into <strong>EXP Calculator</strong><br />
+										<em>Thank you so much for the contribution guys! You guys rocks!</em>
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.3</h3>
+								<ul>
+									<li>
+										Added back <strong>Type 1, Type 2, Type 3</strong>description
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.2</h3>
+								<ul>
+									<li>
+										Added Great &amp; Super Success into <strong>Required Metal Units</strong>
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.1</h3>
+								<ul>
+									<li>
+										Improved Touch Responsiveness in Mobile &amp; Tablet
+									</li>
+									<li>
+										Added a <strong>Quick Navigations</strong> for Mobile
+									</li>
+									<li>
+										Various other improvements for Mobile User
+									</li>
+								</ul>
+								
+								<h3>ver 1.1.0</h3>
+								<ul>
+									<li>
+										<strong>Search Unit</strong> in <strong>EXP Calculator</strong><br />
+										<em>Finally what you guys have been waiting for. Credits to <em>corroded</em> and all of you guys who have been helping me with Unit Contribution.</em>
+									</li>
+									<li>
+										<strong>Required Metal Units</strong> in <strong>EXP Calculator</strong><br />
+										<em>This is still in <span style="color:red">BETA</span> phase, and hasn't been optimized yet. Any ideas are more than welcome :)</em>
+									</li>
+								</ul>
+								
+								<h3>ver 1.0.2</h3>
+								<ul>
+									<li>
+										<strong>Contribution</strong> is back<br />
+										<em>Some people were asking me about it. Now you can search the unit name via dropdown box instead of typing.</em>
+									</li>
+									<li>
+										Fixed bug on <strong>Metal &amp; Zel Calculator</strong><br />
+										<em>It wasn't calculating when up &amp; down arrow was pressed</em>
+									</li>
+									<li>
+										Fixed icon issue on <strong>Team Unit Calculator</strong>
+									</li>
+								</ul>
+								
+								<h3>ver 1.0.1</h3>
+								<ul>
+									<li>
+										Added search by Element on <strong>Team Unit Calculator</strong><br />
+										<em>Make life easier this way</em>
+									</li>
+									<li>
+										Added Min. Summoner level on  <strong>Team Unit Calculator</strong><br />
+										<em>So player know when they can use their dream team</em>
+									</li>
+								</ul>
+								
+								<h3>ver 1.0.0</h3>
+								<ul>
+									<li>
+										New Website Look &lt;3<br />
+										<em>Hope you guys like it</em>
+									</li>
+									<li>
+										New Calculator - <strong>Team Unit Calculator</strong><br />
+										<em>Calculates the total team cost of your 5 units.</em>
+									</li>
+									<li>Updated the look of EXP calculator a little bit</li>
+								</ul>
+								
+								<h3>ver 0.7.1</h3>
+								<ul>
+									<li>
+										Updated EXP Tables
+										<ul>
+											<li>Type 2 now goes up to LV 80</li>
+											<li>Type 3 now goes up to LV 100</li>
+										</ul>
+									</li>
+									<li>Updated Display on Basic Info</li>
+									<li>Cleaned some wrong data in Contribution</li>
+								</ul>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-md-6">
+							<h2>Suggestions &amp; Comments</h2>
+							<p>This may not be the best site that you'll encounter. But I'm more than happy to assist your journey in Brave Frontier.</p>
+							<p>If you have any feedback, suggestions, or comments feel free to use this form. I'll try my best to support you guys :)</p>
+							<div class="row">
+								<form class="form-horizontal" role="form" id="feedback-form" action="javascript:send_form()">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label for="feedback_name" class="col-sm-3 control-label">Name</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="feedback_name" name="feedback_name" required>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="feedback_email" class="col-sm-3 control-label">Email</label>
+											<div class="col-sm-9">
+												<input type="email" class="form-control" id="feedback_email" name="feedback_email" required>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="feedback_message" class="col-sm-3 control-label">Message</label>
+											<div class="col-sm-9">
+												<textarea class="form-control" id="feedback_message" name="feedback_message" required></textarea>
+												<span class="help-block">Please write it as friendly as you can :)</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-offset-3 col-sm-9">
+												<button type="submit" class="btn btn-unique btn-block">Send</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div id="nav-exp-calc" class="row tab-pane fade">
+						<div class="col-xs-12">
+							<h1>EXP Calculator</h1>
+							<p>Calculates required experience for your hero to reach maximum level.</p>
+							<div class="alert alert-warning alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								Thanks for all your help to fill in the missing units! We're just missing a couple of <strong>EXP Table</strong> for the following unit. If you know any of them, please let us know :)<br />
+								<code>Goltovah, Jaegar, Ristrall, Raiden, Mila, Bahvel</code>
+							</div>
+							<hr class="large" />
+							<div class="row">
+								<div class="col-md-6">
+									<form class="form-horizontal" role="form" action="javascript:calculate()">
+										<h2>Basic Information</h2>
+										<p>Fill in your unit information. If you cannot find the specified unit, please use the Type 1, Type 2, Type 3 as alternatives.</p>
+										<!--
+										<h3>EXP Calc History</h3>
+										<div id="last_units" class="last_units">
+											<a id="unit_1" class="last_unit" href="javascript:void(0)" onclick="load_data(1)">
+												<div class="last_unit_img"><img src="http://img3.wikia.nocookie.net/__cb20131008160641/bravefrontierglobal/images/thumb/f/f4/Unit_ills_thum_10011.png/42px-Unit_ills_thum_10011.png"></div>
+												<div class="last_unit_name">Fire Vargas <span>Lv 1</span></div>
+											</a>
+											<a id="unit_2" class="last_unit" href="javascript:void(0)" onclick="load_data(2)">
+												<div class="last_unit_img"><img src="http://img3.wikia.nocookie.net/__cb20131008160641/bravefrontierglobal/images/thumb/f/f4/Unit_ills_thum_10011.png/42px-Unit_ills_thum_10011.png"></div>
+												<div class="last_unit_name">Fire Vargas <span>Lv 5</span></div>
+											</a>
+										</div>
+										
+										<hr />
+										-->
+										<div class="form-group">
+											<label for="unit-to-level" class="col-sm-3 control-label">Search Unit</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="unit-to-level" required>
+												<ul class="help-block">
+													<li><strong>Type 1:</strong> Initial Next LV value of 10</li>
+													<li><strong>Type 2:</strong> Initial Next LV value of 15</li>
+													<li><strong>Type 3:</strong> Initial Next LV value of 21</li>
+												</ul>
+											</div>
+										</div>
+											<!-- <div class="col-sm-9"> -->
+											<!-- 	<div class="unit-selection-container"> -->
+											<!-- 		<div id="us_1" class="unit-selection active" onclick="unit_selection('1')"> -->
+											<!-- 			<div>Type 1</div> -->
+											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 10</div> -->
+											<!-- 		</div> -->
+											<!-- 		<div id="us_2" class="unit-selection" onclick="unit_selection('2')"> -->
+											<!-- 			<div>Type 2</div> -->
+											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 15</div> -->
+											<!-- 		</div> -->
+											<!-- 		<div id="us_3" class="unit-selection" onclick="unit_selection('3')"> -->
+											<!-- 			<div>Type 3</div> -->
+											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 21</div> -->
+											<!-- 		</div> -->
+											<!-- 	</div> -->
+											<!-- </div> -->
+										<div class="form-group">
+											<label for="current_lv" class="col-sm-3 control-label">Current Lv</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="current_lv" min="1" max="80" onchange="auto_validate.call(this)" required>
+											</div>
+										</div>
+										<hr />
+										<div class="form-group">
+											<div class="col-sm-offset-3 col-sm-9">
+												<div class="checkbox">
+													<label>
+														<input id="exp_to_next_lv_check" type="checkbox" id="rawr" onchange="check_checkbox()"> I want to count the current EXP that I have
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="exp_to_next_lv" class="col-sm-3 control-label">Remaining EXP to Next Level</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="exp_to_next_lv">
+											</div>
+										</div>
+										<hr class="large" />
+										<h2>Specific Info</h2>
+										<p>Alright, now what is it that you want to know?</p>
+										<div class="form-group">
+											<label for="exp_to_next_lv" class="col-sm-3 control-label">What would you like to know?</label>
+											<div class="col-sm-9">
+												<select id="calc_selection" class="form-control" onchange="change_selection()">
+													<option value="0" selected="selected">How many exp do I need to get to MAX level?</option>
+													<option value="1">How many exp do I need to get to xx level?</option>
+													<option value="2">What level will my character be when I give xxx exp?</option>
+												</select>
+											</div>
+										</div>
+										<hr />
+										<div id="calc_selection_1" style="display:none;">
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Target Level?</label>
+												<div class="col-sm-9">
+													<input type="number" class="form-control" id="target_lv" min="1" max="80" onchange="auto_validate.call(this)">
+													<span class="help-block">Max level is: <strong id="max_lv">100</strong></span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-offset-3 col-sm-9">
+													<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+												</div>
+											</div>
+											<hr />
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Required EXP</label>
+												<div class="col-sm-9">
+													<input type="number" class="form-control" id="out_required_exp" readonly="readonly">
+												</div>
+											</div>
+											<h3>Req. Metal Units</h3>
+											<h4>Same Element</h4>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Normal Success <small>(Same Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_sm_crystal" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_crystal_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Great Success <small>(Same Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_sm_crystal_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_crystal_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime_g" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Super Success <small>(Same Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="r_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_sm_crystal_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_crystal_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime_s" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+											
+											<h4>Different Element</h4>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Normal Success <small>(Different Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="dr_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_dm_crystal" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_crystal_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Great Success <small>(Different Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="dr_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_dm_crystal_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_crystal_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime_g" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="exp_to_next_lv" class="col-sm-3 control-label">Super Success <small>(Different Element)</small></label>
+												<div class="col-sm-9">
+													<div class="req_metal_unit" title="Metal Crystal"><img class="dr_m_crystal" src="http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png"> x <span id="req_dm_crystal_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_crystal_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
+													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime_s" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
+													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+												</div>
+											</div>
+										</div>
+										<div id="calc_selection_2" style="display:none;">
+											<div class="form-group">
+												<label for="fuse_exp" class="col-sm-3 control-label">Fuse EXP</label>
+												<div class="col-sm-9">
+													<input type="number" class="form-control" id="fuse_exp" min="1">
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-offset-3 col-sm-9">
+													<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+												</div>
+											</div>
+											<hr />
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_level" class="col-sm-6 control-label">Final Level</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_level" readonly="readonly">
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_exp" class="col-sm-6 control-label">Final EXP</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_exp" readonly="readonly">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Great Success)</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_level_great" readonly="readonly">
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Great Success)</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_exp_great" readonly="readonly">
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_level" class="col-sm-6 control-label">Final Level<br />(Super Success)</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_level_super" readonly="readonly">
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label for="out_final_exp" class="col-sm-6 control-label">Final EXP<br />(Super Success)</label>
+														<div class="col-sm-6">
+															<input type="number" class="form-control" id="out_final_exp_super" readonly="readonly">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="col-md-6">
+									<h2>Contributed Unit EXP Table</h2>
+									<p>Thank you very much for you guys who have helped us to gather this data. I'm aware that there are some <strong>wrong data</strong> which I'm going to fix in the future.</p>
+									<div class="contribution-table-container">
+										<table id="contribution" class="table table-striped">
+											<thead>
+												<tr>
+													<th width="45%">Unit Name</th>
+													<th width="25%">Exp Table</th>
+													<th width="30%">People Contributing</th>
+												</tr>
+											</thead>
+											<tbody>
+												
+											</tbody>
+										</table>
+									</div>
+									<h2>Contribute</h2>
+									<p>Please help us to implement better functionality. Simply select the unit and the exp table it used. Our goal is to have a list of units with its exp table to make Brave Frontier's life easier!</p>
+									<p><em>For Example:</em> <strong>Lava</strong> uses <strong>EXP Table 1</strong></p>
+									<form class="form-horizontal" role="form" action="javascript:send_contribution()">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<label for="current_lv" class="col-sm-3 control-label">Unit Name</label>
+												<div class="col-sm-9">
+													<select id="u_name" name="u_name" class="form-control" required></select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="exp_type" class="col-sm-3 control-label">EXP Table</label>
+												<div class="col-sm-9">
+													<select id="exp_type" name="exp_type" class="form-control">
+														<option value="1" selected="selected">Type 1</option>
+														<option value="2">Type 2</option>
+														<option value="3">Type 3</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="submitted_by" class="col-sm-3 control-label">Your Username</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="submitted_by" name="submitted_by">
+													<span class="help-block">If you'd like your username to be remembered as our precious helper, feel free to write it down.</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-offset-3 col-sm-9">
+													<button type="submit" class="btn btn-unique btn-block">Send</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end: EXP Calculator -->
+					
+					<!-- start: Team Unit Calculator -->
+					<div id="nav-team-unit-calc" class="row tab-pane fade">
+						<div class="col-xs-12">
+							<h1>Team Unit Calculator</h1>
+							<p>Calculates Total Cost of your dream units. Don't let the 6-star upgrade upset your team balance.</p>
+							<hr class="large" />
+							<div class="row">
+								<form class="form-horizontal" role="form" action="javascript:calculate()">
+									<div class="col-md-7">
+										<h2>Choose Units</h2>
+										<p>Click the unit icon to add it to your dream team.</p>
+										<hr />
+										<div class="row">
+											<div class="col-xs-8">
+												<label for="tu-search">Search Unit</label>
+												<input type="text" class="form-control" name="tu-search" id="tu-search" placeholder="Unit Name" onkeyup="tu_search()" />
+											</div>
+											<div class="col-xs-4">
+												<label for="tu-search">Element</label>
+												<select class="form-control" name="tu-search-element" id="tu-search-element" onchange="tu_search()">
+													<option value="" selected="selected">All</option>
+													<option value="Fire">Fire</option>
+													<option value="Water">Water</option>
+													<option value="Thunder">Thunder</option>
+													<option value="Earth">Earth</option>
+													<option value="Light">Light</option>
+													<option value="Dark">Dark</option>
+												</select>
+											</div>
+										</div>
+										<div class="tu-units-container" id="tu-unit-list">
+											<div class="data-loading">Loading...</div>
+										</div>
+									</div>
+									<hr class="sr-only" />
+									<div class="col-md-5">
+										<h2>Your Dream Team</h2>
+										<p>Click remove to delete unit from your dream team.</p>
+										<hr />
+										<div class="tu-units-container" id="tu-dream-team"></div>
+										<div class="tu-units-total">
+											<div class="tu-total-title">Total Cost</div>
+											<div class="tu-total-number" id="tu-total-cost">0</div>
+										</div>
+										<div class="tu-units-total">
+											<div class="tu-total-title">Min. Summoner LV</div>
+											<div class="tu-total-number" id="tu-summoner-lv">0</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- end: Team Unit Calculator -->
+					
+					<!-- start: Metal Calculator -->
+					<div id="nav-metal-calc" class="row tab-pane fade">
+						<div class="col-xs-12">
+							<h1>Metal Calculator</h1>
+							<p>Calculates total experience that you can get from your Metal Units.</p>
+							<hr class="large" />
+							<div class="row">
+								<div class="form-horizontal">
+									<div class="col-md-6">
+										<h2>Calculator</h2>
+										<p>Fusing metal monster with the same element gives them <strong>50% more EXP</strong>.</p>
+										<div class="form-group">
+											<label for="metal_god" class="col-sm-3 control-label">Metal Crystal</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="metal_crystal" placeholder="0" onkeyup="metal_exp()" onchange="metal_exp()" />
+											</div>
+											<div class="col-sm-5">
+												<div class="checkbox">
+													<label>
+														<input id="metal_crystal_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_god" class="col-sm-3 control-label">Metal God</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="metal_god" placeholder="0" onkeyup="metal_exp()" onchange="metal_exp()" />
+											</div>
+											<div class="col-sm-5">
+												<div class="checkbox">
+													<label>
+														<input id="metal_god_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_king" class="col-sm-3 control-label">Metal King</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="metal_king" placeholder="0" onkeyup="metal_exp()" onchange="metal_exp()" />
+											</div>
+											<div class="col-sm-5">
+												<div class="checkbox">
+													<label>
+														<input id="metal_king_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_slime" class="col-sm-3 control-label">Metal Slime</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="metal_slime" placeholder="0" onkeyup="metal_exp()" onchange="metal_exp()" />
+											</div>
+											<div class="col-sm-5">
+												<div class="checkbox">
+													<label>
+														<input id="metal_slime_same_check" type="checkbox" id="rawr" onchange="metal_exp()"> Same Element
+													</label>
+												</div>
+											</div>
+										</div>
+										<hr />
+										<div class="form-group">
+											<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Normal</em>)</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="metal_exp" readonly="readonly">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Great</em>)</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="metal_exp_great" readonly="readonly">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="metal_exp" class="col-sm-3 control-label">Total EXP (<em>Super</em>)</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="metal_exp_super" readonly="readonly">
+											</div>
+										</div>
+									</div>
+									<hr class="sr-only" />
+									<div class="col-md-6">
+										<h2>Metal EXP Table</h2>
+										<table class="table table-striped table-bordered">
+											<thead>
+												<tr>
+													<th>Metal Type</th>
+													<th>Normal EXP</th>
+													<th>Same Element EXP</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Metal Crystal</td>
+													<td>151524</td>
+													<td>227286</td>
+												</tr>
+												<tr>
+													<td>Metal God</td>
+													<td>51518</td>
+													<td>77277</td>
+												</tr>
+												<tr>
+													<td>Metal King</td>
+													<td>11012</td>
+													<td>16518</td>
+												</tr>
+												<tr>
+													<td>Metal Slime</td>
+													<td>1506</td>
+													<td>2259</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end: Metal Calculator -->
+					
+					<!-- start: Zel Calculator -->
+					<div id="nav-zel-calc" class="row tab-pane fade">
+						<div class="col-xs-12">
+							<h1>Zel Calculator</h1>
+							<p>Calculates total Zel that you can get from your Jewel Units.</p>
+							<hr class="large" />
+							<div class="row">
+								<div class="form-horizontal">
+									<div class="col-md-6">
+										<h2>Calculator</h2>
+										<div class="form-group">
+											<label for="jewel_god" class="col-sm-3 control-label">Jewel God</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="jewel_god" placeholder="0" onkeyup="jewel_exp()" onchange="jewel_exp()" />
+											</div>
+											<div class="col-sm-5 hidden-xs">
+												<input type="number" class="form-control" id="jewel_god_output" readonly="readonly" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="jewel_god" class="col-sm-3 control-label">Jewel King</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="jewel_king" placeholder="0" onkeyup="jewel_exp()" onchange="jewel_exp()" />
+											</div>
+											<div class="col-sm-5 hidden-xs">
+												<input type="number" class="form-control" id="jewel_king_output" readonly="readonly" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="jewel_ghost" class="col-sm-3 control-label">Jewel Ghost</label>
+											<div class="col-sm-4">
+												<input type="number" class="form-control" id="jewel_ghost" placeholder="0" onkeyup="jewel_exp()" onchange="jewel_exp()" />
+											</div>
+											<div class="col-sm-5 hidden-xs">
+												<input type="number" class="form-control" id="jewel_ghost_output" readonly="readonly" />
+											</div>
+										</div>
+										<hr />
+										<div class="form-group">
+											<label for="jewel_zel" class="col-sm-3 control-label">Total Zel Gained</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="jewel_zel" readonly="readonly">
+											</div>
+										</div>
+									</div>
+									<hr class="sr-only" />
+									<div class="col-md-6">
+										<h2>Jewel Zel Table</h2>
+										<table class="table table-striped table-bordered">
+											<thead>
+												<tr>
+													<th>Jewel Type</th>
+													<th>Zel when Sold</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Jewel God</td>
+													<td>50000</td>
+												</tr>
+												<tr>
+													<td>Jewel King</td>
+													<td>20000</td>
+												</tr>
+												<tr>
+													<td>Jewel Ghost</td>
+													<td>7000</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end: Zel Calculator -->
+				</div>
+				<hr class="large" />
+				<!-- start:Info -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<h2>Today's Daily Vortex</h2>
+						<div class="text-center" id="vortex-image"></div>
+						<!--<p class="text-center"><strong>Ending in:</strong><br /><span id="daily-vortex-countdown" class="countdown"></span></p>-->
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<h2>Today's Available Key</h2>
+						<div class="text-center" id="daily-key-image"></div>
+						<!--<p class="text-center"><strong>Ending in:</strong><br /><span id="daily-key-countdown" class="countdown"></span></p>-->
+					</div>
+				</div>
+				<!-- end:Info -->
+				<hr />
+				<!-- start:Paypal -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<h2>Donate</h2>
+						<p>Once again, thank you for using this tool. This tool is <strong>FREE OF CHARGE</strong>. However if you feel like donating or buying me a coffee, please use the following PayPal button. 20% of the donations will go to charity :)</p>
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHLwYJKoZIhvcNAQcEoIIHIDCCBxwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAAIeE8fM6aa/gkipWA4+gSnrabcG/ykHyA8Qh8WFAGsCpSi25A/eGcdAxaw/yuUg4J2ObCRpH92pw7TtmhuU1NJzL4wt4KDgD7z22RsuNL6sysyMSujmXL7b8YgRDIFTdMaD6ykW2GomLTkWTRWah/F1Lv2NLj+2CIDmlT5uSmkjELMAkGBSsOAwIaBQAwgawGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIE6k1BWBNmg+AgYhp/f8wdlx4Wo6U3hMcHyXt72m1136CiGyx8vX08mdNo9nhTFlsI1JWEYKIaAk4hCRQ0jRpIPYJ1/QHPY85yIQgc6E06AbTm5NGJRqg5JalF6l63vlOUWD3QEzxEfYPZ6LTaZdP7GWxeUebFqibBo2OEINCeQLM26RXbl4JkIAKxJjTKIqLs+3SoIIDhzCCA4MwggLsoAMCAQICAQAwDQYJKoZIhvcNAQEFBQAwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMB4XDTA0MDIxMzEwMTMxNVoXDTM1MDIxMzEwMTMxNVowgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBR07d/ETMS1ycjtkpkvjXZe9k+6CieLuLsPumsJ7QC1odNz3sJiCbs2wC0nLE0uLGaEtXynIgRqIddYCHx88pb5HTXv4SZeuv0Rqq4+axW9PLAAATU8w04qqjaSXgbGLP3NmohqM6bV9kZZwZLR/klDaQGo1u9uDb9lr4Yn+rBQIDAQABo4HuMIHrMB0GA1UdDgQWBBSWn3y7xm8XvVk/UtcKG+wQ1mSUazCBuwYDVR0jBIGzMIGwgBSWn3y7xm8XvVk/UtcKG+wQ1mSUa6GBlKSBkTCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb22CAQAwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBXzpWmoBa5e9fo6ujionW1hUhPkOBakTr3YCDjbYfvJEiv/2P+IobhOGJr85+XHhN0v4gUkEDI8r2/rNk1m0GA8HKddvTjyGw/XqXa+LSTlDYkqI8OwR8GEYj4efEtcRpRYBxV8KxAW93YDWzFGvruKnnLbDAF6VR5w/cCMn5hzGCAZowggGWAgEBMIGUMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTQwNzEwMDMwNTM1WjAjBgkqhkiG9w0BCQQxFgQUH2Szy2kH+JVxzMYfw5vi1uawQMgwDQYJKoZIhvcNAQEBBQAEgYAI2ksMRAAqZfTv5wJ+41Z2WV7P+gL7Z9yAZoBWrwJehVFPTvWIlFDXvSILf0aUv5ucKCjel5SGbfmCFc1VR0fqWj+ejJTEOo91N1fViphdNAdFXo8nHNpwwT0Hhr5YQFMjPxFjy35FVbKyeGigenKpxXmBE/ZUaMWcvPBBq9nvnw==-----END PKCS7-----
+						">
+						<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+						</form>
+					</div>
+					<div class="col-sm-6 hidden-xs">
+						<h2>Share</h2>
+						<p>All tools in this site are thanks to your support and encouragement. Thank you so much for sharing this site with others.</p>
+						<!-- Go to www.addthis.com/dashboard to customize your tools -->
+						<div class="addthis_sharing_toolbox"></div>
+					</div>
+				</div>
+				<!-- end:Paypal -->
+				<hr />
+				<!-- start:Ads -->
+				<div class="row row-ads">
+					<div class="col-xs-12 hidden-xs text-center">
+						<!-- start:Google Ads -->
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<!-- Brave Frontier EXP Calc -->
+						<ins class="adsbygoogle"
+							 style="display:inline-block;width:728px;height:90px"
+							 data-ad-client="ca-pub-1215612485510932"
+							 data-ad-slot="6004914203"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+						<!-- end:Google Ads -->
+					</div>
+				</div>
+				<!-- end:Ads -->
+				<hr />
+				<!-- start:Disqus -->
+				<div class="row">
+					<div class="col-xs-12">
+						<h2>Discussion</h2>
+						<p>Please use this board for discussion, feature feedback, or any other discussions. Please be polite and respect each other :)</p>
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">
+							/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+							var disqus_shortname = 'bf-calc'; // required: replace example with your forum shortname
+
+							/* * * DON'T EDIT BELOW THIS LINE * * */
+							(function() {
+								var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+								dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+								(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+							})();
+						</script>
+						<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+						<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+					</div>
+				</div>
+				<!-- end:Disqus -->
+			</div>
+			
+			
+			<footer class="footer">
+				<div class="row">
+					<div class="col-xs-12">
+						<p align="center">
+							This site is hosted at <a href="http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=hepapatitis" target="_blank" rel="nofollow">HostGator</a>
+							<br />
+							<small>If you register by clicking the link, it will give Referral Point to this site</small>
+						</p>
+					</div>
+				</div>
+			</footer>
+		</div>
+		
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+		
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/select2.js"></script>
+        <script src="js/fastclick.js"></script>
+
+		<script src="js/jquery.countdown.js" type="text/javascript"></script>
+		<!--[if lt IE 9]>
+			<script src="js/respond.js"></script>
+		<![endif]-->
+		<script src="js/jquery.lazyload.min.js"></script>
+        <script src="js/bfc-calc.js"></script>
+        <script src="js/init.js"></script>
+		
+		<script>
+			
+		</script>
 	</body>
 </html>

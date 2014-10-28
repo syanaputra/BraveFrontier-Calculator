@@ -46,6 +46,7 @@ var units = [];
 var units_by_name = [];
 var summoners = [];
 var specific_info_selection = 0;
+var selected_unit_id;
 
 var unit_is_loaded = false;
 
@@ -161,83 +162,281 @@ function calculate()
 			var required_exp = selected_exp_table[target_lv] - current_exp;
 			
 			// Calculate Overall Metal Units needed
-			var m_crystal, m_god, m_king, m_slime;			// Normal
-			var m_crystal_g, m_god_g, m_king_g, m_slime_g;	// Great
-			var m_crystal_s, m_god_s, m_king_s, m_slime_s;	// Super
 			var tmp_m1, tmp_m2, tmp_m3, tmp_m4;
 			
+			// Same Element
+			var sm_crystal, sm_god, sm_king, sm_slime;			// Normal
+			var sm_crystal_g, sm_god_g, sm_king_g, sm_slime_g;	// Great
+			var sm_crystal_s, sm_god_s, sm_king_s, sm_slime_s;	// Super
+			
+			// Excludes
+			var req_sm_crystal_excl, req_sm_god_excl, req_sm_king_excl;
+			var req_sm_crystal_excl_g, req_sm_god_excl_g, req_sm_king_excl_g;
+			var req_sm_crystal_excl_s, req_sm_god_excl_s, req_sm_king_excl_s;
+			
+			req_sm_crystal_excl 	= $("#req_sm_crystal_excl").is(':checked');
+			req_sm_crystal_excl_g	= $("#req_sm_crystal_excl_g").is(':checked');
+			req_sm_crystal_excl_s 	= $("#req_sm_crystal_excl_s").is(':checked');
+			req_sm_god_excl 		= $("#req_sm_god_excl").is(':checked');
+			req_sm_god_excl_g 		= $("#req_sm_god_excl_g").is(':checked');
+			req_sm_god_excl_s 		= $("#req_sm_god_excl_s").is(':checked');
+			req_sm_king_excl 		= $("#req_sm_king_excl").is(':checked');
+			req_sm_king_excl_g 		= $("#req_sm_king_excl_g").is(':checked');
+			req_sm_king_excl_s 		= $("#req_sm_king_excl_s").is(':checked');
+			
 			// Minus with Metal Crystal (NORMAL)
-			m_crystal = Math.floor(required_exp / metal_crystal_same);
-			tmp_m1 = required_exp - (m_crystal * metal_crystal_same);
+			if(req_sm_crystal_excl)
+				sm_crystal = 0;
+			else
+				sm_crystal = Math.floor(required_exp / metal_crystal_same);
 			
-			m_god = Math.floor(tmp_m1 / metal_god_same);
-			tmp_m2 = tmp_m1 - (m_god * metal_god_same);
+			tmp_m1 = required_exp - (sm_crystal * metal_crystal_same);
 			
-			m_king = Math.floor(tmp_m2 / metal_king_same);
-			tmp_m3 = tmp_m2 - (m_king * metal_king_same);
 			
-			m_slime = Math.floor(tmp_m3 / metal_slime_same);
-			tmp_m4 = tmp_m3 - (m_slime * metal_slime_same);
+			if(req_sm_god_excl)
+				sm_god = 0;
+			else
+				sm_god = Math.floor(tmp_m1 / metal_god_same);
+				
+			tmp_m2 = tmp_m1 - (sm_god * metal_god_same);
+			
+			
+			if(req_sm_king_excl)
+				sm_king = 0;
+			else
+				sm_king = Math.floor(tmp_m2 / metal_king_same);
+				
+			tmp_m3 = tmp_m2 - (sm_king * metal_king_same);
+			
+			
+			sm_slime = Math.floor(tmp_m3 / metal_slime_same);
+			tmp_m4 = tmp_m3 - (sm_slime * metal_slime_same);
 			
 			if(tmp_m4 > 0)
-				m_slime++;
+				sm_slime++;
 			
 			
 			// Minus with Metal Crystal (GREAT)
-			m_crystal_g = Math.floor(required_exp / (metal_crystal_same * EXP_GREAT_MODIFIER));
-			tmp_m1 = required_exp - (m_crystal_g * (metal_crystal_same * EXP_GREAT_MODIFIER));
+			if(req_sm_crystal_excl_g)
+				sm_crystal_g = 0;
+			else
+				sm_crystal_g = Math.floor(required_exp / (metal_crystal_same * EXP_GREAT_MODIFIER));
+				
+			tmp_m1 = required_exp - (sm_crystal_g * (metal_crystal_same * EXP_GREAT_MODIFIER));
 			
-			m_god_g = Math.floor(tmp_m1 / (metal_god_same * EXP_GREAT_MODIFIER));
-			tmp_m2 = tmp_m1 - (m_god_g * (metal_god_same * EXP_GREAT_MODIFIER));
 			
-			m_king_g = Math.floor(tmp_m2 / (metal_king_same * EXP_GREAT_MODIFIER));
-			tmp_m3 = tmp_m2 - (m_king_g * (metal_king_same * EXP_GREAT_MODIFIER));
+			if(req_sm_god_excl_g)
+				sm_god_g = 0;
+			else
+				sm_god_g = Math.floor(tmp_m1 / (metal_god_same * EXP_GREAT_MODIFIER));
+				
+			tmp_m2 = tmp_m1 - (sm_god_g * (metal_god_same * EXP_GREAT_MODIFIER));
 			
-			m_slime_g = Math.floor(tmp_m3 / (metal_slime_same * EXP_GREAT_MODIFIER));
-			tmp_m4 = tmp_m3 - (m_slime_g * (metal_slime_same * EXP_GREAT_MODIFIER));
+			
+			if(req_sm_king_excl_g)
+				sm_king_g = 0;
+			else
+				sm_king_g = Math.floor(tmp_m2 / (metal_king_same * EXP_GREAT_MODIFIER));
+			
+			tmp_m3 = tmp_m2 - (sm_king_g * (metal_king_same * EXP_GREAT_MODIFIER));
+			
+			
+			sm_slime_g = Math.floor(tmp_m3 / (metal_slime_same * EXP_GREAT_MODIFIER));
+			tmp_m4 = tmp_m3 - (sm_slime_g * (metal_slime_same * EXP_GREAT_MODIFIER));
 			
 			if(tmp_m4 > 0)
-				m_slime_g++;			
+				sm_slime_g++;			
 			
 			
 			// Minus with Metal Crystal (SUPER)
-			m_crystal_s = Math.floor(required_exp / (metal_crystal_same * EXP_SUPER_MODIFIER));
-			tmp_m1 = required_exp - (m_crystal_s * (metal_crystal_same * EXP_SUPER_MODIFIER));
+			if(req_sm_crystal_excl_s)
+				sm_crystal_s = 0;
+			else
+				sm_crystal_s = Math.floor(required_exp / (metal_crystal_same * EXP_SUPER_MODIFIER));
 			
-			m_god_s = Math.floor(tmp_m1 / (metal_god_same * EXP_SUPER_MODIFIER));
-			tmp_m2 = tmp_m1 - (m_god_s * (metal_god_same * EXP_SUPER_MODIFIER));
+			tmp_m1 = required_exp - (sm_crystal_s * (metal_crystal_same * EXP_SUPER_MODIFIER));
 			
-			m_king_s = Math.floor(tmp_m2 / (metal_king_same * EXP_SUPER_MODIFIER));
-			tmp_m3 = tmp_m2 - (m_king_s * (metal_king_same * EXP_SUPER_MODIFIER));
 			
-			m_slime_s = Math.floor(tmp_m3 / (metal_slime_same * EXP_SUPER_MODIFIER));
-			tmp_m4 = tmp_m3 - (m_slime_s * (metal_slime_same * EXP_SUPER_MODIFIER));
+			if(req_sm_god_excl_s)
+				sm_god_s = 0;
+			else
+				sm_god_s = Math.floor(tmp_m1 / (metal_god_same * EXP_SUPER_MODIFIER));
+			
+			tmp_m2 = tmp_m1 - (sm_god_s * (metal_god_same * EXP_SUPER_MODIFIER));
+			
+			
+			if(req_sm_king_excl_s)
+				sm_king_s = 0;
+			else
+				sm_king_s = Math.floor(tmp_m2 / (metal_king_same * EXP_SUPER_MODIFIER));
+				
+			tmp_m3 = tmp_m2 - (sm_king_s * (metal_king_same * EXP_SUPER_MODIFIER));
+			
+			
+			sm_slime_s = Math.floor(tmp_m3 / (metal_slime_same * EXP_SUPER_MODIFIER));
+			tmp_m4 = tmp_m3 - (sm_slime_s * (metal_slime_same * EXP_SUPER_MODIFIER));
 			
 			if(tmp_m4 > 0)
-				m_slime_g++;	
+				sm_slime_g++;	
 				
 				
 			// Output
-			// -- Req Exp
-			$("#out_required_exp").val(required_exp);
-			
 			// -- Req Metal Units (NORMAL)
-			$("#req_m_crystal").text(m_crystal);
-			$("#req_m_god").text(m_god);
-			$("#req_m_king").text(m_king);
-			$("#req_m_slime").text(m_slime);
+			$("#req_sm_crystal").text(sm_crystal);
+			$("#req_sm_god").text(sm_god);
+			$("#req_sm_king").text(sm_king);
+			$("#req_sm_slime").text(sm_slime);
 			
 			// -- Req Metal Units (GREAT)
-			$("#req_m_crystal_g").text(m_crystal_g);
-			$("#req_m_god_g").text(m_god_g);
-			$("#req_m_king_g").text(m_king_g);
-			$("#req_m_slime_g").text(m_slime_g);
+			$("#req_sm_crystal_g").text(sm_crystal_g);
+			$("#req_sm_god_g").text(sm_god_g);
+			$("#req_sm_king_g").text(sm_king_g);
+			$("#req_sm_slime_g").text(sm_slime_g);
 			
 			// -- Req Metal Units (SUPER)
-			$("#req_m_crystal_s").text(m_crystal_s);
-			$("#req_m_god_s").text(m_god_s);
-			$("#req_m_king_s").text(m_king_s);
-			$("#req_m_slime_s").text(m_slime_s);
+			$("#req_sm_crystal_s").text(sm_crystal_s);
+			$("#req_sm_god_s").text(sm_god_s);
+			$("#req_sm_king_s").text(sm_king_s);
+			$("#req_sm_slime_s").text(sm_slime_s);
+			
+			
+			// Different Element
+			var dm_crystal, dm_god, dm_king, dm_slime;			// Normal
+			var dm_crystal_g, dm_god_g, dm_king_g, dm_slime_g;	// Great
+			var dm_crystal_s, dm_god_s, dm_king_s, dm_slime_s;	// Super
+			
+			// Excludes
+			var req_dm_crystal_excl, req_dm_god_excl, req_dm_king_excl;
+			var req_dm_crystal_excl_g, req_dm_god_excl_g, req_dm_king_excl_g;
+			var req_dm_crystal_excl_s, req_dm_god_excl_s, req_dm_king_excl_s;
+			
+			req_dm_crystal_excl 	= $("#req_dm_crystal_excl").is(':checked');
+			req_dm_crystal_excl_g	= $("#req_dm_crystal_excl_g").is(':checked');
+			req_dm_crystal_excl_s 	= $("#req_dm_crystal_excl_s").is(':checked');
+			req_dm_god_excl 		= $("#req_dm_god_excl").is(':checked');
+			req_dm_god_excl_g 		= $("#req_dm_god_excl_g").is(':checked');
+			req_dm_god_excl_s 		= $("#req_dm_god_excl_s").is(':checked');
+			req_dm_king_excl 		= $("#req_dm_king_excl").is(':checked');
+			req_dm_king_excl_g 		= $("#req_dm_king_excl_g").is(':checked');
+			req_dm_king_excl_s 		= $("#req_dm_king_excl_s").is(':checked');
+			
+			// Minus with Metal Crystal (NORMAL)
+			if(req_dm_crystal_excl)
+				dm_crystal = 0;
+			else
+				dm_crystal = Math.floor(required_exp / metal_crystal);
+			
+			tmp_m1 = required_exp - (dm_crystal * metal_crystal);
+			
+			
+			if(req_dm_god_excl)
+				dm_god = 0;
+			else
+				dm_god = Math.floor(tmp_m1 / metal_god);
+				
+			tmp_m2 = tmp_m1 - (dm_god * metal_god);
+			
+			
+			if(req_dm_king_excl)
+				dm_king = 0;
+			else
+				dm_king = Math.floor(tmp_m2 / metal_king);
+				
+			tmp_m3 = tmp_m2 - (dm_king * metal_king);
+			
+			
+			dm_slime = Math.floor(tmp_m3 / metal_slime);
+			tmp_m4 = tmp_m3 - (dm_slime * metal_slime);
+			
+			if(tmp_m4 > 0)
+				dm_slime++;
+			
+			
+			// Minus with Metal Crystal (GREAT)
+			if(req_dm_crystal_excl_g)
+				dm_crystal_g = 0;
+			else
+				dm_crystal_g = Math.floor(required_exp / (metal_crystal * EXP_GREAT_MODIFIER));
+				
+			tmp_m1 = required_exp - (dm_crystal_g * (metal_crystal * EXP_GREAT_MODIFIER));
+			
+			
+			if(req_dm_god_excl_g)
+				dm_god_g = 0;
+			else
+				dm_god_g = Math.floor(tmp_m1 / (metal_god * EXP_GREAT_MODIFIER));
+				
+			tmp_m2 = tmp_m1 - (dm_god_g * (metal_god * EXP_GREAT_MODIFIER));
+			
+			
+			if(req_dm_king_excl_g)
+				dm_king_g = 0;
+			else
+				dm_king_g = Math.floor(tmp_m2 / (metal_king * EXP_GREAT_MODIFIER));
+			
+			tmp_m3 = tmp_m2 - (dm_king_g * (metal_king * EXP_GREAT_MODIFIER));
+			
+			
+			dm_slime_g = Math.floor(tmp_m3 / (metal_slime * EXP_GREAT_MODIFIER));
+			tmp_m4 = tmp_m3 - (dm_slime_g * (metal_slime * EXP_GREAT_MODIFIER));
+			
+			if(tmp_m4 > 0)
+				dm_slime_g++;			
+			
+			
+			// Minus with Metal Crystal (SUPER)
+			if(req_dm_crystal_excl_s)
+				dm_crystal_s = 0;
+			else
+				dm_crystal_s = Math.floor(required_exp / (metal_crystal * EXP_SUPER_MODIFIER));
+			
+			tmp_m1 = required_exp - (dm_crystal_s * (metal_crystal * EXP_SUPER_MODIFIER));
+			
+			
+			if(req_dm_god_excl_s)
+				dm_god_s = 0;
+			else
+				dm_god_s = Math.floor(tmp_m1 / (metal_god * EXP_SUPER_MODIFIER));
+			
+			tmp_m2 = tmp_m1 - (dm_god_s * (metal_god * EXP_SUPER_MODIFIER));
+			
+			
+			if(req_dm_king_excl_s)
+				dm_king_s = 0;
+			else
+				dm_king_s = Math.floor(tmp_m2 / (metal_king * EXP_SUPER_MODIFIER));
+				
+			tmp_m3 = tmp_m2 - (dm_king_s * (metal_king * EXP_SUPER_MODIFIER));
+			
+			
+			dm_slime_s = Math.floor(tmp_m3 / (metal_slime * EXP_SUPER_MODIFIER));
+			tmp_m4 = tmp_m3 - (dm_slime_s * (metal_slime * EXP_SUPER_MODIFIER));
+			
+			if(tmp_m4 > 0)
+				dm_slime_g++;	
+				
+			
+			// Output
+			// -- Req Metal Units (NORMAL)
+			$("#req_dm_crystal").text(dm_crystal);
+			$("#req_dm_god").text(dm_god);
+			$("#req_dm_king").text(dm_king);
+			$("#req_dm_slime").text(dm_slime);
+			
+			// -- Req Metal Units (GREAT)
+			$("#req_dm_crystal_g").text(dm_crystal_g);
+			$("#req_dm_god_g").text(dm_god_g);
+			$("#req_dm_king_g").text(dm_king_g);
+			$("#req_dm_slime_g").text(dm_slime_g);
+			
+			// -- Req Metal Units (SUPER)
+			$("#req_dm_crystal_s").text(dm_crystal_s);
+			$("#req_dm_god_s").text(dm_god_s);
+			$("#req_dm_king_s").text(dm_king_s);
+			$("#req_dm_slime_s").text(dm_slime_s);
+			
+			// -- Req Exp
+			$("#out_required_exp").val(required_exp);
 		}
 		else
 		{
@@ -361,6 +560,8 @@ function unit_selection($val)
 		}
 	}
 	
+	selected_unit_id = $val.id;
+	
 	switch($val.element.toLowerCase())
 	{
 		default:
@@ -369,36 +570,66 @@ function unit_selection($val)
 			m_image_god 	= "http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png";
 			m_image_king 	= "http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png";
 			m_image_slime 	= "http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png";
+			
+			dm_image_crystal	= "http://img2.wikia.nocookie.net/__cb20140515023629/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_50364.png/42px-Unit_ills_thum_50364.png";
+			dm_image_god 	= "http://img2.wikia.nocookie.net/__cb20140429154658/bravefrontierglobal/images/thumb/3/36/Unit_ills_thum_50204.png/42px-Unit_ills_thum_50204.png";
+			dm_image_king 	= "http://img1.wikia.nocookie.net/__cb20140429154643/bravefrontierglobal/images/thumb/4/4b/Unit_ills_thum_50203.png/42px-Unit_ills_thum_50203.png";
+			dm_image_slime 	= "http://img4.wikia.nocookie.net/__cb20140501161803/bravefrontierglobal/images/thumb/0/0f/Unit_ills_thum_50202.png/42px-Unit_ills_thum_50202.png";
 		break;
 		case "light"	: 
 			m_image_crystal	= "http://img2.wikia.nocookie.net/__cb20140515023629/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_50364.png/42px-Unit_ills_thum_50364.png";
 			m_image_god 	= "http://img2.wikia.nocookie.net/__cb20140429154658/bravefrontierglobal/images/thumb/3/36/Unit_ills_thum_50204.png/42px-Unit_ills_thum_50204.png";
 			m_image_king 	= "http://img1.wikia.nocookie.net/__cb20140429154643/bravefrontierglobal/images/thumb/4/4b/Unit_ills_thum_50203.png/42px-Unit_ills_thum_50203.png";
 			m_image_slime 	= "http://img4.wikia.nocookie.net/__cb20140501161803/bravefrontierglobal/images/thumb/0/0f/Unit_ills_thum_50202.png/42px-Unit_ills_thum_50202.png";
+			
+			dm_image_crystal	= "http://img4.wikia.nocookie.net/__cb20140515024216/bravefrontierglobal/images/thumb/9/92/Unit_ills_thum_10344.png/42px-Unit_ills_thum_10344.png";
+			dm_image_god 	= "http://img2.wikia.nocookie.net/__cb20140320100554/bravefrontierglobal/images/thumb/0/0d/Unit_ills_thum_10204.png/42px-Unit_ills_thum_10204.png";
+			dm_image_king 	= "http://img3.wikia.nocookie.net/__cb20140320100538/bravefrontierglobal/images/thumb/e/e0/Unit_ills_thum_10203.png/42px-Unit_ills_thum_10203.png";
+			dm_image_slime 	= "http://img1.wikia.nocookie.net/__cb20140320100516/bravefrontierglobal/images/thumb/1/1e/Unit_ills_thum_10202.png/42px-Unit_ills_thum_10202.png";
 		break;
 		case "fire"		:
 			m_image_crystal	= "http://img4.wikia.nocookie.net/__cb20140515024216/bravefrontierglobal/images/thumb/9/92/Unit_ills_thum_10344.png/42px-Unit_ills_thum_10344.png";
 			m_image_god 	= "http://img2.wikia.nocookie.net/__cb20140320100554/bravefrontierglobal/images/thumb/0/0d/Unit_ills_thum_10204.png/42px-Unit_ills_thum_10204.png";
 			m_image_king 	= "http://img3.wikia.nocookie.net/__cb20140320100538/bravefrontierglobal/images/thumb/e/e0/Unit_ills_thum_10203.png/42px-Unit_ills_thum_10203.png";
 			m_image_slime 	= "http://img1.wikia.nocookie.net/__cb20140320100516/bravefrontierglobal/images/thumb/1/1e/Unit_ills_thum_10202.png/42px-Unit_ills_thum_10202.png";
+			
+			dm_image_crystal	= "http://img3.wikia.nocookie.net/__cb20140515024130/bravefrontierglobal/images/thumb/1/10/Unit_ills_thum_20334.png/42px-Unit_ills_thum_20334.png";
+			dm_image_god 	= "http://img4.wikia.nocookie.net/__cb20140320101057/bravefrontierglobal/images/thumb/f/f0/Unit_ills_thum_20204.png/42px-Unit_ills_thum_20204.png";
+			dm_image_king 	= "http://img2.wikia.nocookie.net/__cb20140320101045/bravefrontierglobal/images/thumb/a/a0/Unit_ills_thum_20203.png/42px-Unit_ills_thum_20203.png";
+			dm_image_slime 	= "http://img2.wikia.nocookie.net/__cb20140320101031/bravefrontierglobal/images/thumb/f/f8/Unit_ills_thum_20202.png/42px-Unit_ills_thum_20202.png";
 		break;
 		case "water"	: 
 			m_image_crystal	= "http://img3.wikia.nocookie.net/__cb20140515024130/bravefrontierglobal/images/thumb/1/10/Unit_ills_thum_20334.png/42px-Unit_ills_thum_20334.png";
 			m_image_god 	= "http://img4.wikia.nocookie.net/__cb20140320101057/bravefrontierglobal/images/thumb/f/f0/Unit_ills_thum_20204.png/42px-Unit_ills_thum_20204.png";
 			m_image_king 	= "http://img2.wikia.nocookie.net/__cb20140320101045/bravefrontierglobal/images/thumb/a/a0/Unit_ills_thum_20203.png/42px-Unit_ills_thum_20203.png";
 			m_image_slime 	= "http://img2.wikia.nocookie.net/__cb20140320101031/bravefrontierglobal/images/thumb/f/f8/Unit_ills_thum_20202.png/42px-Unit_ills_thum_20202.png";
+			
+			dm_image_crystal	= "http://img2.wikia.nocookie.net/__cb20140515023803/bravefrontierglobal/images/thumb/a/aa/Unit_ills_thum_40324.png/42px-Unit_ills_thum_40324.png";
+			dm_image_god 	= "http://img1.wikia.nocookie.net/__cb20140429173742/bravefrontierglobal/images/thumb/f/f6/Unit_ills_thum_40204.png/42px-Unit_ills_thum_40204.png";
+			dm_image_king 	= "http://img2.wikia.nocookie.net/__cb20140429173919/bravefrontierglobal/images/thumb/5/5f/Unit_ills_thum_40203.png/42px-Unit_ills_thum_40203.png";
+			dm_image_slime 	= "http://img3.wikia.nocookie.net/__cb20140429173600/bravefrontierglobal/images/thumb/3/37/Unit_ills_thum_40202.png/42px-Unit_ills_thum_40202.png";
 		break;
 		case "thunder"	: 
 			m_image_crystal	= "http://img2.wikia.nocookie.net/__cb20140515023803/bravefrontierglobal/images/thumb/a/aa/Unit_ills_thum_40324.png/42px-Unit_ills_thum_40324.png";
 			m_image_god 	= "http://img1.wikia.nocookie.net/__cb20140429173742/bravefrontierglobal/images/thumb/f/f6/Unit_ills_thum_40204.png/42px-Unit_ills_thum_40204.png";
 			m_image_king 	= "http://img2.wikia.nocookie.net/__cb20140429173919/bravefrontierglobal/images/thumb/5/5f/Unit_ills_thum_40203.png/42px-Unit_ills_thum_40203.png";
 			m_image_slime 	= "http://img3.wikia.nocookie.net/__cb20140429173600/bravefrontierglobal/images/thumb/3/37/Unit_ills_thum_40202.png/42px-Unit_ills_thum_40202.png";
+		
+			dm_image_crystal	= "http://img3.wikia.nocookie.net/__cb20140515023825/bravefrontierglobal/images/thumb/b/bb/Unit_ills_thum_30324.png/42px-Unit_ills_thum_30324.png";
+			dm_image_god 	= "http://img2.wikia.nocookie.net/__cb20140429161050/bravefrontierglobal/images/thumb/8/8b/Unit_ills_thum_30204.png/42px-Unit_ills_thum_30204.png";
+			dm_image_king 	= "http://img1.wikia.nocookie.net/__cb20140429161046/bravefrontierglobal/images/thumb/1/1d/Unit_ills_thum_30203.png/42px-Unit_ills_thum_30203.png";
+			dm_image_slime 	= "http://img1.wikia.nocookie.net/__cb20140429161036/bravefrontierglobal/images/thumb/6/63/Unit_ills_thum_30202.png/42px-Unit_ills_thum_30202.png";
 		break;
 		case "earth"	: 
 			m_image_crystal	= "http://img3.wikia.nocookie.net/__cb20140515023825/bravefrontierglobal/images/thumb/b/bb/Unit_ills_thum_30324.png/42px-Unit_ills_thum_30324.png";
 			m_image_god 	= "http://img2.wikia.nocookie.net/__cb20140429161050/bravefrontierglobal/images/thumb/8/8b/Unit_ills_thum_30204.png/42px-Unit_ills_thum_30204.png";
 			m_image_king 	= "http://img1.wikia.nocookie.net/__cb20140429161046/bravefrontierglobal/images/thumb/1/1d/Unit_ills_thum_30203.png/42px-Unit_ills_thum_30203.png";
 			m_image_slime 	= "http://img1.wikia.nocookie.net/__cb20140429161036/bravefrontierglobal/images/thumb/6/63/Unit_ills_thum_30202.png/42px-Unit_ills_thum_30202.png";
+			
+			dm_image_crystal	= "http://img2.wikia.nocookie.net/__cb20140515024407/bravefrontierglobal/images/thumb/7/77/Unit_ills_thum_60334.png/42px-Unit_ills_thum_60334.png";
+			dm_image_god 	= "http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png";
+			dm_image_king 	= "http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png";
+			dm_image_slime 	= "http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png";
 		break;
 	}
 	
@@ -406,6 +637,11 @@ function unit_selection($val)
 	$(".r_m_god").attr("src",m_image_god);
 	$(".r_m_king").attr("src",m_image_king);
 	$(".r_m_slime").attr("src",m_image_slime);
+	
+	$(".dr_m_crystal").attr("src",dm_image_crystal);
+	$(".dr_m_god").attr("src",dm_image_god);
+	$(".dr_m_king").attr("src",dm_image_king);
+	$(".dr_m_slime").attr("src",dm_image_slime);
 	
 	$("#max_lv").text(max_lv);
 }
@@ -758,6 +994,7 @@ function tu_add($id) {
 		dream_teams[dream_teams_idx] = $id;
 		dream_teams_idx++;
 		tu_team_refresh();
+		
 	}
 }
 
@@ -804,6 +1041,7 @@ function tu_units_refresh() {
 		tmp += get_unit_html(i, "add");
 	}
 	$("#tu-unit-list").html(tmp);
+	
 }
 
 function tu_init_empty() {
@@ -817,6 +1055,7 @@ function tu_init_empty() {
 
 function get_unit_html($id, $action, $param) {
 	var onclick_action = "";
+	var html = "";
 	
 	if($action == "add")
 		onclick_action = "tu_add("+$id+")";
@@ -826,7 +1065,10 @@ function get_unit_html($id, $action, $param) {
 	if(units[$id].icon == null)
 		units[$id].icon = 'http://img3.wikia.nocookie.net/__cb20140402135350/bravefrontierglobal/images/thumb/9/9b/Unit_ills_thum_00000.png/42px-Unit_ills_thum_00000.png';
 	
-	return '<div class="tu-unit" onclick="'+onclick_action+'"><img src="'+units[$id].icon+'" /><span class="tu-title">'+units[$id].name+'</span><span class="tu-element hidden">'+units[$id].element+'</span><span class="tu-cost">Cost: <strong>'+units[$id].cost+'</strong></span></div>';
+	if($action == "remove")
+		return '<div class="tu-unit" onclick="'+onclick_action+'"><img class="lazy" src="'+units[$id].icon+'" /><span class="tu-title">'+units[$id].name+'</span><span class="tu-element hidden">'+units[$id].element+'</span><span class="tu-cost">Cost: <strong>'+units[$id].cost+'</strong></span></div>';
+	else
+		return '<div class="tu-unit" onclick="'+onclick_action+'"><img class="lazy" src="http://img3.wikia.nocookie.net/__cb20140402135350/bravefrontierglobal/images/thumb/9/9b/Unit_ills_thum_00000.png/42px-Unit_ills_thum_00000.png" data-original="'+units[$id].icon+'" /><span class="tu-title">'+units[$id].name+'</span><span class="tu-element hidden">'+units[$id].element+'</span><span class="tu-cost">Cost: <strong>'+units[$id].cost+'</strong></span></div>';
 }
 
 function get_empty_unit_html() {
@@ -875,6 +1117,35 @@ function init_units()
 			init_contributor_unit();
 			tu_team_refresh();
 			
+			// Process Daily Vortex & Key Time
+			/*
+			$('#daily-vortex-countdown').countdown({
+				date: json_data.daily_vortex,
+				startDate: json_data.current_date_time,
+				render: function(date) {
+					return $(this.el).html("<span class='c-field'><span class='c-number'>" + date.days + "</span> days</span><span class='c-field'><span class='c-number'>" + (this.leadingZeros(date.hours)) + "</span> hours</span><span class='c-field'><span class='c-number'>" + (this.leadingZeros(date.min)) + "</span> min</span><span class='c-field'><span class='c-number'>" + (this.leadingZeros(date.sec)) + "</span> sec</span>");
+				}
+			});
+			*/
+			$('#vortex-image').html("<img src='images/daily-events/"+json_data.daily_vortex_type+".png' class='img-responsive' />");
+			/*
+			$('#daily-key-countdown').countdown({
+				date: json_data.daily_key,
+				startDate: json_data.current_date_time,
+				render: function(date) {
+					return $(this.el).html("<span class='c-field'><span class='c-number'>" + date.days + "</span> days</span><span class='c-field'><span class='c-number'>" + (this.leadingZeros(date.hours)) + "</span> hours</span><span class='c-field'><span class='c-number'>" + (this.leadingZeros(date.min)) + "</span> min</span><span class='c-field'><span class='c-number'>" + (this.leadingZeros(date.sec)) + "</span> sec</span>");
+				}
+			});
+			*/
+			if(json_data.daily_key_type != "")
+				$('#daily-key-image').html("<img src='images/"+json_data.daily_key_type+"-key.png' class='img-responsive' />");
+			else
+				$('#daily-key-image').html("<strong>No Key for today</strong>");
+			
+			$("img.lazy").lazyload({
+				container: $("#tu-unit-list"),
+			});
+			
 			window.clearInterval(timer_looker);
 		}
 	},200);
@@ -882,7 +1153,7 @@ function init_units()
 
 function init_summoners()
 {
-	var json_data = {"d":[{"level":1,"cost":15},{"level":2,"cost":16},{"level":3,"cost":17},{"level":4,"cost":18},{"level":5,"cost":19},{"level":6,"cost":20},{"level":7,"cost":20},{"level":8,"cost":21},{"level":9,"cost":21},{"level":10,"cost":26},{"level":11,"cost":26},{"level":12,"cost":27},{"level":13,"cost":27},{"level":14,"cost":28},{"level":15,"cost":28},{"level":16,"cost":29},{"level":17,"cost":29},{"level":18,"cost":30},{"level":19,"cost":30},{"level":20,"cost":35},{"level":21,"cost":35},{"level":22,"cost":36},{"level":23,"cost":36},{"level":24,"cost":37},{"level":25,"cost":37},{"level":26,"cost":38},{"level":27,"cost":38},{"level":28,"cost":39},{"level":29,"cost":39},{"level":30,"cost":44},{"level":31,"cost":44},{"level":32,"cost":45},{"level":33,"cost":45},{"level":34,"cost":46},{"level":35,"cost":46},{"level":36,"cost":47},{"level":37,"cost":47},{"level":38,"cost":48},{"level":39,"cost":48},{"level":40,"cost":53},{"level":41,"cost":53},{"level":42,"cost":54},{"level":43,"cost":54},{"level":44,"cost":55},{"level":45,"cost":55},{"level":46,"cost":56},{"level":47,"cost":56},{"level":48,"cost":57},{"level":49,"cost":57},{"level":50,"cost":62},{"level":51,"cost":62},{"level":52,"cost":63},{"level":53,"cost":63},{"level":54,"cost":64},{"level":55,"cost":64},{"level":56,"cost":65},{"level":57,"cost":65},{"level":58,"cost":66},{"level":59,"cost":66},{"level":60,"cost":71},{"level":61,"cost":71},{"level":62,"cost":72},{"level":63,"cost":72},{"level":64,"cost":73},{"level":65,"cost":73},{"level":66,"cost":74},{"level":67,"cost":74},{"level":68,"cost":75},{"level":69,"cost":75},{"level":70,"cost":80},{"level":71,"cost":80},{"level":72,"cost":81},{"level":73,"cost":81},{"level":74,"cost":82},{"level":75,"cost":82},{"level":76,"cost":83},{"level":77,"cost":83},{"level":78,"cost":84},{"level":79,"cost":84},{"level":80,"cost":89},{"level":81,"cost":89},{"level":82,"cost":90},{"level":83,"cost":90},{"level":84,"cost":91},{"level":85,"cost":91},{"level":86,"cost":92},{"level":87,"cost":92},{"level":88,"cost":93},{"level":89,"cost":93},{"level":90,"cost":99},{"level":91,"cost":99},{"level":92,"cost":100},{"level":93,"cost":100},{"level":94,"cost":101},{"level":95,"cost":101},{"level":96,"cost":102},{"level":97,"cost":102},{"level":98,"cost":103},{"level":99,"cost":103},{"level":100,"cost":109},{"level":101,"cost":109},{"level":102,"cost":110},{"level":103,"cost":111},{"level":104,"cost":111},{"level":105,"cost":112},{"level":106,"cost":113},{"level":107,"cost":113},{"level":108,"cost":114},{"level":109,"cost":115},{"level":110,"cost":115},{"level":111,"cost":116},{"level":112,"cost":117},{"level":113,"cost":117},{"level":114,"cost":118},{"level":115,"cost":119},{"level":116,"cost":119},{"level":117,"cost":120},{"level":118,"cost":121},{"level":119,"cost":121},{"level":120,"cost":122},{"level":121,"cost":123},{"level":122,"cost":123},{"level":123,"cost":124},{"level":124,"cost":125},{"level":125,"cost":125},{"level":126,"cost":126},{"level":127,"cost":127},{"level":128,"cost":127},{"level":129,"cost":128},{"level":130,"cost":129},{"level":131,"cost":129},{"level":132,"cost":130},{"level":133,"cost":131},{"level":134,"cost":131},{"level":135,"cost":132},{"level":136,"cost":133},{"level":137,"cost":133},{"level":138,"cost":134},{"level":138,"cost":135},{"level":139,"cost":135},{"level":140,"cost":135},{"level":141,"cost":136},{"level":142,"cost":137},{"level":143,"cost":137},{"level":144,"cost":138},{"level":145,"cost":139},{"level":146,"cost":139},{"level":147,"cost":140},{"level":148,"cost":141},{"level":149,"cost":141},{"level":150,"cost":142},{"level":151,"cost":143},{"level":152,"cost":143},{"level":153,"cost":144},{"level":154,"cost":145},{"level":155,"cost":145},{"level":156,"cost":146},{"level":157,"cost":147},{"level":158,"cost":147},{"level":159,"cost":148},{"level":160,"cost":149},{"level":161,"cost":149},{"level":162,"cost":150},{"level":163,"cost":151},{"level":164,"cost":151},{"level":165,"cost":152},{"level":166,"cost":153},{"level":167,"cost":153},{"level":168,"cost":154},{"level":169,"cost":155},{"level":170,"cost":155},{"level":171,"cost":156},{"level":172,"cost":157},{"level":173,"cost":157},{"level":174,"cost":158},{"level":175,"cost":159},{"level":176,"cost":159},{"level":177,"cost":160},{"level":178,"cost":161},{"level":179,"cost":161},{"level":180,"cost":162},{"level":181,"cost":163},{"level":182,"cost":163},{"level":183,"cost":164},{"level":184,"cost":165},{"level":185,"cost":165},{"level":186,"cost":166},{"level":187,"cost":167},{"level":188,"cost":167},{"level":189,"cost":168},{"level":190,"cost":169},{"level":191,"cost":169},{"level":192,"cost":170},{"level":193,"cost":171},{"level":194,"cost":171},{"level":195,"cost":172},{"level":196,"cost":173},{"level":197,"cost":173},{"level":198,"cost":174},{"level":199,"cost":175},{"level":200,"cost":175}]};
+	var json_data = {"d":[{"level":1,"cost":30},{"level":2,"cost":31},{"level":3,"cost":32},{"level":4,"cost":33},{"level":5,"cost":34},{"level":6,"cost":35},{"level":7,"cost":35},{"level":8,"cost":36},{"level":9,"cost":36},{"level":10,"cost":41},{"level":11,"cost":41},{"level":12,"cost":42},{"level":13,"cost":42},{"level":14,"cost":43},{"level":15,"cost":43},{"level":16,"cost":44},{"level":17,"cost":44},{"level":18,"cost":45},{"level":19,"cost":45},{"level":20,"cost":50},{"level":21,"cost":50},{"level":22,"cost":51},{"level":23,"cost":51},{"level":24,"cost":52},{"level":25,"cost":52},{"level":26,"cost":53},{"level":27,"cost":53},{"level":28,"cost":54},{"level":29,"cost":54},{"level":30,"cost":59},{"level":31,"cost":59},{"level":32,"cost":60},{"level":33,"cost":60},{"level":34,"cost":61},{"level":35,"cost":61},{"level":36,"cost":62},{"level":37,"cost":62},{"level":38,"cost":63},{"level":39,"cost":63},{"level":40,"cost":68},{"level":41,"cost":68},{"level":42,"cost":69},{"level":43,"cost":69},{"level":44,"cost":70},{"level":45,"cost":70},{"level":46,"cost":71},{"level":47,"cost":71},{"level":48,"cost":72},{"level":49,"cost":72},{"level":50,"cost":77},{"level":51,"cost":77},{"level":52,"cost":78},{"level":53,"cost":78},{"level":54,"cost":79},{"level":55,"cost":79},{"level":56,"cost":80},{"level":57,"cost":80},{"level":58,"cost":81},{"level":59,"cost":81},{"level":60,"cost":86},{"level":61,"cost":86},{"level":62,"cost":87},{"level":63,"cost":87},{"level":64,"cost":88},{"level":65,"cost":88},{"level":66,"cost":89},{"level":67,"cost":89},{"level":68,"cost":90},{"level":69,"cost":90},{"level":70,"cost":95},{"level":71,"cost":95},{"level":72,"cost":96},{"level":73,"cost":96},{"level":74,"cost":97},{"level":75,"cost":97},{"level":76,"cost":98},{"level":77,"cost":98},{"level":78,"cost":99},{"level":79,"cost":99},{"level":80,"cost":104},{"level":81,"cost":104},{"level":82,"cost":105},{"level":83,"cost":105},{"level":84,"cost":106},{"level":85,"cost":106},{"level":86,"cost":107},{"level":87,"cost":107},{"level":88,"cost":108},{"level":89,"cost":108},{"level":90,"cost":114},{"level":91,"cost":114},{"level":92,"cost":115},{"level":93,"cost":115},{"level":94,"cost":116},{"level":95,"cost":116},{"level":96,"cost":117},{"level":97,"cost":117},{"level":98,"cost":118},{"level":99,"cost":118},{"level":100,"cost":124},{"level":101,"cost":124},{"level":102,"cost":125},{"level":103,"cost":126},{"level":104,"cost":126},{"level":105,"cost":127},{"level":106,"cost":128},{"level":107,"cost":128},{"level":108,"cost":129},{"level":109,"cost":130},{"level":110,"cost":130},{"level":111,"cost":131},{"level":112,"cost":132},{"level":113,"cost":132},{"level":114,"cost":133},{"level":115,"cost":134},{"level":116,"cost":134},{"level":117,"cost":135},{"level":118,"cost":136},{"level":119,"cost":136},{"level":120,"cost":137},{"level":121,"cost":138},{"level":122,"cost":138},{"level":123,"cost":139},{"level":124,"cost":140},{"level":125,"cost":140},{"level":126,"cost":141},{"level":127,"cost":142},{"level":128,"cost":142},{"level":129,"cost":143},{"level":130,"cost":144},{"level":131,"cost":144},{"level":132,"cost":145},{"level":133,"cost":146},{"level":134,"cost":146},{"level":135,"cost":147},{"level":136,"cost":148},{"level":137,"cost":148},{"level":138,"cost":149},{"level":138,"cost":150},{"level":139,"cost":150},{"level":140,"cost":150},{"level":141,"cost":151},{"level":142,"cost":152},{"level":143,"cost":152},{"level":144,"cost":153},{"level":145,"cost":154},{"level":146,"cost":154},{"level":147,"cost":155},{"level":148,"cost":156},{"level":149,"cost":156},{"level":150,"cost":157},{"level":151,"cost":158},{"level":152,"cost":158},{"level":153,"cost":159},{"level":154,"cost":160},{"level":155,"cost":160},{"level":156,"cost":161},{"level":157,"cost":162},{"level":158,"cost":162},{"level":159,"cost":163},{"level":160,"cost":164},{"level":161,"cost":164},{"level":162,"cost":165},{"level":163,"cost":166},{"level":164,"cost":166},{"level":165,"cost":167},{"level":166,"cost":168},{"level":167,"cost":168},{"level":168,"cost":169},{"level":169,"cost":170},{"level":170,"cost":170},{"level":171,"cost":171},{"level":172,"cost":172},{"level":173,"cost":172},{"level":174,"cost":173},{"level":175,"cost":174},{"level":176,"cost":174},{"level":177,"cost":175},{"level":178,"cost":176},{"level":179,"cost":176},{"level":180,"cost":177},{"level":181,"cost":178},{"level":182,"cost":178},{"level":183,"cost":179},{"level":184,"cost":180},{"level":185,"cost":180},{"level":186,"cost":181},{"level":187,"cost":182},{"level":188,"cost":182},{"level":189,"cost":183},{"level":190,"cost":184},{"level":191,"cost":184},{"level":192,"cost":185},{"level":193,"cost":186},{"level":194,"cost":186},{"level":195,"cost":187},{"level":196,"cost":188},{"level":197,"cost":188},{"level":198,"cost":189},{"level":199,"cost":190},{"level":200,"cost":190}]};
 	if(typeof json_data != "undefined")
 	{
 		var d = json_data.d;

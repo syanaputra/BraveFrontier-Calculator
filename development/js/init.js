@@ -28,7 +28,6 @@ $(function() {
 	load_contribution();
 	
 	// Improve mobile experience by auto closing the menu after click
-	
 	var hash = window.location.hash;
 	hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 	
@@ -39,5 +38,9 @@ $(function() {
 		
 		window.location.hash = this.hash;
 		$("html, body").animate({ scrollTop: ($(".navbar-header").height() + 15) });
+		
+		if (typeof ga !== "undefined" && ga !== null) {
+			ga('send', 'event', 'Navigation', 'Click', this.hash);
+		}
     });
 });
