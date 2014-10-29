@@ -51,9 +51,7 @@
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		  ga('create', 'UA-48006628-3', 'bf-calc.com');
-		  ga('require', 'linkid', 'linkid.js');
-		  ga('require', 'displayfeatures');
+		  ga('create', 'UA-48006628-3', 'auto');
 		  ga('send', 'pageview');
 		</script>
 			
@@ -378,25 +376,16 @@
 									<form class="form-horizontal" role="form" action="javascript:calculate()">
 										<h2>Basic Information</h2>
 										<p>Fill in your unit information. If you cannot find the specified unit, please use the Type 1, Type 2, Type 3 as alternatives.</p>
-										<!--
-										<h3>EXP Calc History</h3>
-										<div id="last_units" class="last_units">
-											<a id="unit_1" class="last_unit" href="javascript:void(0)" onclick="load_data(1)">
-												<div class="last_unit_img"><img src="http://img3.wikia.nocookie.net/__cb20131008160641/bravefrontierglobal/images/thumb/f/f4/Unit_ills_thum_10011.png/42px-Unit_ills_thum_10011.png"></div>
-												<div class="last_unit_name">Fire Vargas <span>Lv 1</span></div>
-											</a>
-											<a id="unit_2" class="last_unit" href="javascript:void(0)" onclick="load_data(2)">
-												<div class="last_unit_img"><img src="http://img3.wikia.nocookie.net/__cb20131008160641/bravefrontierglobal/images/thumb/f/f4/Unit_ills_thum_10011.png/42px-Unit_ills_thum_10011.png"></div>
-												<div class="last_unit_name">Fire Vargas <span>Lv 5</span></div>
-											</a>
-										</div>
-										
-										<hr />
-										-->
 										<div class="form-group">
 											<label for="unit-to-level" class="col-sm-3 control-label">Search Unit</label>
 											<div class="col-sm-9">
-												<input type="text" class="form-control" id="unit-to-level" required>
+												<!-- Button trigger modal -->
+												<div class="selected_unit" id="selected_unit">
+													<em class="text-center">No Unit is selected</em>
+												</div>
+												<button class="btn btn-default btn-block" type="button" data-toggle="modal" data-target="#unitSelectionModal">
+													Select Unit
+												</button>
 												<ul class="help-block">
 													<li><strong>Type 1:</strong> Initial Next LV value of 10</li>
 													<li><strong>Type 2:</strong> Initial Next LV value of 15</li>
@@ -404,22 +393,6 @@
 												</ul>
 											</div>
 										</div>
-											<!-- <div class="col-sm-9"> -->
-											<!-- 	<div class="unit-selection-container"> -->
-											<!-- 		<div id="us_1" class="unit-selection active" onclick="unit_selection('1')"> -->
-											<!-- 			<div>Type 1</div> -->
-											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 10</div> -->
-											<!-- 		</div> -->
-											<!-- 		<div id="us_2" class="unit-selection" onclick="unit_selection('2')"> -->
-											<!-- 			<div>Type 2</div> -->
-											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 15</div> -->
-											<!-- 		</div> -->
-											<!-- 		<div id="us_3" class="unit-selection" onclick="unit_selection('3')"> -->
-											<!-- 			<div>Type 3</div> -->
-											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 21</div> -->
-											<!-- 		</div> -->
-											<!-- 	</div> -->
-											<!-- </div> -->
 										<div class="form-group">
 											<label for="current_lv" class="col-sm-3 control-label">Current Lv</label>
 											<div class="col-sm-9">
@@ -466,7 +439,7 @@
 											</div>
 											<div class="form-group">
 												<div class="col-sm-offset-3 col-sm-9">
-													<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+													<button type="submit" class="btn btn-primary btn-block">Calculate</button>
 												</div>
 											</div>
 											<hr />
@@ -907,12 +880,45 @@
 			</div>
 		</div>
 		
-		
+		<!-- Modal -->
+		<div class="modal fade" id="unitSelectionModal" tabindex="-1" role="dialog" aria-labelledby="unitSelectionModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="unitSelectionModalLabel">Select Unit</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-xs-8">
+								<label for="us-search">Search Unit</label>
+								<input type="text" class="form-control" name="us-search" id="us-search" placeholder="Unit Name" onkeyup="us_search()" />
+							</div>
+							<div class="col-xs-4">
+								<label for="us-search">Element</label>
+								<select class="form-control" name="us-search-element" id="us-search-element" onchange="us_search()">
+									<option value="" selected="selected">All</option>
+									<option value="Fire">Fire</option>
+									<option value="Water">Water</option>
+									<option value="Thunder">Thunder</option>
+									<option value="Earth">Earth</option>
+									<option value="Light">Light</option>
+									<option value="Dark">Dark</option>
+								</select>
+							</div>
+						</div>
+						<div class="tu-units-container" id="unit-list-selectable">
+							<div class="data-loading">Loading...</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 		
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/select2.js"></script>
         <script src="js/fastclick.js"></script>
 		
 		<!--[if lt IE 9]>

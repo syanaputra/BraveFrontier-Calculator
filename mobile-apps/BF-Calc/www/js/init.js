@@ -47,4 +47,10 @@ $(function() {
 			ga('send', 'event', 'Navigation', 'Click', this.hash);
 		}
 	});
+	
+	$('a[href*="http://"]').click(function(event) {
+		event.preventDefault();
+		intel.xdk.device.launchExternal($(this).attr("href"));
+		return false;
+	});
 });

@@ -46,6 +46,7 @@
 	var dream_teams_idx = 0;
 	var dream_teams_cost = 0;
 	var dream_teams_max_unit = 5;
+	var exp_table_units = [];
 	var units = [];
 	var units_by_name = [];
 	var summoners = [];
@@ -73,7 +74,13 @@
 	var jewel_god 			= 50000;
 	var jewel_king 			= 20000;
 	var jewel_ghost 		= 7000;
-
+	
+	// jQuery Variables for quick cache
+	$unitSelectionModal = $('#unitSelectionModal');
+	$exp_table = $('exp_table');
+	$calc_selection = $('#calc_selection');
+	$selected_unit = $('#selected_unit');
+	
 	function metal_exp()
 	{
 		var total_exp = 0, total_exp_great = 0, total_exp_super = 0;
@@ -128,7 +135,7 @@
 	function calculate()
 	{
 		// Which calculation are we doing?
-		var calc_type = $("#calc_selection").val();
+		var calc_type = $calc_selection.val();
 		
 		var exp_table = exp_table_selected;
 		var current_lv = $("#current_lv").val();
@@ -519,7 +526,7 @@
 	function change_max_lv()
 	{
 		var max_lv = "";
-		switch($("#exp_table").val())
+		switch($exp_table.val())
 		{
 			case "1": max_lv = "100"; break;
 			case "2": max_lv = "80"; break;
@@ -530,23 +537,39 @@
 		$("#current_lv").attr("max",max_lv);
 		$("#target_lv").attr("max",max_lv);
 	}
-
-	function unit_selection($val)
+	
+	function us_select_unit($id)
 	{
+		unit_selection(exp_table_units[$id]);
+		$selected_unit.html('<img src="'+exp_table_units[$id].icon+'" /> ' + exp_table_units[$id].name);
+		$unitSelectionModal.modal('hide');
+	}
+	
+	function unit_selection($val, $is_using_id)
+	{
+		// Set Default
+		$is_using_id = typeof $is_using_id !== 'undefined' ? $is_using_id : false;
+		
 		var max_lv = "";
 		var $cur_lv = $("#current_lv");
 		var $tar_lv = $("#target_lv");
 		var cur_lv = parseInt($cur_lv.val());
 		var tar_lv = parseInt($tar_lv.val());
 		var m_image = "";
+		var unit;
 		
-		if(typeof($val.max_lv) == "undefined")
+		if($is_using_id == true)
+			unit = units[$val];
+		else
+			unit = $val;
+		
+		if(typeof(unit.max_lv) == "undefined")
 		{
 			max_lv = "???";
 		}
 		else
 		{
-			max_lv = $val.max_lv;
+			max_lv = unit.max_lv;
 		
 			$cur_lv.attr("max",max_lv);
 			$tar_lv.attr("max",max_lv);
@@ -557,16 +580,16 @@
 			if(tar_lv > max_lv)
 				$tar_lv.val(max_lv);
 			
-			exp_table_selected = $val.exp_table;
+			exp_table_selected = unit.exp_table;
 			
 			if(specific_info_selection == 0) {
 				$tar_lv.val(max_lv);
 			}
 		}
 		
-		selected_unit_id = $val.id;
+		selected_unit_id = unit.id;
 		
-		switch($val.element.toLowerCase())
+		switch(unit.element.toLowerCase())
 		{
 			default:
 			case "dark"		:
@@ -654,7 +677,7 @@
 	{
 		$("#calc_selection_1").hide();
 		$("#calc_selection_2").hide();
-		switch($("#calc_selection").val())
+		switch($calc_selection.val())
 		{
 			case "0":
 				$("#calc_selection_1").show();
@@ -991,6 +1014,20 @@
 			}
 		});
 	}
+	
+	function us_search() {
+		var tu_query = $("#us-search").val();
+		var tu_element = $("#us-search-element").val();
+		$("#unit-list-selectable").children().hide();
+		$('#unit-list-selectable .tu-title').each(function(){
+			if($(this).text().toUpperCase().indexOf(tu_query.toUpperCase()) != -1){
+				if($(this).parent().children(".tu-element").text().toUpperCase().indexOf(tu_element.toUpperCase()) != -1)
+				{
+					$(this).parent().show();
+				}
+			}
+		});
+	}
 
 	function tu_add($id) {
 		if(dream_teams_idx < dream_teams_max_unit)
@@ -1047,6 +1084,16 @@
 		$("#tu-unit-list").html(tmp);
 		
 	}
+	
+	function select_unit_refresh() {
+		var tmp = "";
+		for(var i=0; i<exp_table_units.length; i++)
+		{
+			tmp += get_unit_selection_html(i);
+		}
+		$("#unit-list-selectable").html(tmp);
+		
+	}
 
 	function tu_init_empty() {
 		var tmp = "";
@@ -1073,6 +1120,16 @@
 			return '<div class="tu-unit" onclick="'+onclick_action+'"><img class="lazy" src="'+units[$id].icon+'" /><span class="tu-title">'+units[$id].name+'</span><span class="tu-element hidden">'+units[$id].element+'</span><span class="tu-cost">Cost: <strong>'+units[$id].cost+'</strong></span></div>';
 		else
 			return '<div class="tu-unit" onclick="'+onclick_action+'"><img class="lazy" src="http://img3.wikia.nocookie.net/__cb20140402135350/bravefrontierglobal/images/thumb/9/9b/Unit_ills_thum_00000.png/42px-Unit_ills_thum_00000.png" data-original="'+units[$id].icon+'" /><span class="tu-title">'+units[$id].name+'</span><span class="tu-element hidden">'+units[$id].element+'</span><span class="tu-cost">Cost: <strong>'+units[$id].cost+'</strong></span></div>';
+	}
+	
+	function get_unit_selection_html($id) {
+		var onclick_action = "us_select_unit("+$id+")";
+		var html = "";
+		
+		if(exp_table_units[$id].icon == null)
+			exp_table_units[$id].icon = 'http://img3.wikia.nocookie.net/__cb20140402135350/bravefrontierglobal/images/thumb/9/9b/Unit_ills_thum_00000.png/42px-Unit_ills_thum_00000.png';
+		
+		return '<div class="tu-unit" onclick="'+onclick_action+'"><img class="lazy" src="'+exp_table_units[$id].icon+'" /><span class="tu-title">'+exp_table_units[$id].name+'</span><span class="tu-element hidden">'+exp_table_units[$id].element+'</span></div>';
 	}
 
 	function get_empty_unit_html() {
@@ -1185,24 +1242,12 @@
 
 
 	function init_unit_exp_tables() {
-	  var exp_table_units = goclone(units);
-	  exp_table_units.unshift({"id":"10003","name":"Type 3","text":"Type 3","exp_table":"3", "max_lv":"100", "element":"Dark"});
-	  exp_table_units.unshift({"id":"10002","name":"Type 2","text":"Type 2","exp_table":"2", "max_lv":"80", "element":"Dark"});
-	  exp_table_units.unshift({"id":"10001","name":"Type 1","text":"Type 1","exp_table":"1", "max_lv":"100", "element":"Dark"});
-
-	  function format(x) {
-		//if (!x.icon) return x.name; // optgroup
-		//return "<img src='" + x.icon + "' width='19'/> " + x.name;
-		return x.text;
-	  }
-	  
-	  $('#unit-to-level').select2({
-		data: exp_table_units,
-		formatResult: format,
-		formatSelection: format,
-	  }).on('change', function(selectedObject){
-		unit_selection(selectedObject.added);
-	  });
+		exp_table_units = goclone(units);
+		exp_table_units.unshift({"id":"10003","name":"Type 3","text":"Type 3","exp_table":"3", "max_lv":"100", "element":"Dark"});
+		exp_table_units.unshift({"id":"10002","name":"Type 2","text":"Type 2","exp_table":"2", "max_lv":"80", "element":"Dark"});
+		exp_table_units.unshift({"id":"10001","name":"Type 1","text":"Type 1","exp_table":"1", "max_lv":"100", "element":"Dark"});
+		
+		select_unit_refresh();
 	}
 
 	$(document).ready(function() {
