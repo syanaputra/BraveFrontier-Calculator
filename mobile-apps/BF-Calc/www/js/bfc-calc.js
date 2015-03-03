@@ -50,6 +50,7 @@
 	var units = [];
 	var units_by_name = [];
 	var summoners = [];
+	var old_summoners = [];
 	var specific_info_selection = 0;
 	var selected_unit_id;
 
@@ -76,10 +77,10 @@
 	var jewel_ghost 		= 7000;
 	
 	// jQuery Variables for quick cache
-	$unitSelectionModal = $('#unitSelectionModal');
-	$exp_table = $('exp_table');
-	$calc_selection = $('#calc_selection');
-	$selected_unit = $('#selected_unit');
+	$unitSelectionModal 	= $('#unitSelectionModal');
+	$exp_table 				= $('exp_table');
+	$calc_selection 		= $('#calc_selection');
+	$selected_unit 			= $('#selected_unit');
 	
 	function metal_exp()
 	{
@@ -130,6 +131,102 @@
 		$("#jewel_king_output").val(jewel_king_zel);
 		$("#jewel_god_output").val(jewel_god_zel);
 		$("#jewel_zel").val(total_zel);
+	}
+	
+	function calculate_needed_units(is_excluded, needed_exp, metal_unit_exp, exp_modifier) {
+		if(is_excluded)
+			total_metal_unit = 0;
+		else
+			total_metal_unit = Math.floor(needed_exp / (metal_unit_exp * exp_modifier));
+		
+		return total_metal_unit;
+	}
+	
+	function calculate_remainder(prev_calculation, total_metal_unit, metal_unit_exp, exp_modifier) {
+		return prev_calculation - (total_metal_unit * (metal_unit_exp * exp_modifier));
+	}
+	
+	function calculated_required_zel(current_exp, exp_table, is_same_element, exp_modifier, total_crystal, total_god, total_king, total_slime)
+	{
+		// This calculation table stores 5 units worth fusion
+		var calculation_table = [];
+		var calculation = 0;
+		var zel = 0;
+		var current_lv = get_level(current_exp, exp_table);
+		
+		// Set the used EXP units
+		var slime, king, god, crystal;
+		if(is_same_element)
+		{
+			crystal = metal_crystal_same;
+			god = metal_god_same;
+			king = metal_king_same;
+			slime = metal_slime_same;
+		}
+		else
+		{
+			crystal = metal_crystal;
+			god = metal_god;
+			king = metal_king;
+			slime = metal_slime;
+		}
+		
+		// Set the Tables
+		//=====================================================
+		// Add all metal units to the array table
+		for(var i=0; i<total_slime; i++) { calculation_table.push(slime); }
+		for(var i=0; i<total_king; i++) { calculation_table.push(king); }
+		for(var i=0; i<total_god; i++) { calculation_table.push(god); }
+		for(var i=0; i<total_crystal; i++) { calculation_table.push(crystal); }
+		
+		// Start Calculation
+		//=====================================================
+		var tmp_exp = 0, tmp_count = 0;
+		for(var i=0; i<calculation_table.length; i++)
+		{
+			tmp_count++;
+			tmp_exp += calculation_table[i];
+			
+			if((tmp_count % 5 == 0) || ((i+1) == calculation_table.length))
+			{
+				zel += tmp_count * (current_lv * 100) + (1 * 100);
+				console.log(i + " - " + zel);
+				current_exp += tmp_exp;
+				current_lv = get_level(current_exp, exp_table);
+				
+				// Reset
+				tmp_count = 0;
+				tmp_exp = 0;
+			}
+		}
+		
+		return zel;
+	}
+	
+	function get_level(current_exp, exp_table)
+	{
+		// Select Appropriate exp_table
+		if (exp_table == 1 || exp_table == '1')
+			selected_exp_table = exp_table_1;
+		else if(exp_table == 2 || exp_table == '2')
+			selected_exp_table = exp_table_2;
+		else
+			selected_exp_table = exp_table_3;
+			
+		for(var i = 1; i<=selected_exp_table.length; i++)
+		{
+			// Normal
+			if (current_exp == selected_exp_table[i])
+			{
+				final_level = i;
+				return final_level;
+			}
+			else if (current_exp < selected_exp_table[i])
+			{
+				final_level = i-1;
+				return final_level;
+			}
+		}
 	}
 
 	function calculate()
@@ -196,99 +293,54 @@
 				req_sm_king_excl_s 		= $("#req_sm_king_excl_s").is(':checked');
 				
 				// Minus with Metal Crystal (NORMAL)
-				if(req_sm_crystal_excl)
-					sm_crystal = 0;
-				else
-					sm_crystal = Math.floor(required_exp / metal_crystal_same);
+				sm_crystal 		= calculate_needed_units(req_sm_crystal_excl, required_exp, metal_crystal_same, 1);
+				tmp_m1 			= calculate_remainder(required_exp, sm_crystal, metal_crystal_same, 1);
 				
-				tmp_m1 = required_exp - (sm_crystal * metal_crystal_same);
+				sm_god 			= calculate_needed_units(req_sm_god_excl, tmp_m1, metal_god_same, 1);
+				tmp_m2 			= calculate_remainder(tmp_m1, sm_god, metal_god_same, 1);
 				
+				sm_king 		= calculate_needed_units(req_sm_king_excl, tmp_m2, metal_king_same, 1);
+				tmp_m3 			= calculate_remainder(tmp_m2, sm_king, metal_king_same, 1);
 				
-				if(req_sm_god_excl)
-					sm_god = 0;
-				else
-					sm_god = Math.floor(tmp_m1 / metal_god_same);
-					
-				tmp_m2 = tmp_m1 - (sm_god * metal_god_same);
-				
-				
-				if(req_sm_king_excl)
-					sm_king = 0;
-				else
-					sm_king = Math.floor(tmp_m2 / metal_king_same);
-					
-				tmp_m3 = tmp_m2 - (sm_king * metal_king_same);
-				
-				
-				sm_slime = Math.floor(tmp_m3 / metal_slime_same);
-				tmp_m4 = tmp_m3 - (sm_slime * metal_slime_same);
+				sm_slime 		= calculate_needed_units(false, tmp_m3, metal_slime_same, 1);
+				tmp_m4 			= calculate_remainder(tmp_m3, sm_king, metal_slime_same, 1);
 				
 				if(tmp_m4 > 0)
 					sm_slime++;
 				
 				
 				// Minus with Metal Crystal (GREAT)
-				if(req_sm_crystal_excl_g)
-					sm_crystal_g = 0;
-				else
-					sm_crystal_g = Math.floor(required_exp / (metal_crystal_same * EXP_GREAT_MODIFIER));
-					
-				tmp_m1 = required_exp - (sm_crystal_g * (metal_crystal_same * EXP_GREAT_MODIFIER));
+				sm_crystal_g 	= calculate_needed_units(req_sm_crystal_excl_g, required_exp, metal_crystal_same, EXP_GREAT_MODIFIER);
+				tmp_m1 			= calculate_remainder(required_exp, sm_crystal_g, metal_crystal_same, EXP_GREAT_MODIFIER);
 				
+				sm_god_g 		= calculate_needed_units(req_sm_god_excl_g, tmp_m1, metal_god_same, EXP_GREAT_MODIFIER);
+				tmp_m2 			= calculate_remainder(tmp_m1, sm_god_g, metal_god_same, EXP_GREAT_MODIFIER);
 				
-				if(req_sm_god_excl_g)
-					sm_god_g = 0;
-				else
-					sm_god_g = Math.floor(tmp_m1 / (metal_god_same * EXP_GREAT_MODIFIER));
-					
-				tmp_m2 = tmp_m1 - (sm_god_g * (metal_god_same * EXP_GREAT_MODIFIER));
+				sm_king_g 		= calculate_needed_units(req_sm_king_excl_g, tmp_m2, metal_king_same, EXP_GREAT_MODIFIER);
+				tmp_m3 			= calculate_remainder(tmp_m2, sm_king_g, metal_king_same, EXP_GREAT_MODIFIER);
 				
-				
-				if(req_sm_king_excl_g)
-					sm_king_g = 0;
-				else
-					sm_king_g = Math.floor(tmp_m2 / (metal_king_same * EXP_GREAT_MODIFIER));
-				
-				tmp_m3 = tmp_m2 - (sm_king_g * (metal_king_same * EXP_GREAT_MODIFIER));
-				
-				
-				sm_slime_g = Math.floor(tmp_m3 / (metal_slime_same * EXP_GREAT_MODIFIER));
-				tmp_m4 = tmp_m3 - (sm_slime_g * (metal_slime_same * EXP_GREAT_MODIFIER));
+				sm_slime_g 		= calculate_needed_units(false, tmp_m3, metal_slime_same, EXP_GREAT_MODIFIER);
+				tmp_m4 			= calculate_remainder(tmp_m3, sm_king_g, metal_slime_same, EXP_GREAT_MODIFIER);
 				
 				if(tmp_m4 > 0)
-					sm_slime_g++;			
+					sm_slime_g++;		
 				
 				
 				// Minus with Metal Crystal (SUPER)
-				if(req_sm_crystal_excl_s)
-					sm_crystal_s = 0;
-				else
-					sm_crystal_s = Math.floor(required_exp / (metal_crystal_same * EXP_SUPER_MODIFIER));
+				sm_crystal_s 	= calculate_needed_units(req_sm_crystal_excl_s, required_exp, metal_crystal_same, EXP_SUPER_MODIFIER);
+				tmp_m1 			= calculate_remainder(required_exp, sm_crystal_s, metal_crystal_same, EXP_SUPER_MODIFIER);
 				
-				tmp_m1 = required_exp - (sm_crystal_s * (metal_crystal_same * EXP_SUPER_MODIFIER));
+				sm_god_s 		= calculate_needed_units(req_sm_god_excl_s, tmp_m1, metal_god_same, EXP_SUPER_MODIFIER);
+				tmp_m2 			= calculate_remainder(tmp_m1, sm_god_s, metal_god_same, EXP_SUPER_MODIFIER);
 				
+				sm_king_s 		= calculate_needed_units(req_sm_king_excl_s, tmp_m2, metal_king_same, EXP_SUPER_MODIFIER);
+				tmp_m3 			= calculate_remainder(tmp_m2, sm_king_s, metal_king_same, EXP_SUPER_MODIFIER);
 				
-				if(req_sm_god_excl_s)
-					sm_god_s = 0;
-				else
-					sm_god_s = Math.floor(tmp_m1 / (metal_god_same * EXP_SUPER_MODIFIER));
-				
-				tmp_m2 = tmp_m1 - (sm_god_s * (metal_god_same * EXP_SUPER_MODIFIER));
-				
-				
-				if(req_sm_king_excl_s)
-					sm_king_s = 0;
-				else
-					sm_king_s = Math.floor(tmp_m2 / (metal_king_same * EXP_SUPER_MODIFIER));
-					
-				tmp_m3 = tmp_m2 - (sm_king_s * (metal_king_same * EXP_SUPER_MODIFIER));
-				
-				
-				sm_slime_s = Math.floor(tmp_m3 / (metal_slime_same * EXP_SUPER_MODIFIER));
-				tmp_m4 = tmp_m3 - (sm_slime_s * (metal_slime_same * EXP_SUPER_MODIFIER));
+				sm_slime_s 		= calculate_needed_units(false, tmp_m3, metal_slime_same, EXP_SUPER_MODIFIER);
+				tmp_m4 			= calculate_remainder(tmp_m3, sm_king_s, metal_slime_same, EXP_SUPER_MODIFIER);
 				
 				if(tmp_m4 > 0)
-					sm_slime_g++;	
+					sm_slime_s++;	
 					
 					
 				// Output
@@ -332,100 +384,52 @@
 				req_dm_king_excl_s 		= $("#req_dm_king_excl_s").is(':checked');
 				
 				// Minus with Metal Crystal (NORMAL)
-				if(req_dm_crystal_excl)
-					dm_crystal = 0;
-				else
-					dm_crystal = Math.floor(required_exp / metal_crystal);
+				dm_crystal 		= calculate_needed_units(req_dm_crystal_excl, required_exp, metal_crystal, 1);
+				tmp_m1 			= calculate_remainder(required_exp, dm_crystal, metal_crystal, 1);
 				
-				tmp_m1 = required_exp - (dm_crystal * metal_crystal);
+				dm_god 			= calculate_needed_units(req_dm_god_excl, tmp_m1, metal_god, 1);
+				tmp_m2 			= calculate_remainder(tmp_m1, dm_god, metal_god, 1);
 				
+				dm_king 		= calculate_needed_units(req_dm_king_excl, tmp_m2, metal_king, 1);
+				tmp_m3 			= calculate_remainder(tmp_m2, dm_king, metal_king, 1);
 				
-				if(req_dm_god_excl)
-					dm_god = 0;
-				else
-					dm_god = Math.floor(tmp_m1 / metal_god);
-					
-				tmp_m2 = tmp_m1 - (dm_god * metal_god);
-				
-				
-				if(req_dm_king_excl)
-					dm_king = 0;
-				else
-					dm_king = Math.floor(tmp_m2 / metal_king);
-					
-				tmp_m3 = tmp_m2 - (dm_king * metal_king);
-				
-				
-				dm_slime = Math.floor(tmp_m3 / metal_slime);
-				tmp_m4 = tmp_m3 - (dm_slime * metal_slime);
+				dm_slime 		= calculate_needed_units(false, tmp_m3, metal_slime, 1);
+				tmp_m4 			= calculate_remainder(tmp_m3, dm_king, metal_slime, 1);
 				
 				if(tmp_m4 > 0)
 					dm_slime++;
 				
 				
 				// Minus with Metal Crystal (GREAT)
-				if(req_dm_crystal_excl_g)
-					dm_crystal_g = 0;
-				else
-					dm_crystal_g = Math.floor(required_exp / (metal_crystal * EXP_GREAT_MODIFIER));
-					
-				tmp_m1 = required_exp - (dm_crystal_g * (metal_crystal * EXP_GREAT_MODIFIER));
+				dm_crystal_g 	= calculate_needed_units(req_dm_crystal_excl_g, required_exp, metal_crystal, EXP_GREAT_MODIFIER);
+				tmp_m1 			= calculate_remainder(required_exp, dm_crystal_g, metal_crystal, EXP_GREAT_MODIFIER);
 				
+				dm_god_g 		= calculate_needed_units(req_dm_god_excl_g, tmp_m1, metal_god, EXP_GREAT_MODIFIER);
+				tmp_m2 			= calculate_remainder(tmp_m1, dm_god_g, metal_god, EXP_GREAT_MODIFIER);
 				
-				if(req_dm_god_excl_g)
-					dm_god_g = 0;
-				else
-					dm_god_g = Math.floor(tmp_m1 / (metal_god * EXP_GREAT_MODIFIER));
-					
-				tmp_m2 = tmp_m1 - (dm_god_g * (metal_god * EXP_GREAT_MODIFIER));
+				dm_king_g 		= calculate_needed_units(req_dm_king_excl_g, tmp_m2, metal_king, EXP_GREAT_MODIFIER);
+				tmp_m3 			= calculate_remainder(tmp_m2, dm_king_g, metal_king, EXP_GREAT_MODIFIER);
 				
-				
-				if(req_dm_king_excl_g)
-					dm_king_g = 0;
-				else
-					dm_king_g = Math.floor(tmp_m2 / (metal_king * EXP_GREAT_MODIFIER));
-				
-				tmp_m3 = tmp_m2 - (dm_king_g * (metal_king * EXP_GREAT_MODIFIER));
-				
-				
-				dm_slime_g = Math.floor(tmp_m3 / (metal_slime * EXP_GREAT_MODIFIER));
-				tmp_m4 = tmp_m3 - (dm_slime_g * (metal_slime * EXP_GREAT_MODIFIER));
-				
-				if(tmp_m4 > 0)
-					dm_slime_g++;			
-				
-				
-				// Minus with Metal Crystal (SUPER)
-				if(req_dm_crystal_excl_s)
-					dm_crystal_s = 0;
-				else
-					dm_crystal_s = Math.floor(required_exp / (metal_crystal * EXP_SUPER_MODIFIER));
-				
-				tmp_m1 = required_exp - (dm_crystal_s * (metal_crystal * EXP_SUPER_MODIFIER));
-				
-				
-				if(req_dm_god_excl_s)
-					dm_god_s = 0;
-				else
-					dm_god_s = Math.floor(tmp_m1 / (metal_god * EXP_SUPER_MODIFIER));
-				
-				tmp_m2 = tmp_m1 - (dm_god_s * (metal_god * EXP_SUPER_MODIFIER));
-				
-				
-				if(req_dm_king_excl_s)
-					dm_king_s = 0;
-				else
-					dm_king_s = Math.floor(tmp_m2 / (metal_king * EXP_SUPER_MODIFIER));
-					
-				tmp_m3 = tmp_m2 - (dm_king_s * (metal_king * EXP_SUPER_MODIFIER));
-				
-				
-				dm_slime_s = Math.floor(tmp_m3 / (metal_slime * EXP_SUPER_MODIFIER));
-				tmp_m4 = tmp_m3 - (dm_slime_s * (metal_slime * EXP_SUPER_MODIFIER));
+				dm_slime_g 		= calculate_needed_units(false, tmp_m3, metal_slime, EXP_GREAT_MODIFIER);
+				tmp_m4 			= calculate_remainder(tmp_m3, dm_king_g, metal_slime, EXP_GREAT_MODIFIER);
 				
 				if(tmp_m4 > 0)
 					dm_slime_g++;	
 					
+				
+				// Minus with Metal Crystal (SUPER)
+				dm_crystal_s 	= calculate_needed_units(req_dm_crystal_excl_s, required_exp, metal_crystal, EXP_SUPER_MODIFIER);
+				tmp_m1 			= calculate_remainder(required_exp, dm_crystal_s, metal_crystal, EXP_SUPER_MODIFIER);
+				
+				dm_god_s 		= calculate_needed_units(req_dm_god_excl_s, tmp_m1, metal_god, EXP_SUPER_MODIFIER);
+				tmp_m2 			= calculate_remainder(tmp_m1, dm_god_s, metal_god, EXP_SUPER_MODIFIER);
+				
+				dm_king_s 		= calculate_needed_units(req_dm_king_excl_s, tmp_m2, metal_king, EXP_SUPER_MODIFIER);
+				tmp_m3 			= calculate_remainder(tmp_m2, dm_king_s, metal_king, EXP_SUPER_MODIFIER);
+				
+				dm_slime_s 		= calculate_needed_units(false, tmp_m3, metal_slime, EXP_SUPER_MODIFIER);
+				tmp_m4 			= calculate_remainder(tmp_m3, dm_king_s, metal_slime, EXP_SUPER_MODIFIER);
+				
 				
 				// Output
 				// -- Req Metal Units (NORMAL)
@@ -446,6 +450,24 @@
 				$("#req_dm_king_s").text(dm_king_s);
 				$("#req_dm_slime_s").text(dm_slime_s);
 				
+				// Find out Required Zel
+				var zel_sm 		= calculated_required_zel(current_exp, exp_table, true, EXP_NORMAL_MODIFIER, sm_crystal, sm_god, sm_king, sm_slime);
+				var zel_sm_g 	= calculated_required_zel(current_exp, exp_table, true, EXP_GREAT_MODIFIER, sm_crystal_g, sm_god_g, sm_king_g, sm_slime_g);
+				var zel_sm_s 	= calculated_required_zel(current_exp, exp_table, true, EXP_SUPER_MODIFIER, sm_crystal_s, sm_god_s, sm_king_s, sm_slime_s);
+				
+				var zel_dm 		= calculated_required_zel(current_exp, exp_table, false, EXP_NORMAL_MODIFIER, dm_crystal, dm_god, dm_king, dm_slime);
+				var zel_dm_g 	= calculated_required_zel(current_exp, exp_table, false, EXP_GREAT_MODIFIER, dm_crystal_g, dm_god_g, dm_king_g, dm_slime_g);
+				var zel_dm_s 	= calculated_required_zel(current_exp, exp_table, false, EXP_SUPER_MODIFIER, dm_crystal_s, dm_god_s, dm_king_s, dm_slime_s);
+				
+				// -- Req Zel
+				$("#zel_sm").html(zel_sm);
+				$("#zel_sm_g").html(zel_sm_g);
+				$("#zel_sm_s").html(zel_sm_s);
+				
+				$("#zel_dm").html(zel_dm);
+				$("#zel_dm_g").html(zel_dm_g);
+				$("#zel_dm_s").html(zel_dm_s);
+				
 				// -- Req Exp
 				$("#out_required_exp").val(required_exp);
 			}
@@ -465,7 +487,7 @@
 				final_bool_great = false;
 				final_bool_super = false;
 				
-				for(var i = current_lv; i<selected_exp_table.length; i++)
+				for(var i = current_lv; i<=selected_exp_table.length; i++)
 				{
 					// Normal
 					if (final_exp == selected_exp_table[i] && final_bool == false)
@@ -1001,6 +1023,17 @@
 		}
 	}
 
+	function get_old_summoner_minimum_lv($cost) {
+		for(var i=0; i<old_summoners.length; i++)
+		{
+			if(old_summoners[i].cost >= $cost)
+			{
+				return old_summoners[i].level;
+			}
+		}
+		return old_summoners.length;
+	}
+	
 	function tu_search() {
 		var tu_query = $("#tu-search").val();
 		var tu_element = $("#tu-search-element").val();
@@ -1057,7 +1090,9 @@
 		
 		// Get Minimum Summoner's Level
 		var min_summoner_lv = get_summoner_minimum_lv(parseInt(tmp));
+		var min_old_summoner_lv = get_old_summoner_minimum_lv(parseInt(tmp));
 		$("#tu-summoner-lv").text(min_summoner_lv);
+		$("#tu-old-summoner-lv").text(min_old_summoner_lv);
 	}
 
 	function tu_team_refresh() {
@@ -1213,11 +1248,14 @@
 
 	function init_summoners()
 	{
-		var json_data = {"d":[{"level":1,"cost":30},{"level":2,"cost":31},{"level":3,"cost":32},{"level":4,"cost":33},{"level":5,"cost":34},{"level":6,"cost":35},{"level":7,"cost":35},{"level":8,"cost":36},{"level":9,"cost":36},{"level":10,"cost":41},{"level":11,"cost":41},{"level":12,"cost":42},{"level":13,"cost":42},{"level":14,"cost":43},{"level":15,"cost":43},{"level":16,"cost":44},{"level":17,"cost":44},{"level":18,"cost":45},{"level":19,"cost":45},{"level":20,"cost":50},{"level":21,"cost":50},{"level":22,"cost":51},{"level":23,"cost":51},{"level":24,"cost":52},{"level":25,"cost":52},{"level":26,"cost":53},{"level":27,"cost":53},{"level":28,"cost":54},{"level":29,"cost":54},{"level":30,"cost":59},{"level":31,"cost":59},{"level":32,"cost":60},{"level":33,"cost":60},{"level":34,"cost":61},{"level":35,"cost":61},{"level":36,"cost":62},{"level":37,"cost":62},{"level":38,"cost":63},{"level":39,"cost":63},{"level":40,"cost":68},{"level":41,"cost":68},{"level":42,"cost":69},{"level":43,"cost":69},{"level":44,"cost":70},{"level":45,"cost":70},{"level":46,"cost":71},{"level":47,"cost":71},{"level":48,"cost":72},{"level":49,"cost":72},{"level":50,"cost":77},{"level":51,"cost":77},{"level":52,"cost":78},{"level":53,"cost":78},{"level":54,"cost":79},{"level":55,"cost":79},{"level":56,"cost":80},{"level":57,"cost":80},{"level":58,"cost":81},{"level":59,"cost":81},{"level":60,"cost":86},{"level":61,"cost":86},{"level":62,"cost":87},{"level":63,"cost":87},{"level":64,"cost":88},{"level":65,"cost":88},{"level":66,"cost":89},{"level":67,"cost":89},{"level":68,"cost":90},{"level":69,"cost":90},{"level":70,"cost":95},{"level":71,"cost":95},{"level":72,"cost":96},{"level":73,"cost":96},{"level":74,"cost":97},{"level":75,"cost":97},{"level":76,"cost":98},{"level":77,"cost":98},{"level":78,"cost":99},{"level":79,"cost":99},{"level":80,"cost":104},{"level":81,"cost":104},{"level":82,"cost":105},{"level":83,"cost":105},{"level":84,"cost":106},{"level":85,"cost":106},{"level":86,"cost":107},{"level":87,"cost":107},{"level":88,"cost":108},{"level":89,"cost":108},{"level":90,"cost":114},{"level":91,"cost":114},{"level":92,"cost":115},{"level":93,"cost":115},{"level":94,"cost":116},{"level":95,"cost":116},{"level":96,"cost":117},{"level":97,"cost":117},{"level":98,"cost":118},{"level":99,"cost":118},{"level":100,"cost":124},{"level":101,"cost":124},{"level":102,"cost":125},{"level":103,"cost":126},{"level":104,"cost":126},{"level":105,"cost":127},{"level":106,"cost":128},{"level":107,"cost":128},{"level":108,"cost":129},{"level":109,"cost":130},{"level":110,"cost":130},{"level":111,"cost":131},{"level":112,"cost":132},{"level":113,"cost":132},{"level":114,"cost":133},{"level":115,"cost":134},{"level":116,"cost":134},{"level":117,"cost":135},{"level":118,"cost":136},{"level":119,"cost":136},{"level":120,"cost":137},{"level":121,"cost":138},{"level":122,"cost":138},{"level":123,"cost":139},{"level":124,"cost":140},{"level":125,"cost":140},{"level":126,"cost":141},{"level":127,"cost":142},{"level":128,"cost":142},{"level":129,"cost":143},{"level":130,"cost":144},{"level":131,"cost":144},{"level":132,"cost":145},{"level":133,"cost":146},{"level":134,"cost":146},{"level":135,"cost":147},{"level":136,"cost":148},{"level":137,"cost":148},{"level":138,"cost":149},{"level":138,"cost":150},{"level":139,"cost":150},{"level":140,"cost":150},{"level":141,"cost":151},{"level":142,"cost":152},{"level":143,"cost":152},{"level":144,"cost":153},{"level":145,"cost":154},{"level":146,"cost":154},{"level":147,"cost":155},{"level":148,"cost":156},{"level":149,"cost":156},{"level":150,"cost":157},{"level":151,"cost":158},{"level":152,"cost":158},{"level":153,"cost":159},{"level":154,"cost":160},{"level":155,"cost":160},{"level":156,"cost":161},{"level":157,"cost":162},{"level":158,"cost":162},{"level":159,"cost":163},{"level":160,"cost":164},{"level":161,"cost":164},{"level":162,"cost":165},{"level":163,"cost":166},{"level":164,"cost":166},{"level":165,"cost":167},{"level":166,"cost":168},{"level":167,"cost":168},{"level":168,"cost":169},{"level":169,"cost":170},{"level":170,"cost":170},{"level":171,"cost":171},{"level":172,"cost":172},{"level":173,"cost":172},{"level":174,"cost":173},{"level":175,"cost":174},{"level":176,"cost":174},{"level":177,"cost":175},{"level":178,"cost":176},{"level":179,"cost":176},{"level":180,"cost":177},{"level":181,"cost":178},{"level":182,"cost":178},{"level":183,"cost":179},{"level":184,"cost":180},{"level":185,"cost":180},{"level":186,"cost":181},{"level":187,"cost":182},{"level":188,"cost":182},{"level":189,"cost":183},{"level":190,"cost":184},{"level":191,"cost":184},{"level":192,"cost":185},{"level":193,"cost":186},{"level":194,"cost":186},{"level":195,"cost":187},{"level":196,"cost":188},{"level":197,"cost":188},{"level":198,"cost":189},{"level":199,"cost":190},{"level":200,"cost":190}]};
+		var json_data = {
+			"new_summoners":[{"level":1,"cost":30},{"level":2,"cost":31},{"level":3,"cost":32},{"level":4,"cost":33},{"level":5,"cost":34},{"level":6,"cost":35},{"level":7,"cost":35},{"level":8,"cost":36},{"level":9,"cost":36},{"level":10,"cost":41},{"level":11,"cost":41},{"level":12,"cost":42},{"level":13,"cost":42},{"level":14,"cost":43},{"level":15,"cost":43},{"level":16,"cost":44},{"level":17,"cost":44},{"level":18,"cost":45},{"level":19,"cost":45},{"level":20,"cost":50},{"level":21,"cost":50},{"level":22,"cost":51},{"level":23,"cost":51},{"level":24,"cost":52},{"level":25,"cost":52},{"level":26,"cost":53},{"level":27,"cost":53},{"level":28,"cost":54},{"level":29,"cost":54},{"level":30,"cost":59},{"level":31,"cost":59},{"level":32,"cost":60},{"level":33,"cost":60},{"level":34,"cost":61},{"level":35,"cost":61},{"level":36,"cost":62},{"level":37,"cost":62},{"level":38,"cost":63},{"level":39,"cost":63},{"level":40,"cost":68},{"level":41,"cost":68},{"level":42,"cost":69},{"level":43,"cost":69},{"level":44,"cost":70},{"level":45,"cost":70},{"level":46,"cost":71},{"level":47,"cost":71},{"level":48,"cost":72},{"level":49,"cost":72},{"level":50,"cost":77},{"level":51,"cost":77},{"level":52,"cost":78},{"level":53,"cost":78},{"level":54,"cost":79},{"level":55,"cost":79},{"level":56,"cost":80},{"level":57,"cost":80},{"level":58,"cost":81},{"level":59,"cost":81},{"level":60,"cost":86},{"level":61,"cost":86},{"level":62,"cost":87},{"level":63,"cost":87},{"level":64,"cost":88},{"level":65,"cost":88},{"level":66,"cost":89},{"level":67,"cost":89},{"level":68,"cost":90},{"level":69,"cost":90},{"level":70,"cost":95},{"level":71,"cost":95},{"level":72,"cost":96},{"level":73,"cost":96},{"level":74,"cost":97},{"level":75,"cost":97},{"level":76,"cost":98},{"level":77,"cost":98},{"level":78,"cost":99},{"level":79,"cost":99},{"level":80,"cost":104},{"level":81,"cost":104},{"level":82,"cost":105},{"level":83,"cost":105},{"level":84,"cost":106},{"level":85,"cost":106},{"level":86,"cost":107},{"level":87,"cost":107},{"level":88,"cost":108},{"level":89,"cost":108},{"level":90,"cost":114},{"level":91,"cost":114},{"level":92,"cost":115},{"level":93,"cost":115},{"level":94,"cost":116},{"level":95,"cost":116},{"level":96,"cost":117},{"level":97,"cost":117},{"level":98,"cost":118},{"level":99,"cost":118},{"level":100,"cost":124},{"level":101,"cost":124},{"level":102,"cost":125},{"level":103,"cost":126},{"level":104,"cost":126},{"level":105,"cost":127},{"level":106,"cost":128},{"level":107,"cost":128},{"level":108,"cost":129},{"level":109,"cost":130},{"level":110,"cost":130},{"level":111,"cost":131},{"level":112,"cost":132},{"level":113,"cost":132},{"level":114,"cost":133},{"level":115,"cost":134},{"level":116,"cost":134},{"level":117,"cost":135},{"level":118,"cost":136},{"level":119,"cost":136},{"level":120,"cost":137},{"level":121,"cost":138},{"level":122,"cost":138},{"level":123,"cost":139},{"level":124,"cost":140},{"level":125,"cost":140},{"level":126,"cost":141},{"level":127,"cost":142},{"level":128,"cost":142},{"level":129,"cost":143},{"level":130,"cost":144},{"level":131,"cost":144},{"level":132,"cost":145},{"level":133,"cost":146},{"level":134,"cost":146},{"level":135,"cost":147},{"level":136,"cost":148},{"level":137,"cost":148},{"level":138,"cost":149},{"level":138,"cost":150},{"level":139,"cost":150},{"level":140,"cost":150},{"level":141,"cost":151},{"level":142,"cost":152},{"level":143,"cost":152},{"level":144,"cost":153},{"level":145,"cost":154},{"level":146,"cost":154},{"level":147,"cost":155},{"level":148,"cost":156},{"level":149,"cost":156},{"level":150,"cost":157},{"level":151,"cost":158},{"level":152,"cost":158},{"level":153,"cost":159},{"level":154,"cost":160},{"level":155,"cost":160},{"level":156,"cost":161},{"level":157,"cost":162},{"level":158,"cost":162},{"level":159,"cost":163},{"level":160,"cost":164},{"level":161,"cost":164},{"level":162,"cost":165},{"level":163,"cost":166},{"level":164,"cost":166},{"level":165,"cost":167},{"level":166,"cost":168},{"level":167,"cost":168},{"level":168,"cost":169},{"level":169,"cost":170},{"level":170,"cost":170},{"level":171,"cost":171},{"level":172,"cost":172},{"level":173,"cost":172},{"level":174,"cost":173},{"level":175,"cost":174},{"level":176,"cost":174},{"level":177,"cost":175},{"level":178,"cost":176},{"level":179,"cost":176},{"level":180,"cost":177},{"level":181,"cost":178},{"level":182,"cost":178},{"level":183,"cost":179},{"level":184,"cost":180},{"level":185,"cost":180},{"level":186,"cost":181},{"level":187,"cost":182},{"level":188,"cost":182},{"level":189,"cost":183},{"level":190,"cost":184},{"level":191,"cost":184},{"level":192,"cost":185},{"level":193,"cost":186},{"level":194,"cost":186},{"level":195,"cost":187},{"level":196,"cost":188},{"level":197,"cost":188},{"level":198,"cost":189},{"level":199,"cost":190},{"level":200,"cost":190}],
+			"old_summoners":[{"level":1,"cost":15},{"level":2,"cost":16},{"level":3,"cost":17},{"level":4,"cost":18},{"level":5,"cost":19},{"level":6,"cost":20},{"level":7,"cost":20},{"level":8,"cost":21},{"level":9,"cost":21},{"level":10,"cost":26},{"level":11,"cost":26},{"level":12,"cost":27},{"level":13,"cost":27},{"level":14,"cost":28},{"level":15,"cost":28},{"level":16,"cost":29},{"level":17,"cost":29},{"level":18,"cost":30},{"level":19,"cost":30},{"level":20,"cost":35},{"level":21,"cost":36},{"level":22,"cost":36},{"level":23,"cost":36},{"level":24,"cost":37},{"level":25,"cost":37},{"level":26,"cost":38},{"level":27,"cost":38},{"level":28,"cost":39},{"level":29,"cost":39},{"level":30,"cost":44},{"level":31,"cost":44},{"level":32,"cost":45},{"level":33,"cost":45},{"level":34,"cost":46},{"level":35,"cost":46},{"level":36,"cost":47},{"level":37,"cost":47},{"level":38,"cost":48},{"level":39,"cost":48},{"level":40,"cost":53},{"level":41,"cost":53},{"level":42,"cost":54},{"level":43,"cost":54},{"level":44,"cost":55},{"level":45,"cost":55},{"level":46,"cost":56},{"level":47,"cost":56},{"level":48,"cost":57},{"level":49,"cost":57},{"level":50,"cost":62},{"level":51,"cost":62},{"level":52,"cost":63},{"level":53,"cost":63},{"level":54,"cost":64},{"level":55,"cost":64},{"level":56,"cost":65},{"level":57,"cost":65},{"level":58,"cost":66},{"level":59,"cost":66},{"level":60,"cost":71},{"level":61,"cost":71},{"level":62,"cost":72},{"level":63,"cost":72},{"level":64,"cost":73},{"level":65,"cost":73},{"level":66,"cost":74},{"level":67,"cost":74},{"level":68,"cost":75},{"level":69,"cost":75},{"level":70,"cost":80},{"level":71,"cost":80},{"level":72,"cost":81},{"level":73,"cost":81},{"level":74,"cost":82},{"level":75,"cost":82},{"level":76,"cost":83},{"level":77,"cost":83},{"level":78,"cost":84},{"level":79,"cost":84},{"level":80,"cost":89},{"level":81,"cost":89},{"level":82,"cost":90},{"level":83,"cost":90},{"level":84,"cost":91},{"level":85,"cost":91},{"level":86,"cost":92},{"level":87,"cost":92},{"level":88,"cost":93},{"level":89,"cost":94},{"level":90,"cost":99},{"level":91,"cost":99},{"level":92,"cost":100},{"level":93,"cost":100},{"level":94,"cost":101},{"level":95,"cost":101},{"level":96,"cost":102},{"level":97,"cost":102},{"level":98,"cost":103},{"level":99,"cost":103},{"level":100,"cost":109},{"level":101,"cost":109},{"level":102,"cost":110},{"level":103,"cost":111},{"level":104,"cost":111},{"level":105,"cost":112},{"level":106,"cost":112},{"level":107,"cost":113},{"level":108,"cost":114},{"level":109,"cost":115},{"level":110,"cost":115},{"level":111,"cost":116},{"level":112,"cost":117},{"level":113,"cost":117},{"level":114,"cost":118},{"level":115,"cost":119},{"level":116,"cost":119},{"level":117,"cost":120},{"level":118,"cost":121},{"level":119,"cost":121},{"level":120,"cost":122},{"level":121,"cost":123},{"level":122,"cost":123},{"level":123,"cost":124},{"level":124,"cost":125},{"level":125,"cost":125}]
+		};
 		if(typeof json_data != "undefined")
 		{
-			var d = json_data.d;
-			summoners = d;
+			summoners = json_data.new_summoners;
+			old_summoners = json_data.old_summoners;
 		}
 	}
 

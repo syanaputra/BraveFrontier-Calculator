@@ -2,7 +2,6 @@
  * @author Stephanus Yanaputra
  * @url http://bf-calc.com
  */
-(function ($) {
 	function goclone(source) {
 		if (Object.prototype.toString.call(source) === '[object Array]') {
 			var clone = [];
@@ -47,6 +46,7 @@
 	var dream_teams_idx = 0;
 	var dream_teams_cost = 0;
 	var dream_teams_max_unit = 5;
+	var exp_table_units = [];
 	var units = [];
 	var units_by_name = [];
 	var summoners = [];
@@ -74,7 +74,13 @@
 	var jewel_god 			= 50000;
 	var jewel_king 			= 20000;
 	var jewel_ghost 		= 7000;
-
+	
+	// jQuery Variables for quick cache
+	$unitSelectionModal 	= $('#unitSelectionModal');
+	$exp_table 				= $('exp_table');
+	$calc_selection 		= $('#calc_selection');
+	$selected_unit 			= $('#selected_unit');
+	
 	function metal_exp()
 	{
 		var total_exp = 0, total_exp_great = 0, total_exp_super = 0;
@@ -125,11 +131,107 @@
 		$("#jewel_god_output").val(jewel_god_zel);
 		$("#jewel_zel").val(total_zel);
 	}
+	
+	function calculate_needed_units(is_excluded, needed_exp, metal_unit_exp, exp_modifier) {
+		if(is_excluded)
+			total_metal_unit = 0;
+		else
+			total_metal_unit = Math.floor(needed_exp / (metal_unit_exp * exp_modifier));
+		
+		return total_metal_unit;
+	}
+	
+	function calculate_remainder(prev_calculation, total_metal_unit, metal_unit_exp, exp_modifier) {
+		return prev_calculation - (total_metal_unit * (metal_unit_exp * exp_modifier));
+	}
+	
+	function calculated_required_zel(current_exp, exp_table, is_same_element, exp_modifier, total_crystal, total_god, total_king, total_slime)
+	{
+		// This calculation table stores 5 units worth fusion
+		var calculation_table = [];
+		var calculation = 0;
+		var zel = 0;
+		var current_lv = get_level(current_exp, exp_table);
+		
+		// Set the used EXP units
+		var slime, king, god, crystal;
+		if(is_same_element)
+		{
+			crystal = metal_crystal_same;
+			god = metal_god_same;
+			king = metal_king_same;
+			slime = metal_slime_same;
+		}
+		else
+		{
+			crystal = metal_crystal;
+			god = metal_god;
+			king = metal_king;
+			slime = metal_slime;
+		}
+		
+		// Set the Tables
+		//=====================================================
+		// Add all metal units to the array table
+		for(var i=0; i<total_slime; i++) { calculation_table.push(slime); }
+		for(var i=0; i<total_king; i++) { calculation_table.push(king); }
+		for(var i=0; i<total_god; i++) { calculation_table.push(god); }
+		for(var i=0; i<total_crystal; i++) { calculation_table.push(crystal); }
+		
+		// Start Calculation
+		//=====================================================
+		var tmp_exp = 0, tmp_count = 0;
+		for(var i=0; i<calculation_table.length; i++)
+		{
+			tmp_count++;
+			tmp_exp += calculation_table[i];
+			
+			if((tmp_count % 5 == 0) || ((i+1) == calculation_table.length))
+			{
+				zel += tmp_count * (current_lv * 100) + (1 * 100);
+				console.log(i + " - " + zel);
+				current_exp += tmp_exp;
+				current_lv = get_level(current_exp, exp_table);
+				
+				// Reset
+				tmp_count = 0;
+				tmp_exp = 0;
+			}
+		}
+		
+		return zel;
+	}
+	
+	function get_level(current_exp, exp_table)
+	{
+		// Select Appropriate exp_table
+		if (exp_table == 1 || exp_table == '1')
+			selected_exp_table = exp_table_1;
+		else if(exp_table == 2 || exp_table == '2')
+			selected_exp_table = exp_table_2;
+		else
+			selected_exp_table = exp_table_3;
+			
+		for(var i = 1; i<=selected_exp_table.length; i++)
+		{
+			// Normal
+			if (current_exp == selected_exp_table[i])
+			{
+				final_level = i;
+				return final_level;
+			}
+			else if (current_exp < selected_exp_table[i])
+			{
+				final_level = i-1;
+				return final_level;
+			}
+		}
+	}
 
 	function calculate()
 	{
 		// Which calculation are we doing?
-		var calc_type = $("#calc_selection").val();
+		var calc_type = $calc_selection.val();
 		
 		var exp_table = exp_table_selected;
 		var current_lv = $("#current_lv").val();
@@ -190,99 +292,54 @@
 				req_sm_king_excl_s 		= $("#req_sm_king_excl_s").is(':checked');
 				
 				// Minus with Metal Crystal (NORMAL)
-				if(req_sm_crystal_excl)
-					sm_crystal = 0;
-				else
-					sm_crystal = Math.floor(required_exp / metal_crystal_same);
+				sm_crystal 		= calculate_needed_units(req_sm_crystal_excl, required_exp, metal_crystal_same, 1);
+				tmp_m1 			= calculate_remainder(required_exp, sm_crystal, metal_crystal_same, 1);
 				
-				tmp_m1 = required_exp - (sm_crystal * metal_crystal_same);
+				sm_god 			= calculate_needed_units(req_sm_god_excl, tmp_m1, metal_god_same, 1);
+				tmp_m2 			= calculate_remainder(tmp_m1, sm_god, metal_god_same, 1);
 				
+				sm_king 		= calculate_needed_units(req_sm_king_excl, tmp_m2, metal_king_same, 1);
+				tmp_m3 			= calculate_remainder(tmp_m2, sm_king, metal_king_same, 1);
 				
-				if(req_sm_god_excl)
-					sm_god = 0;
-				else
-					sm_god = Math.floor(tmp_m1 / metal_god_same);
-					
-				tmp_m2 = tmp_m1 - (sm_god * metal_god_same);
-				
-				
-				if(req_sm_king_excl)
-					sm_king = 0;
-				else
-					sm_king = Math.floor(tmp_m2 / metal_king_same);
-					
-				tmp_m3 = tmp_m2 - (sm_king * metal_king_same);
-				
-				
-				sm_slime = Math.floor(tmp_m3 / metal_slime_same);
-				tmp_m4 = tmp_m3 - (sm_slime * metal_slime_same);
+				sm_slime 		= calculate_needed_units(false, tmp_m3, metal_slime_same, 1);
+				tmp_m4 			= calculate_remainder(tmp_m3, sm_king, metal_slime_same, 1);
 				
 				if(tmp_m4 > 0)
 					sm_slime++;
 				
 				
 				// Minus with Metal Crystal (GREAT)
-				if(req_sm_crystal_excl_g)
-					sm_crystal_g = 0;
-				else
-					sm_crystal_g = Math.floor(required_exp / (metal_crystal_same * EXP_GREAT_MODIFIER));
-					
-				tmp_m1 = required_exp - (sm_crystal_g * (metal_crystal_same * EXP_GREAT_MODIFIER));
+				sm_crystal_g 	= calculate_needed_units(req_sm_crystal_excl_g, required_exp, metal_crystal_same, EXP_GREAT_MODIFIER);
+				tmp_m1 			= calculate_remainder(required_exp, sm_crystal_g, metal_crystal_same, EXP_GREAT_MODIFIER);
 				
+				sm_god_g 		= calculate_needed_units(req_sm_god_excl_g, tmp_m1, metal_god_same, EXP_GREAT_MODIFIER);
+				tmp_m2 			= calculate_remainder(tmp_m1, sm_god_g, metal_god_same, EXP_GREAT_MODIFIER);
 				
-				if(req_sm_god_excl_g)
-					sm_god_g = 0;
-				else
-					sm_god_g = Math.floor(tmp_m1 / (metal_god_same * EXP_GREAT_MODIFIER));
-					
-				tmp_m2 = tmp_m1 - (sm_god_g * (metal_god_same * EXP_GREAT_MODIFIER));
+				sm_king_g 		= calculate_needed_units(req_sm_king_excl_g, tmp_m2, metal_king_same, EXP_GREAT_MODIFIER);
+				tmp_m3 			= calculate_remainder(tmp_m2, sm_king_g, metal_king_same, EXP_GREAT_MODIFIER);
 				
-				
-				if(req_sm_king_excl_g)
-					sm_king_g = 0;
-				else
-					sm_king_g = Math.floor(tmp_m2 / (metal_king_same * EXP_GREAT_MODIFIER));
-				
-				tmp_m3 = tmp_m2 - (sm_king_g * (metal_king_same * EXP_GREAT_MODIFIER));
-				
-				
-				sm_slime_g = Math.floor(tmp_m3 / (metal_slime_same * EXP_GREAT_MODIFIER));
-				tmp_m4 = tmp_m3 - (sm_slime_g * (metal_slime_same * EXP_GREAT_MODIFIER));
+				sm_slime_g 		= calculate_needed_units(false, tmp_m3, metal_slime_same, EXP_GREAT_MODIFIER);
+				tmp_m4 			= calculate_remainder(tmp_m3, sm_king_g, metal_slime_same, EXP_GREAT_MODIFIER);
 				
 				if(tmp_m4 > 0)
-					sm_slime_g++;			
+					sm_slime_g++;		
 				
 				
 				// Minus with Metal Crystal (SUPER)
-				if(req_sm_crystal_excl_s)
-					sm_crystal_s = 0;
-				else
-					sm_crystal_s = Math.floor(required_exp / (metal_crystal_same * EXP_SUPER_MODIFIER));
+				sm_crystal_s 	= calculate_needed_units(req_sm_crystal_excl_s, required_exp, metal_crystal_same, EXP_SUPER_MODIFIER);
+				tmp_m1 			= calculate_remainder(required_exp, sm_crystal_s, metal_crystal_same, EXP_SUPER_MODIFIER);
 				
-				tmp_m1 = required_exp - (sm_crystal_s * (metal_crystal_same * EXP_SUPER_MODIFIER));
+				sm_god_s 		= calculate_needed_units(req_sm_god_excl_s, tmp_m1, metal_god_same, EXP_SUPER_MODIFIER);
+				tmp_m2 			= calculate_remainder(tmp_m1, sm_god_s, metal_god_same, EXP_SUPER_MODIFIER);
 				
+				sm_king_s 		= calculate_needed_units(req_sm_king_excl_s, tmp_m2, metal_king_same, EXP_SUPER_MODIFIER);
+				tmp_m3 			= calculate_remainder(tmp_m2, sm_king_s, metal_king_same, EXP_SUPER_MODIFIER);
 				
-				if(req_sm_god_excl_s)
-					sm_god_s = 0;
-				else
-					sm_god_s = Math.floor(tmp_m1 / (metal_god_same * EXP_SUPER_MODIFIER));
-				
-				tmp_m2 = tmp_m1 - (sm_god_s * (metal_god_same * EXP_SUPER_MODIFIER));
-				
-				
-				if(req_sm_king_excl_s)
-					sm_king_s = 0;
-				else
-					sm_king_s = Math.floor(tmp_m2 / (metal_king_same * EXP_SUPER_MODIFIER));
-					
-				tmp_m3 = tmp_m2 - (sm_king_s * (metal_king_same * EXP_SUPER_MODIFIER));
-				
-				
-				sm_slime_s = Math.floor(tmp_m3 / (metal_slime_same * EXP_SUPER_MODIFIER));
-				tmp_m4 = tmp_m3 - (sm_slime_s * (metal_slime_same * EXP_SUPER_MODIFIER));
+				sm_slime_s 		= calculate_needed_units(false, tmp_m3, metal_slime_same, EXP_SUPER_MODIFIER);
+				tmp_m4 			= calculate_remainder(tmp_m3, sm_king_s, metal_slime_same, EXP_SUPER_MODIFIER);
 				
 				if(tmp_m4 > 0)
-					sm_slime_g++;	
+					sm_slime_s++;	
 					
 					
 				// Output
@@ -326,100 +383,52 @@
 				req_dm_king_excl_s 		= $("#req_dm_king_excl_s").is(':checked');
 				
 				// Minus with Metal Crystal (NORMAL)
-				if(req_dm_crystal_excl)
-					dm_crystal = 0;
-				else
-					dm_crystal = Math.floor(required_exp / metal_crystal);
+				dm_crystal 		= calculate_needed_units(req_dm_crystal_excl, required_exp, metal_crystal, 1);
+				tmp_m1 			= calculate_remainder(required_exp, dm_crystal, metal_crystal, 1);
 				
-				tmp_m1 = required_exp - (dm_crystal * metal_crystal);
+				dm_god 			= calculate_needed_units(req_dm_god_excl, tmp_m1, metal_god, 1);
+				tmp_m2 			= calculate_remainder(tmp_m1, dm_god, metal_god, 1);
 				
+				dm_king 		= calculate_needed_units(req_dm_king_excl, tmp_m2, metal_king, 1);
+				tmp_m3 			= calculate_remainder(tmp_m2, dm_king, metal_king, 1);
 				
-				if(req_dm_god_excl)
-					dm_god = 0;
-				else
-					dm_god = Math.floor(tmp_m1 / metal_god);
-					
-				tmp_m2 = tmp_m1 - (dm_god * metal_god);
-				
-				
-				if(req_dm_king_excl)
-					dm_king = 0;
-				else
-					dm_king = Math.floor(tmp_m2 / metal_king);
-					
-				tmp_m3 = tmp_m2 - (dm_king * metal_king);
-				
-				
-				dm_slime = Math.floor(tmp_m3 / metal_slime);
-				tmp_m4 = tmp_m3 - (dm_slime * metal_slime);
+				dm_slime 		= calculate_needed_units(false, tmp_m3, metal_slime, 1);
+				tmp_m4 			= calculate_remainder(tmp_m3, dm_king, metal_slime, 1);
 				
 				if(tmp_m4 > 0)
 					dm_slime++;
 				
 				
 				// Minus with Metal Crystal (GREAT)
-				if(req_dm_crystal_excl_g)
-					dm_crystal_g = 0;
-				else
-					dm_crystal_g = Math.floor(required_exp / (metal_crystal * EXP_GREAT_MODIFIER));
-					
-				tmp_m1 = required_exp - (dm_crystal_g * (metal_crystal * EXP_GREAT_MODIFIER));
+				dm_crystal_g 	= calculate_needed_units(req_dm_crystal_excl_g, required_exp, metal_crystal, EXP_GREAT_MODIFIER);
+				tmp_m1 			= calculate_remainder(required_exp, dm_crystal_g, metal_crystal, EXP_GREAT_MODIFIER);
 				
+				dm_god_g 		= calculate_needed_units(req_dm_god_excl_g, tmp_m1, metal_god, EXP_GREAT_MODIFIER);
+				tmp_m2 			= calculate_remainder(tmp_m1, dm_god_g, metal_god, EXP_GREAT_MODIFIER);
 				
-				if(req_dm_god_excl_g)
-					dm_god_g = 0;
-				else
-					dm_god_g = Math.floor(tmp_m1 / (metal_god * EXP_GREAT_MODIFIER));
-					
-				tmp_m2 = tmp_m1 - (dm_god_g * (metal_god * EXP_GREAT_MODIFIER));
+				dm_king_g 		= calculate_needed_units(req_dm_king_excl_g, tmp_m2, metal_king, EXP_GREAT_MODIFIER);
+				tmp_m3 			= calculate_remainder(tmp_m2, dm_king_g, metal_king, EXP_GREAT_MODIFIER);
 				
-				
-				if(req_dm_king_excl_g)
-					dm_king_g = 0;
-				else
-					dm_king_g = Math.floor(tmp_m2 / (metal_king * EXP_GREAT_MODIFIER));
-				
-				tmp_m3 = tmp_m2 - (dm_king_g * (metal_king * EXP_GREAT_MODIFIER));
-				
-				
-				dm_slime_g = Math.floor(tmp_m3 / (metal_slime * EXP_GREAT_MODIFIER));
-				tmp_m4 = tmp_m3 - (dm_slime_g * (metal_slime * EXP_GREAT_MODIFIER));
-				
-				if(tmp_m4 > 0)
-					dm_slime_g++;			
-				
-				
-				// Minus with Metal Crystal (SUPER)
-				if(req_dm_crystal_excl_s)
-					dm_crystal_s = 0;
-				else
-					dm_crystal_s = Math.floor(required_exp / (metal_crystal * EXP_SUPER_MODIFIER));
-				
-				tmp_m1 = required_exp - (dm_crystal_s * (metal_crystal * EXP_SUPER_MODIFIER));
-				
-				
-				if(req_dm_god_excl_s)
-					dm_god_s = 0;
-				else
-					dm_god_s = Math.floor(tmp_m1 / (metal_god * EXP_SUPER_MODIFIER));
-				
-				tmp_m2 = tmp_m1 - (dm_god_s * (metal_god * EXP_SUPER_MODIFIER));
-				
-				
-				if(req_dm_king_excl_s)
-					dm_king_s = 0;
-				else
-					dm_king_s = Math.floor(tmp_m2 / (metal_king * EXP_SUPER_MODIFIER));
-					
-				tmp_m3 = tmp_m2 - (dm_king_s * (metal_king * EXP_SUPER_MODIFIER));
-				
-				
-				dm_slime_s = Math.floor(tmp_m3 / (metal_slime * EXP_SUPER_MODIFIER));
-				tmp_m4 = tmp_m3 - (dm_slime_s * (metal_slime * EXP_SUPER_MODIFIER));
+				dm_slime_g 		= calculate_needed_units(false, tmp_m3, metal_slime, EXP_GREAT_MODIFIER);
+				tmp_m4 			= calculate_remainder(tmp_m3, dm_king_g, metal_slime, EXP_GREAT_MODIFIER);
 				
 				if(tmp_m4 > 0)
 					dm_slime_g++;	
 					
+				
+				// Minus with Metal Crystal (SUPER)
+				dm_crystal_s 	= calculate_needed_units(req_dm_crystal_excl_s, required_exp, metal_crystal, EXP_SUPER_MODIFIER);
+				tmp_m1 			= calculate_remainder(required_exp, dm_crystal_s, metal_crystal, EXP_SUPER_MODIFIER);
+				
+				dm_god_s 		= calculate_needed_units(req_dm_god_excl_s, tmp_m1, metal_god, EXP_SUPER_MODIFIER);
+				tmp_m2 			= calculate_remainder(tmp_m1, dm_god_s, metal_god, EXP_SUPER_MODIFIER);
+				
+				dm_king_s 		= calculate_needed_units(req_dm_king_excl_s, tmp_m2, metal_king, EXP_SUPER_MODIFIER);
+				tmp_m3 			= calculate_remainder(tmp_m2, dm_king_s, metal_king, EXP_SUPER_MODIFIER);
+				
+				dm_slime_s 		= calculate_needed_units(false, tmp_m3, metal_slime, EXP_SUPER_MODIFIER);
+				tmp_m4 			= calculate_remainder(tmp_m3, dm_king_s, metal_slime, EXP_SUPER_MODIFIER);
+				
 				
 				// Output
 				// -- Req Metal Units (NORMAL)
@@ -440,6 +449,24 @@
 				$("#req_dm_king_s").text(dm_king_s);
 				$("#req_dm_slime_s").text(dm_slime_s);
 				
+				// Find out Required Zel
+				var zel_sm 		= calculated_required_zel(current_exp, exp_table, true, EXP_NORMAL_MODIFIER, sm_crystal, sm_god, sm_king, sm_slime);
+				var zel_sm_g 	= calculated_required_zel(current_exp, exp_table, true, EXP_GREAT_MODIFIER, sm_crystal_g, sm_god_g, sm_king_g, sm_slime_g);
+				var zel_sm_s 	= calculated_required_zel(current_exp, exp_table, true, EXP_SUPER_MODIFIER, sm_crystal_s, sm_god_s, sm_king_s, sm_slime_s);
+				
+				var zel_dm 		= calculated_required_zel(current_exp, exp_table, false, EXP_NORMAL_MODIFIER, dm_crystal, dm_god, dm_king, dm_slime);
+				var zel_dm_g 	= calculated_required_zel(current_exp, exp_table, false, EXP_GREAT_MODIFIER, dm_crystal_g, dm_god_g, dm_king_g, dm_slime_g);
+				var zel_dm_s 	= calculated_required_zel(current_exp, exp_table, false, EXP_SUPER_MODIFIER, dm_crystal_s, dm_god_s, dm_king_s, dm_slime_s);
+				
+				// -- Req Zel
+				$("#zel_sm").html(zel_sm);
+				$("#zel_sm_g").html(zel_sm_g);
+				$("#zel_sm_s").html(zel_sm_s);
+				
+				$("#zel_dm").html(zel_dm);
+				$("#zel_dm_g").html(zel_dm_g);
+				$("#zel_dm_s").html(zel_dm_s);
+				
 				// -- Req Exp
 				$("#out_required_exp").val(required_exp);
 			}
@@ -459,7 +486,7 @@
 				final_bool_great = false;
 				final_bool_super = false;
 				
-				for(var i = current_lv; i<selected_exp_table.length; i++)
+				for(var i = current_lv; i<=selected_exp_table.length; i++)
 				{
 					// Normal
 					if (final_exp == selected_exp_table[i] && final_bool == false)
@@ -520,7 +547,7 @@
 	function change_max_lv()
 	{
 		var max_lv = "";
-		switch($("#exp_table").val())
+		switch($exp_table.val())
 		{
 			case "1": max_lv = "100"; break;
 			case "2": max_lv = "80"; break;
@@ -531,23 +558,38 @@
 		$("#current_lv").attr("max",max_lv);
 		$("#target_lv").attr("max",max_lv);
 	}
-
-	function unit_selection($val)
+	
+	function us_select_unit($id)
 	{
+		unit_selection(exp_table_units[$id]);
+		$unitSelectionModal.modal('hide');
+	}
+	
+	function unit_selection($val, $is_using_id)
+	{
+		// Set Default
+		$is_using_id = typeof $is_using_id !== 'undefined' ? $is_using_id : false;
+		
 		var max_lv = "";
 		var $cur_lv = $("#current_lv");
 		var $tar_lv = $("#target_lv");
 		var cur_lv = parseInt($cur_lv.val());
 		var tar_lv = parseInt($tar_lv.val());
 		var m_image = "";
+		var unit;
 		
-		if(typeof($val.max_lv) == "undefined")
+		if($is_using_id == true)
+			unit = units[$val];
+		else
+			unit = $val;
+		
+		if(typeof(unit.max_lv) == "undefined")
 		{
 			max_lv = "???";
 		}
 		else
 		{
-			max_lv = $val.max_lv;
+			max_lv = unit.max_lv;
 		
 			$cur_lv.attr("max",max_lv);
 			$tar_lv.attr("max",max_lv);
@@ -558,16 +600,17 @@
 			if(tar_lv > max_lv)
 				$tar_lv.val(max_lv);
 			
-			exp_table_selected = $val.exp_table;
+			exp_table_selected = unit.exp_table;
 			
 			if(specific_info_selection == 0) {
 				$tar_lv.val(max_lv);
 			}
 		}
 		
-		selected_unit_id = $val.id;
+		$selected_unit.html('<img src="'+unit.icon+'" /> ' + unit.name);
+		selected_unit_id = unit.id;
 		
-		switch($val.element.toLowerCase())
+		switch(unit.element.toLowerCase())
 		{
 			default:
 			case "dark"		:
@@ -655,7 +698,7 @@
 	{
 		$("#calc_selection_1").hide();
 		$("#calc_selection_2").hide();
-		switch($("#calc_selection").val())
+		switch($calc_selection.val())
 		{
 			case "0":
 				$("#calc_selection_1").show();
@@ -992,6 +1035,20 @@
 			}
 		});
 	}
+	
+	function us_search() {
+		var tu_query = $("#us-search").val();
+		var tu_element = $("#us-search-element").val();
+		$("#unit-list-selectable").children().hide();
+		$('#unit-list-selectable .tu-title').each(function(){
+			if($(this).text().toUpperCase().indexOf(tu_query.toUpperCase()) != -1){
+				if($(this).parent().children(".tu-element").text().toUpperCase().indexOf(tu_element.toUpperCase()) != -1)
+				{
+					$(this).parent().show();
+				}
+			}
+		});
+	}
 
 	function tu_add($id) {
 		if(dream_teams_idx < dream_teams_max_unit)
@@ -1048,6 +1105,16 @@
 		$("#tu-unit-list").html(tmp);
 		
 	}
+	
+	function select_unit_refresh() {
+		var tmp = "";
+		for(var i=0; i<exp_table_units.length; i++)
+		{
+			tmp += get_unit_selection_html(i);
+		}
+		$("#unit-list-selectable").html(tmp);
+		
+	}
 
 	function tu_init_empty() {
 		var tmp = "";
@@ -1075,6 +1142,16 @@
 		else
 			return '<div class="tu-unit" onclick="'+onclick_action+'"><img class="lazy" src="http://img3.wikia.nocookie.net/__cb20140402135350/bravefrontierglobal/images/thumb/9/9b/Unit_ills_thum_00000.png/42px-Unit_ills_thum_00000.png" data-original="'+units[$id].icon+'" /><span class="tu-title">'+units[$id].name+'</span><span class="tu-element hidden">'+units[$id].element+'</span><span class="tu-cost">Cost: <strong>'+units[$id].cost+'</strong></span></div>';
 	}
+	
+	function get_unit_selection_html($id) {
+		var onclick_action = "us_select_unit("+$id+")";
+		var html = "";
+		
+		if(exp_table_units[$id].icon == null)
+			exp_table_units[$id].icon = 'http://img3.wikia.nocookie.net/__cb20140402135350/bravefrontierglobal/images/thumb/9/9b/Unit_ills_thum_00000.png/42px-Unit_ills_thum_00000.png';
+		
+		return '<div class="tu-unit" onclick="'+onclick_action+'"><img class="lazy" src="'+exp_table_units[$id].icon+'" /><span class="tu-title">'+exp_table_units[$id].name+'</span><span class="tu-element hidden">'+exp_table_units[$id].element+'</span></div>';
+	}
 
 	function get_empty_unit_html() {
 		return '<div class="tu-unit empty"><img src="http://img3.wikia.nocookie.net/__cb20140402135350/bravefrontierglobal/images/thumb/9/9b/Unit_ills_thum_00000.png/42px-Unit_ills_thum_00000.png" /><span class="tu-title">Empty</span></div>';
@@ -1086,7 +1163,7 @@
 		var timer_looker;
 		
 		// Try to init remotely
-		$.post("http://bf-calc.com/get_units.php", { token:"bfc" }, function (data) {
+		$.getJSON('http://bf-calc.com/get_units_mobile.php?callback=?', function(data) {
 			console.log(data);
 		})
 		.error(function(data) {
@@ -1186,24 +1263,26 @@
 
 
 	function init_unit_exp_tables() {
-	  var exp_table_units = goclone(units);
-	  exp_table_units.unshift({"id":"10003","name":"Type 3","text":"Type 3","exp_table":"3", "max_lv":"100", "element":"Dark"});
-	  exp_table_units.unshift({"id":"10002","name":"Type 2","text":"Type 2","exp_table":"2", "max_lv":"80", "element":"Dark"});
-	  exp_table_units.unshift({"id":"10001","name":"Type 1","text":"Type 1","exp_table":"1", "max_lv":"100", "element":"Dark"});
-
-	  function format(x) {
-		//if (!x.icon) return x.name; // optgroup
-		//return "<img src='" + x.icon + "' width='19'/> " + x.name;
-		return x.text;
-	  }
-	  
-	  $('#unit-to-level').select2({
-		data: exp_table_units,
-		formatResult: format,
-		formatSelection: format,
-	  }).on('change', function(selectedObject){
-		unit_selection(selectedObject.added);
-	  });
+		exp_table_units = goclone(units);
+		exp_table_units.unshift({"id":"10003","name":"Type 3","text":"Type 3","exp_table":"3", "max_lv":"100", "element":"Dark"});
+		exp_table_units.unshift({"id":"10002","name":"Type 2","text":"Type 2","exp_table":"2", "max_lv":"80", "element":"Dark"});
+		exp_table_units.unshift({"id":"10001","name":"Type 1","text":"Type 1","exp_table":"1", "max_lv":"100", "element":"Dark"});
+		
+		select_unit_refresh();
+		
+		function format(x) {
+			//if (!x.icon) return x.name; // optgroup
+			//return "<img src='" + x.icon + "' width='19'/> " + x.name;
+			return x.text;
+		}
+		
+		$('#unit-to-level').select2({
+			data: exp_table_units,
+			formatResult: format,
+			formatSelection: format,
+		}).on('change', function(selectedObject){
+			unit_selection(selectedObject.added);
+		});
 	}
 
 	$(document).ready(function() {
@@ -1215,5 +1294,3 @@
 		init_units();
 		init_summoners();
 	});
-
-})(jQuery);

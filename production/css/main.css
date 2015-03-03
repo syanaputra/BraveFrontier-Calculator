@@ -157,6 +157,13 @@ hr.large{ margin:32px 0; }
 /* ========================================
 	Unit Selection
 ======================================== */
+.selected_unit {
+	padding:5px;
+	background:#fff;
+	border:1px solid #ccc;
+	margin-bottom:5px;
+}
+
 .unit-selection-container {
 	text-align:center;
 }
@@ -324,6 +331,11 @@ hr.large{ margin:32px 0; }
 	padding:3px !important;
 	margin-top:3px;
 	background:#f0f0f0;
+}
+
+.required-zel {
+	font-weight:bold;
+	font-size:1.2em;
 }
 
 /* ========================================

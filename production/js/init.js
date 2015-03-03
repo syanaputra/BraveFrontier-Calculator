@@ -2,7 +2,6 @@
  * @author Stephanus Yanaputra
  * @url http://bf-calc.com
  */
-(function ($) {
 	// Load Contribution from User
 	function load_contribution()
 	{
@@ -126,4 +125,3 @@
 			}
 		});
 	});
-})(jQuery);

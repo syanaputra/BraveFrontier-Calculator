@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!DOCTYPE html><!--HTML5 doctype-->
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -16,7 +13,6 @@
 		<meta property="og:description" content="BF-Calc is fan-made tools to help Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.">
 		<meta property="og:site_name" content="BF-Calc: Brave Frontier Calculator">
 		<meta property="og:url" content="http://bf-calc.com">
-		<meta name="google-site-verification" content="ZKWlzNIIaNsSg7AbTT47COPFl3uxz49S36NGUGw-0e4" />
 		
 		<link rel="icon" type="image/png" href="images/icon-32.png">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
@@ -51,21 +47,46 @@
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		  ga('create', 'UA-48006628-3', 'auto');
+		  ga('create', 'UA-48006628-7', 'auto');
 		  ga('send', 'pageview');
 		</script>
-			
-		<script src='intelxdk.js'></script>
-		<script type="text/javascript">
-			/* Intel native bridge is available */
+		<script src="cordova.js"></script>
+        <script>
 			var onDeviceReady=function(){
-				//hide splash screen
-				intel.xdk.device.hideSplashScreen();
+				navigator.splashscreen.hide();
+				initAdMob();
 			};
-			document.addEventListener("intel.xdk.device.ready",onDeviceReady,false);
-		</script>
+			document.addEventListener("deviceready",onDeviceReady,false);
+			
+			function initAdMob(){
+				if ( window.plugins && window.plugins.AdMob ) {
+					var admob_key_banner = "ca-app-pub-1215612485510932/6537871406";
+					var admob_key_interstitial = "ca-app-pub-1215612485510932/2467598606";
+					window.plugins.AdMob.setOptions( {
+						publisherId: admob_key_banner,
+						bannerAtTop: false, // set to true, to put banner at top
+						overlap: false, // set to true, to allow banner overlap webview
+						offsetTopBar: true, // set to true to avoid ios7 status bar overlap                    
+						interstitialAdId: admob_key_interstitial,
+						autoShow: true, // autoshow intertitial Ad
+						isTesting: false // receiving test ad
+					});
+					showAdMobBanner();
+				} else {
+					//alert("AdMob plugin not ready");
+				}
+			}
+			
+			function showAdMobBanner(){
+				window.plugins.AdMob.createBannerView();
+			}
+			
+			function showAdMobInterstitial(){
+				window.plugins.AdMob.createInterstitialView();
+			}
+        </script>
     </head>
-    <body>
+    <body class="onLoad()">
 		<nav class="navbar navbar-inverse navbar-bf" role="navigation">
 		  <div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -117,23 +138,6 @@
 		
 		<div class="container">
 			<div class="page-wrapper">
-				<!-- start:Google Ads -->
-				<div class="row row-ads">
-					<div class="col-xs-12 text-center">
-						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<!-- Responsive AdSense -->
-						<ins class="adsbygoogle"
-							 style="display:block"
-							 data-ad-client="ca-pub-1215612485510932"
-							 data-ad-slot="8366264603"
-							 data-ad-format="auto"></ins>
-						<script>
-						(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>						
-					</div>
-				</div>
-				<hr class="small hidden-xs" />
-				<!-- end:Google Ads -->
 				<div class="tab-content">
 					<!-- start: EXP Calculator -->
 					<div id="nav-home" class="row tab-pane fade in active">
@@ -168,6 +172,29 @@
 						<div class="col-xs-12 col-md-6">
 							<h2>Change Logs</h2>
 							<div class="changelogs-container">
+								<h3>ver 1.2.3</h3>
+								<ul>
+									<li>
+										Added <strong>old required summoner level</strong> for Europe Server.
+									</li>
+								</ul>
+								
+								<h3>ver 1.2.1</h3>
+								<ul>
+									<li>
+										Show how much the minimum costs for the fusion on <strong>EXP Calculator</strong>
+									</li>
+									<li>
+										Added Unit Icon on <strong>EXP Calculator</strong> when selecting a unit
+									</li>
+									<li>
+										Replaced <strong>Unit Search</strong> on <strong>EXP Calculator</strong> for mobile user<br />
+										<em>
+											This one should be more user friendly than the old one.
+										</em>
+									</li>
+								</ul>
+								
 								<h3>ver 1.2.0</h3>
 								<ul>
 									<li>
@@ -365,11 +392,6 @@
 						<div class="col-xs-12">
 							<h1>EXP Calculator</h1>
 							<p>Calculates required experience for your hero to reach maximum level.</p>
-							<div class="alert alert-warning alert-dismissible" role="alert">
-								<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-								Thanks for all your help to fill in the missing units! We're just missing a couple of <strong>EXP Table</strong> for the following unit. If you know any of them, please let us know :)<br />
-								<code>Goltovah, Jaegar, Ristrall, Raiden, Mila, Bahvel</code>
-							</div>
 							<hr class="large" />
 							<div class="row">
 								<div class="col-md-6">
@@ -458,7 +480,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_sm" class="required-zel"></span> zel</span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -468,7 +490,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime_g" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_sm_g" class="required-zel"></span> zel</span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -478,7 +500,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime_s" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_sm_s" class="required-zel"></span> zel</span>
 												</div>
 											</div>
 											
@@ -490,7 +512,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_dm" class="required-zel"></span> zel</span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -500,7 +522,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime_g" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_dm_g" class="required-zel"></span> zel</span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -510,7 +532,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime_s" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_dm_s" class="required-zel"></span> zel</span>
 												</div>
 											</div>
 										</div>
@@ -653,8 +675,12 @@
 											<div class="tu-total-number" id="tu-total-cost">0</div>
 										</div>
 										<div class="tu-units-total">
-											<div class="tu-total-title">Min. Summoner LV</div>
+											<div class="tu-total-title">Min. Summoner LV<br /><em style="font-size:12px;">Global &amp; JP Server</em></div>
 											<div class="tu-total-number" id="tu-summoner-lv">0</div>
+										</div>
+										<div class="tu-units-total">
+											<div class="tu-total-title">Min. Summoner LV<br /><em style="font-size:12px;">Europe Server</em></div>
+											<div class="tu-total-number" id="tu-old-summoner-lv">0</div>
 										</div>
 									</div>
 								</form>

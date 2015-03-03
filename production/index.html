@@ -124,7 +124,6 @@
 					<div id="nav-home" class="row tab-pane fade in active">
 						<div class="col-xs-12">
 							<h1>Welcome to BF-Calc <small class="hidden-xs">(a.k.a Brave Frontier Calculator)</small></h1>
-							
 							<div class="visible-xs">
 								<h2>Quick Navigations</h2>
 								<div class="row">
@@ -149,12 +148,35 @@
 							<p>
 								I hope you guys find this tool useful. If you have any question, suggestion or feedback, feel free to send me an email at <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#114;&#97;&#118;&#101;&#102;&#114;&#111;&#110;&#116;&#105;&#101;&#114;&#64;&#109;&#101;&#109;&#111;&#114;&#105;&#101;&#115;&#100;&#117;&#115;&#116;&#46;&#99;&#111;&#109;">&#98;&#114;&#97;&#118;&#101;&#102;&#114;&#111;&#110;&#116;&#105;&#101;&#114;&#64;&#109;&#101;&#109;&#111;&#114;&#105;&#101;&#115;&#100;&#117;&#115;&#116;&#46;&#99;&#111;&#109;</a> or send me a query by form.
 							</p>
+							<h2>We're on mobile!</h2>
+							<p>Unfortunately due to limited resource, we only can provide you with Android app at the moment. Feel free to give any feedback and comments about the app. <strong>Please note that you'll still need <u>internet connection</u> to run the app.</strong></p>
+							<p class="text-center">
+								<a target="_blank" href="https://play.google.com/store/apps/details?id=com.memoriesdust.bfcalc"><img class="img-responsive" src="images/google-play.png" alt="BF-Calc on Google Play" /></a>
+							</p>
 							<h2>Change Logs</h2>
 							<div class="changelogs-container">
+								<h3>ver 1.2.1</h3>
+								<ul>
+									<li>
+										Show how much the minimum costs for the fusion on <strong>EXP Calculator</strong>
+									</li>
+									<li>
+										Added Unit Icon on <strong>EXP Calculator</strong> when selecting a unit
+									</li>
+									<li>
+										Replaced <strong>Unit Search</strong> on <strong>EXP Calculator</strong> for mobile user<br />
+										<em>
+											This one should be more user friendly than the old one.
+										</em>
+									</li>
+								</ul>
+								
 								<h3>ver 1.2.0</h3>
 								<ul>
 									<li>
 										Added <strong>Exclude</strong> functions on Req. Metal Units
+									</li>
+									<li>
 										Added <strong>Req. Metal Units of Different Element</strong> into EXP Calculator
 									</li>
 								</ul>
@@ -372,7 +394,7 @@
 										</div>
 										<div class="form-group">
 											<div class="col-sm-offset-3 col-sm-9">
-												<button type="submit" class="btn btn-unique btn-block">Send</button>
+												<button type="submit" class="btn btn-primary btn-block">Send</button>
 											</div>
 										</div>
 									</div>
@@ -414,7 +436,17 @@
 										<div class="form-group">
 											<label for="unit-to-level" class="col-sm-3 control-label">Search Unit</label>
 											<div class="col-sm-9">
-												<input type="text" class="form-control" id="unit-to-level" required>
+												<div class="selected_unit" id="selected_unit">
+													<em class="text-center">No Unit is selected</em>
+												</div>
+												<div class="visible-sm visible-xs">
+													<button class="btn btn-warning btn-block" type="button" data-toggle="modal" data-target="#unitSelectionModal">
+														Select Unit
+													</button>
+												</div>
+												<div class="visible-md visible-lg">
+													<input type="text" class="form-control" id="unit-to-level" required>
+												</div>
 												<ul class="help-block">
 													<li><strong>Type 1:</strong> Initial Next LV value of 10</li>
 													<li><strong>Type 2:</strong> Initial Next LV value of 15</li>
@@ -422,22 +454,6 @@
 												</ul>
 											</div>
 										</div>
-											<!-- <div class="col-sm-9"> -->
-											<!-- 	<div class="unit-selection-container"> -->
-											<!-- 		<div id="us_1" class="unit-selection active" onclick="unit_selection('1')"> -->
-											<!-- 			<div>Type 1</div> -->
-											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 10</div> -->
-											<!-- 		</div> -->
-											<!-- 		<div id="us_2" class="unit-selection" onclick="unit_selection('2')"> -->
-											<!-- 			<div>Type 2</div> -->
-											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 15</div> -->
-											<!-- 		</div> -->
-											<!-- 		<div id="us_3" class="unit-selection" onclick="unit_selection('3')"> -->
-											<!-- 			<div>Type 3</div> -->
-											<!-- 			<div class="unit-selection-desc">Initial Next LV value of 21</div> -->
-											<!-- 		</div> -->
-											<!-- 	</div> -->
-											<!-- </div> -->
 										<div class="form-group">
 											<label for="current_lv" class="col-sm-3 control-label">Current Lv</label>
 											<div class="col-sm-9">
@@ -484,7 +500,7 @@
 											</div>
 											<div class="form-group">
 												<div class="col-sm-offset-3 col-sm-9">
-													<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+													<button type="submit" class="btn btn-primary btn-block">Calculate</button>
 												</div>
 											</div>
 											<hr />
@@ -503,7 +519,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_sm" class="required-zel">0</span> zel</span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -513,7 +529,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="r_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_sm_god_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_god_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime_g" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_sm_g" class="required-zel">0</span> zel</span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -524,6 +540,7 @@
 													<div class="req_metal_unit" title="Metal King"><img class="r_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_sm_king_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_sm_king_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="r_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_sm_slime_s" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
 													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_sm_s" class="required-zel">0</span> zel</span>
 												</div>
 											</div>
 											
@@ -535,7 +552,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_dm" class="required-zel">0</span> zel</span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -545,7 +562,7 @@
 													<div class="req_metal_unit" title="Metal God"><img class="dr_m_god" src="http://img4.wikia.nocookie.net/__cb20131101125031/bravefrontierglobal/images/thumb/0/0b/Unit_ills_thum_60134.png/42px-Unit_ills_thum_60134.png"> x <span id="req_dm_god_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_god_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king_g" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl_g" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime_g" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
-													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_dm_g" class="required-zel">0</span> zel</span>
 												</div>
 											</div>
 											<div class="form-group">
@@ -556,6 +573,7 @@
 													<div class="req_metal_unit" title="Metal King"><img class="dr_m_king" src="http://img3.wikia.nocookie.net/__cb20131101125016/bravefrontierglobal/images/thumb/9/95/Unit_ills_thum_60133.png/42px-Unit_ills_thum_60133.png"> x <span id="req_dm_king_s" class="metal-counter">0</span> <div class="checkbox exclude"><label><input id="req_dm_king_excl_s" type="checkbox" onchange="calculate()" />Exclude</label></div></div>
 													<div class="req_metal_unit" title="Metal Slime"><img class="dr_m_slime" src="http://img1.wikia.nocookie.net/__cb20131101124958/bravefrontierglobal/images/thumb/a/ae/Unit_ills_thum_60132.png/42px-Unit_ills_thum_60132.png"> x <span id="req_dm_slime_s" class="metal-counter">0</span> <div class="checkbox exclude">&nbsp;</div></div>
 													<span class="help-block">This section still in <span style="color:red">BETA</span> phase</span>
+													<span class="help-block">Require at least <span id="zel_dm_s" class="required-zel">0</span> zel</span>
 												</div>
 											</div>
 										</div>
@@ -568,7 +586,7 @@
 											</div>
 											<div class="form-group">
 												<div class="col-sm-offset-3 col-sm-9">
-													<button type="submit" class="btn btn-unique btn-block">Calculate</button>
+													<button type="submit" class="btn btn-primary btn-block">Calculate</button>
 												</div>
 											</div>
 											<hr />
@@ -677,7 +695,7 @@
 											</div>
 											<div class="form-group">
 												<div class="col-sm-offset-3 col-sm-9">
-													<button type="submit" class="btn btn-unique btn-block">Send</button>
+													<button type="submit" class="btn btn-primary btn-block">Send</button>
 												</div>
 											</div>
 										</div>
@@ -1038,6 +1056,40 @@
 			</footer>
 		</div>
 		
+		<!-- Modal -->
+		<div class="modal fade" id="unitSelectionModal" tabindex="-1" role="dialog" aria-labelledby="unitSelectionModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="unitSelectionModalLabel">Select Unit</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-xs-8">
+								<label for="us-search">Search Unit</label>
+								<input type="text" class="form-control" name="us-search" id="us-search" placeholder="Unit Name" onkeyup="us_search()" />
+							</div>
+							<div class="col-xs-4">
+								<label for="us-search">Element</label>
+								<select class="form-control" name="us-search-element" id="us-search-element" onchange="us_search()">
+									<option value="" selected="selected">All</option>
+									<option value="Fire">Fire</option>
+									<option value="Water">Water</option>
+									<option value="Thunder">Thunder</option>
+									<option value="Earth">Earth</option>
+									<option value="Light">Light</option>
+									<option value="Dark">Dark</option>
+								</select>
+							</div>
+						</div>
+						<div class="tu-units-container" id="unit-list-selectable">
+							<div class="data-loading">Loading...</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>

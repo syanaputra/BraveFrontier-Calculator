@@ -1,6 +1,6 @@
 {
   "project": {
-    "projectSettingsVersion": "1.1",
+    "projectSettingsVersion": "1.2",
     "creationData": {
       "type": "Blank Project",
       "createDefaultBuildConfigs": true,
@@ -8,7 +8,7 @@
       "src": "blankproject",
       "sourceDirectory": "www",
       "projectGuid": "b19419e3-5bb7-4fc1-a58d-dd0cf61a175e",
-      "lastModifiedDate": 1414471919971,
+      "lastModifiedDate": 1425355361004,
       "creationDate": 1414471919694
     },
     "sourceDirectory": "www",
@@ -16,306 +16,344 @@
     "startFile": "index.html",
     "projectFiles": {},
     "projectDirectories": {},
-    "libraries": [
-      {
-        "name": "Cordova",
-        "version": "2.9.0",
-        "data": {
-          "default": true
-        }
-      },
-      {
-        "name": "intelXDK",
-        "version": "4.0.0",
-        "data": {
-          "default": true
-        }
-      }
-    ],
+    "libraries": [],
     "cordovaPlugins": [
       {
-        "id": "org.apache.cordova.device-motion",
-        "version": "0.2.4",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.camera",
-        "version": "0.2.9",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.media-capture",
-        "version": "0.2.8",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.device-orientation",
-        "version": "0.3.6",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
         "id": "org.apache.cordova.network-information",
-        "version": "0.2.8",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.contacts",
-        "version": "0.2.8",
+        "version": "0.2.14",
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
       },
       {
         "id": "org.apache.cordova.device",
-        "version": "0.2.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.battery-status",
-        "version": "0.2.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.file",
-        "version": "0.2.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.geolocation",
-        "version": "0.3.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.globalization",
-        "version": "0.2.7",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.inappbrowser",
-        "version": "0.3.0",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.media",
-        "version": "0.2.8",
+        "version": "0.2.13",
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
       },
       {
         "id": "org.apache.cordova.dialogs",
-        "version": "0.2.5",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "org.apache.cordova.vibration",
-        "version": "0.3.5",
+        "version": "0.2.11",
         "selectedState": "Auto",
         "data": {},
         "paramvals": {}
       },
       {
         "id": "org.apache.cordova.splashscreen",
-        "version": "0.2.5",
-        "selectedState": "Auto",
+        "version": "0.3.5",
+        "selectedState": "Included",
         "data": {},
         "paramvals": {}
       },
       {
-        "id": "intel.xdk.accelerometer",
-        "selectedState": "Auto",
+        "id": "com.intel.security",
+        "version": "1.0.3",
+        "selectedState": "Included",
         "data": {},
         "paramvals": {}
       },
       {
-        "id": "intel.xdk.audio",
-        "selectedState": "Auto",
+        "id": "com.adobe.plugins.gaplugin",
+        "version": "",
+        "selectedState": "Included",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "custom": "true",
+        "name": "GAPlugin",
+        "origin": "https://github.com/phonegap-build/GAPlugin.git",
+        "originType": "repo",
+        "sourceLocation": ""
       },
       {
-        "id": "intel.xdk.base",
-        "selectedState": "Auto",
+        "id": "com.floatinghotpot.admob",
+        "version": "",
+        "selectedState": "Included",
         "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.cache",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.camera",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.contacts",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.device",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.display",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.facebook",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.file",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.geolocation",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.notification",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
-      },
-      {
-        "id": "intel.xdk.player",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "custom": "true",
+        "name": "Admob (floatinghotpot)",
+        "origin": "https://github.com/floatinghotpot/cordova-plugin-admob.git",
+        "originType": "repo",
+        "sourceLocation": ""
       }
     ],
     "serviceMethods": [],
     "buildConfigurations": {
       "Android": {
         "platform_": "android",
+        "runtime_": "Cordova 3.x",
         "name_": "Android",
-        "preferences_": {},
+        "preferences_": {
+          "android-minSdkVersion": "",
+          "android-targetSdkVersion": "",
+          "Fullscreen": false
+        },
         "isActive_": true,
         "appName_": "BF-Calc",
-        "appID_": "not.yet.specified",
-        "appAccess_": "*",
-        "icons_": [],
-        "splashes_": [],
-        "iosProvs_": [],
+        "appID_": "com.memoriesdust.bfcalc",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [
+          {
+            "relPath": "icons/logo-36x36.png",
+            "density": "ldpi",
+            "height": 36,
+            "width": 36
+          },
+          {
+            "relPath": "icons/logo-48x48.png",
+            "density": "mdpi",
+            "height": 48,
+            "width": 48
+          },
+          {
+            "relPath": "icons/logo-72x72.png",
+            "density": "hdpi",
+            "height": 72,
+            "width": 72
+          },
+          {
+            "relPath": "icons/logo-96x96.png",
+            "density": "xhdpi",
+            "height": 96,
+            "width": 96
+          }
+        ],
+        "splashes_": [
+          {
+            "relPath": "icons/splash-smart-phone-320x426.png",
+            "density": "ldpi",
+            "height": 426,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "icons/splash-smart-phone-320x470.png",
+            "density": "mdpi",
+            "height": 470,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "icons/splash-smart-phone-480x640.png",
+            "density": "hdpi",
+            "height": 640,
+            "width": 480,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "icons/splash-smart-phone-720x960.png",
+            "density": "xhdpi",
+            "height": 960,
+            "width": 720,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "icons/splash-tablet-426x320.png",
+            "density": "ldpi",
+            "height": 320,
+            "width": 426,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "icons/splash-tablet-470x320.png",
+            "density": "mdpi",
+            "height": 320,
+            "width": 470,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "icons/splash-tablet-640x480.png",
+            "density": "hdpi",
+            "height": 480,
+            "width": 640,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "icons/splash-tablet-960x720.png",
+            "density": "xhdpi",
+            "height": 720,
+            "width": 960,
+            "orientation": "landscape"
+          }
+        ],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "cordovaCLIVersion_": "3.3",
+        "iosProvs_": [],
+        "cordovaCLIVersion_": "4.1.2",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0",
-        "runtime_": "Cordova 3.x"
+        "appVersion_": "1.2.1",
+        "appAuthor_": "Stephanus Yanaputra",
+        "appDescription_": "Brave Frontier Calculator (BF-Calc) is a fan made tool that is created to help Brave Frontier players, based on Brave Frontier Wikia. We want Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.",
+        "appVersionCode_": "24"
       },
       "Android-Crosswalk": {
         "platform_": "android",
+        "runtime_": "Crosswalk with Cordova 3.x",
         "name_": "Android-Crosswalk",
-        "preferences_": {},
+        "preferences_": {
+          "android-minSdkVersion": "10",
+          "android-targetSdkVersion": "19"
+        },
         "isActive_": true,
         "appName_": "BF-Calc",
-        "appID_": "not.yet.specified",
-        "appAccess_": "*",
-        "icons_": [],
-        "splashes_": [],
-        "iosProvs_": [],
+        "appID_": "com.memoriesdust.bfcalc",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [
+          {
+            "relPath": "icons/logo-36x36.png",
+            "density": "ldpi",
+            "height": 36,
+            "width": 36
+          },
+          {
+            "relPath": "icons/logo-48x48.png",
+            "density": "mdpi",
+            "height": 48,
+            "width": 48
+          },
+          {
+            "relPath": "icons/logo-72x72.png",
+            "density": "hdpi",
+            "height": 72,
+            "width": 72
+          },
+          {
+            "relPath": "icons/logo-96x96.png",
+            "density": "xhdpi",
+            "height": 96,
+            "width": 96
+          }
+        ],
+        "splashes_": [
+          {
+            "relPath": "icons/splash-smart-phone-320x426.png",
+            "density": "ldpi",
+            "height": 426,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "icons/splash-smart-phone-320x470.png",
+            "density": "mdpi",
+            "height": 470,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "icons/splash-smart-phone-480x640.png",
+            "density": "hdpi",
+            "height": 640,
+            "width": 480,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "icons/splash-smart-phone-720x960.png",
+            "density": "xhdpi",
+            "height": 960,
+            "width": 720,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "icons/splash-tablet-426x320.png",
+            "density": "ldpi",
+            "height": 320,
+            "width": 426,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "icons/splash-tablet-470x320.png",
+            "density": "mdpi",
+            "height": 320,
+            "width": 470,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "icons/splash-tablet-640x480.png",
+            "density": "hdpi",
+            "height": 480,
+            "width": 640,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "icons/splash-tablet-960x720.png",
+            "density": "xhdpi",
+            "height": 720,
+            "width": 960,
+            "orientation": "landscape"
+          }
+        ],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "iosProvs_": [],
         "cordovaCLIVersion_": "3.3",
-        "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0",
-        "runtime_": "Crosswalk with Cordova 3.x"
+        "crosswalkVersion_": "10",
+        "appVersion_": "1.2.1",
+        "appVersionCode_": "21",
+        "appDescription_": "Brave Frontier Calculator (BF-Calc) is a fan made tool that is created to help Brave Frontier players, based on Brave Frontier Wikia. We want Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.",
+        "appAuthor_": "Stephanus Yanaputra"
       },
       "iOS": {
         "platform_": "ios",
+        "runtime_": "Cordova 3.x",
         "name_": "iOS",
-        "preferences_": {},
+        "preferences_": {
+          "ios-target": "6"
+        },
         "isActive_": true,
         "appName_": "BF-Calc",
-        "appID_": "not.yet.specified",
-        "appAccess_": "*",
+        "appID_": "com.memoriesdust.bfcalc",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
         "icons_": [],
         "splashes_": [],
-        "iosProvs_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "cordovaCLIVersion_": "3.3",
+        "iosProvs_": [],
+        "cordovaCLIVersion_": "4.1.2",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0",
-        "runtime_": "Cordova 3.x"
+        "appVersion_": "1.2.1",
+        "appDescription_": "Brave Frontier Calculator (BF-Calc) is a fan made tool that is created to help Brave Frontier players, based on Brave Frontier Wikia. We want Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.",
+        "appAuthor_": "Stephanus Yanaputra"
       },
       "Windows8": {
         "platform_": "windows8",
+        "runtime_": "Cordova 3.x",
         "name_": "Windows8",
         "preferences_": {},
         "isActive_": true,
         "appName_": "BF-Calc",
-        "appID_": "not.yet.specified",
-        "appAccess_": "*",
+        "appID_": "com.memoriesdust.bfcalc",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
         "icons_": [],
         "splashes_": [],
-        "iosProvs_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "cordovaCLIVersion_": "3.3",
-        "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0.0",
-        "runtime_": "Cordova 3.x"
-      },
-      "WindowsPhone8": {
-        "platform_": "wp8",
-        "name_": "WindowsPhone8",
-        "preferences_": {},
-        "isActive_": true,
-        "appName_": "BF-Calc",
-        "appID_": "not.yet.specified",
-        "appAccess_": "*",
-        "icons_": [],
-        "splashes_": [],
         "iosProvs_": [],
-        "addlPermissions_": "",
-        "excludedLibraries_": "",
-        "cordovaCLIVersion_": "3.3",
+        "cordovaCLIVersion_": "4.1.2",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.0.0.0",
-        "runtime_": "Cordova 3.x"
+        "appVersion_": "1.2.1",
+        "appDescription_": "Brave Frontier Calculator (BF-Calc) is a fan made tool that is created to help Brave Frontier players, based on Brave Frontier Wikia. We want Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.",
+        "appAuthor_": "Stephanus Yanaputra"
       }
-    }
+    },
+    "gameAssetDirectory": "asset",
+    "gameMetadata": {},
+    "projectTags": []
   }
 }

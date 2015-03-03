@@ -1,0 +1,1513 @@
+/*------------------------------------------------------------------
+[Master Stylesheet]
+
+Project		: Lenasia
+Version		: 1.0
+Last change	: 2014/11/11
+-------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+[Table of contents]
+
+0. Body
+1. Loading
+2. Section
+3. Backgrounds
+4. Font Color
+5. Typography
+6. Horizontal Line (HR)
+7. Navigation
+8. Splash Page
+9. Footer Page
+10. Accordion
+11. Tabs
+12. Docked Illustration
+13. Unit Container
+14. Team Units Calculator
+15. Map
+16. Form
+17. Buttons
+18. News List
+19. Blogs
+20. Explanation
+21. Services
+22. Owl Carousels (Project)
+23. Modals Lenasia
+24. Contact Form
+25. Social Buttons
+26. Utility
+27. Mobile styles
+
+-------------------------------------------------------------------*/
+
+// Variables
+@body-font:'Raleway';
+@main-color:#d4633e;
+
+/*==============================================
+	0. Body
+==============================================*/
+html, body {
+	font-family:@body-font;
+	color:#444;
+	background:url('../images/ticks.png');
+	position: relative;
+}
+
+/*==============================================
+	1. Loading
+==============================================*/
+.loading-container {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 999999;
+	background: #fff;
+	text-align: center;
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes pulsate {
+	0% {
+		transform: scale(0.1);
+		opacity: 0.0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}
+/* Standard syntax */
+@keyframes pulsate {
+	0% {
+		transform: scale(0.1);
+		opacity: 0.0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}
+.loading-signal {
+	border: 3px solid @main-color;
+	border-radius: 30px;
+	height: 30px;
+	left: 50%;
+	margin: -15px 0 0 -15px;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	width: 30px;
+	-webkit-animation: pulsate 1s ease-out;
+	animation: pulsate 1s ease-out;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+}
+
+/*==============================================
+	2. Section
+==============================================*/
+.section {
+	padding:60px 0;
+	transition:all ease-in-out 200ms;
+}
+
+.section-heading {
+	margin-bottom:45px;
+	text-align:center;
+}
+
+.section-title {
+	border-bottom:2px solid #333;
+	padding-bottom:15px;
+	margin-bottom:15px;
+	font-weight:800;
+	color:333;
+	display:inline-block;
+	
+	&:after {
+		content:" ";
+		display:block;
+	}
+}
+
+/*==============================================
+	3. Backgrounds
+==============================================*/
+.bg-1 {
+	background:url('../images/background.jpg') center;
+	background-size:cover;
+}
+
+.bg-services {
+	background:#f7f6f4;
+}
+
+.bg-twitter {
+	background:url('../images/projects-3.jpg') center;
+	background-size:cover;
+}
+
+.bg-projects {
+	background:url('../images/projects-2.jpg') center;
+	background-size:cover;
+}
+
+.bg-blogs {
+	background:#f6f7f1;
+}
+
+.bg-statistic {
+	background:#333;
+	color:#fff;
+}
+
+.bg-order-now {
+	background:#fff;
+}
+
+.bg-contact {
+	background:#f6f7f1;
+}
+
+/*==============================================
+	4. Font Color
+==============================================*/
+.yellow { color:#fff4aa; }
+.red 	{ color:#ff9292; }
+.green	{ color:#90ff90; }
+.cyan	{ color:#00b7a8; }
+.orange	{ color:#ff7725; }
+.white	{ color:#ffffff; }
+
+/*==============================================
+	5. Typography
+==============================================*/
+h1,h2,h3,h4,h5,h6 { color:#000; font-weight:800; text-transform:uppercase; }
+h1 small,h2 small,h3 small,h4 small,h5 small,h6 small { color:#bbb; }
+p { font-size:15px; line-height:190%; }
+
+.heading-small { font-size:16px; }
+
+.font-s-60 { font-size:60px; }
+.font-s-56 { font-size:56px; }
+.font-s-48 { font-size:48px; }
+.font-s-36 { font-size:36px; }
+
+a { color:#aaa; transition:all ease-in-out 150ms; }
+a:hover { text-decoration:none; color:@main-color; }
+
+img { max-width:100%; }
+
+.number { font-size:20px; text-align:center; }
+.accent { display:block; font-size:60px; font-weight:bold; }
+
+.entry-title {
+	text-align:center;
+	border-bottom:2px solid #333;
+	padding-bottom:15px;
+	font-weight:800;
+	color:#333;
+	
+	a {
+		color:#333;
+		
+		&:hover {
+			text-decoration:underline;
+		}
+	}
+}
+
+.order-price {
+	font-size:55px;
+	margin:20px 0;
+	font-weight:bold;
+	color:@main-color;
+}
+
+.or {
+	display:inline-block;
+	color:#fff;
+	background:@main-color;
+	border-radius:50px;
+	height:45px;
+	width:45px;
+	padding:12px 0px;
+	text-align:center;
+	text-transform:uppercase;
+	margin:10px 15px;
+	font-weight:bold;
+}
+
+.number {
+	font-size:50px;
+	font-weight:bold;
+}
+
+.quantifier {
+	text-transform:uppercase;
+	font-weight:bold;
+}
+
+.icon {
+	font-size:60px;
+	color:lighten(@main-color,10%);
+}
+
+/*==============================================
+	6. Horizontal Line (HR)
+==============================================*/
+hr {
+	border-top:1px solid #ccc;
+	border-top:1px solid rgba(0,0,0,0.25);
+}
+
+hr.white {
+	border-color:#fff;
+	border-color:rgba(255,255,255,0.5);
+}
+
+/*==============================================
+	7. Navigation
+==============================================*/
+.navigation-container {
+	height:81px;
+}
+.navbar-lenasia {
+	background:#fff;
+	border-radius:0;
+	transition:all ease-in-out 150ms;
+	padding:10px 0;
+	text-align:center;
+	box-shadow:0 0 4px rgba(0,0,0,0.25);
+	z-index:50;
+	
+	&.affix {
+		top:0;
+		width:100%;
+		z-index:150;
+		/*
+		ul.nav {
+			display:inline-block;
+			text-align:center;
+			float:none;
+		}
+		*/
+	}
+	
+	.nav>li>a {
+		border-top:2px solid transparent;
+		border-bottom:2px solid transparent;
+		font-weight:bold;
+	}
+	
+	.nav>li.active>a,
+	.nav>li>a:hover,
+	.nav>li>a:focus {
+		text-decoration: none;
+		background-color:transparent;
+	}
+	
+	.nav>li.active>a {
+		color:#333;
+		border-bottom-color:#333;
+	}
+	
+	.nav>li>a:hover,
+	.nav>li>a:focus {
+		color:@main-color;
+		border-bottom-color:@main-color;
+	}
+	
+	.navbar-nav{
+		float:none;
+		display:inline-block;
+		text-align:center;
+	}
+	
+	.navbar-toggle {
+		text-align:center;
+		position:relative;
+		float:none;
+	}
+}
+
+
+/*==============================================
+	8. Splash Page
+==============================================*/
+.splash {
+	background:url('../images/splash-deathtostock.jpg') fixed top center;
+	background-size:cover;
+	text-align:center;
+	color:#fff;
+	text-shadow:0 0 12px rgba(0,0,0,0.95);
+	
+	p {
+		font-size:19px;
+		color:#fff;
+	}
+}
+
+.splash-title {
+	font-size:75px;
+	font-weight:bold;
+	color:#fff;
+	margin:0 0 15px 0;
+	line-height:45px;
+	
+	small {
+		color:#fff;
+		font-size:30px;
+		font-weight:bold;
+		margin:0;
+	}
+}
+
+/*==============================================
+	9. Footer Page
+==============================================*/
+footer {
+	background:#242520;
+	color:#aaa;
+	text-align:center;
+	font-size:13px;
+	padding:35px 0;
+	
+	a { color:#bbb; }
+	a:hover { color:#fff; }
+}
+
+.footer-meta {
+	font-size:0;
+	
+	div {
+		display:inline-block;
+		padding:0 10px 0 11px;
+		margin:0 1px 0 0;
+		border-right:1px dashed #555;
+		font-size:13px;
+		
+		&:last-child {
+			border-right:0;
+		}
+	}
+}
+
+/*==============================================
+	10. Accordion
+==============================================*/
+.accordion {
+	margin:0;
+	padding:0;
+	list-style:none;
+	
+	li {
+		margin:0;
+		padding:0;
+		list-style:none;
+		border-bottom:1px solid #eee;
+		transition:all ease-in-out 200ms;
+		
+		&:last-child {
+			border-bottom:0;
+		}
+		
+		.schedule-time {
+			display:inline-block;
+			width:100px;
+			font-size:22px;
+			background:#f0f0f0;
+			color:#555;
+			padding:18px 20px;
+			transition:all ease-in-out 200ms;
+		}
+		
+		.accordion-title {
+			display:inline-block;
+			padding:18px 20px;
+			margin:0;
+		}
+		
+		.schedule-speaker {
+			display:inline-block;
+			padding:0 0 5px 20px;
+			margin-right:-10px;
+			
+			img {
+				border-radius:50px;
+				width:50px;
+				display: inline-block;
+				margin-top: -7px;
+			}
+			
+			h4 {
+				display:inline-block;
+				margin:0 0 0 10px;
+			}
+		}
+		
+		&:hover {
+			background:#eee;
+			color:#000;
+			
+			.schedule-time {
+				background:#aaa;
+				color:#fff;
+			}
+		}
+	}
+	
+	.accordion-body {
+		padding: 15px 20px;
+		border-left: 5px solid #eee;
+		border-top: 1px solid #f0f0f0;
+	}
+}
+
+/*==============================================
+	11. Tabs
+==============================================*/
+.nav.nav-tabs {
+	border:0;
+	margin-bottom:5px;
+	
+	li {
+		a {
+			background:#f0f0f0;
+			color:#555;
+			border:3px solid #f0f0f0;
+			border-radius:5px; 
+			padding:15px 20px;
+			margin-right:5px;
+			font-weight:bold;
+		}
+		
+		&:hover a {
+			border-color:#aaa;
+		}
+		
+		&.active:hover a,
+		&.active a {
+			background:#fff;
+			border:3px solid #aaa;
+			color:#aaa;
+		}
+	}
+}
+
+/*==============================================
+	12. Docked Illustration
+==============================================*/
+.docked-illustration {
+	position:relative;
+	overflow:hidden;
+	height:300px;
+	padding-top:25px;
+	transition:all ease-in-out 200ms;
+	margin-top:15px;
+	margin-bottom:-60px;
+	z-index:1;
+}
+
+.bg-order-now:hover {
+	.docked-illustration {
+		padding-top:0;
+	}
+}
+
+/*==============================================
+	13. Unit Container
+==============================================*/
+.u-search-bar {
+	border-bottom:3px dashed #aaa;
+	padding:10px 0;
+	margin-bottom:10px;
+}
+
+.u-container {
+	position:relative;
+	background:#fff;
+	box-shadow:1px 2px 4px rgba(0,0,0,0.15);
+	color:#888;
+	padding:10px;
+	margin:5px 0 0;
+	border-radius:5px;
+	
+	&.inline-block {
+		display:inline-block;
+		margin:5px;
+	}
+}
+
+.u-icon {
+	float:left;
+}
+
+.u-cost {
+	float: right;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 3px 0;
+}
+
+.u-name {
+	margin-left:50px;
+	padding:10px;
+	font-size:15px;
+	border-radius:3px;
+	background:#f0f0f0;
+	box-shadow:inset 0px 0px 1px rgba(0,0,0,0.25);
+	transition:all ease-in-out 150ms;
+	
+	&:hover {
+		background:#ddd;
+		color:#333;
+	}
+	
+	&.highlighted {
+		color:@main-color;
+		font-weight:bold;
+	}
+}
+
+.u-remove {
+	padding:1px 4px;
+	background:#333;
+	color:#fff;
+	border-radius:3px;
+	font-size:12px;
+	position:absolute;
+	top:-5px;
+	right:-5px;
+	
+	&:hover {
+		background:#D64541;
+		cursor:pointer;
+	}
+}
+
+.unit-leader {
+	margin-bottom:10px;
+	padding-bottom:10px;
+	border-bottom:3px solid #e0e0e0;
+}
+
+.unit-friend {
+	background:#f3f3f3;
+}
+
+.unit-other {
+	background:#fafafa;
+}
+
+.unit-tag {
+	margin:15px 0 5px;
+	text-align:center;
+	font-weight:bold;
+	font-size:11px;
+	color:#fff;
+	text-transform:uppercase;
+	background:#777;
+	border-radius:3px;
+}
+
+.u-list {
+	margin-bottom:50px;
+	padding:5px;
+	border-radius:8px;
+	transition:all ease-in-out 150ms;
+	
+	&:hover {
+		background:#777;
+		
+		.u-attr {
+			color:#fff;
+		}
+	}
+}
+
+.u-list-not-found,
+.u-list-new {
+	margin-bottom:50px;
+	border-radius:5px;
+	text-align:center;
+	padding:185px 20px 0;
+	height:413px;
+	font-size:28px;
+	transition:all ease-in-out 150ms;
+}
+
+.u-list-new {
+	border:3px dashed #aaa;
+	&:hover {
+		background:rgba(0,0,0,0.05);
+	}
+}
+
+.u-list-not-found {
+	border:3px solid #aaa;
+	color:#888;
+}
+
+.u-attr {
+	text-align:center;
+	margin-top:10px;
+	margin-bottom:15px;
+	transition:all ease-in-out 150ms;
+	
+	.u-attr-title {
+		font-weight:bold;
+		text-transform:uppercase;
+		display:block;
+		font-size:13px;
+	}
+	
+	.u-attr-thumbs,
+	.u-attr-number {
+		font-size:25px;
+		margin-top:-5px;
+		transition:all ease-in-out 150ms;
+	}
+	
+	.u-attr-thumbs {
+		display:none;
+		
+		&:hover {
+			color:#ffcc00;
+		}
+	}
+}
+
+.border-in-between {
+	border-left:3px dashed #aaa;
+	border-right:3px dashed #aaa;
+}
+
+.hover-vote {
+	&:hover {
+		.u-attr-number {
+			display:none;
+		}
+		
+		.u-attr-thumbs {
+			display:block;
+		}
+	}
+}
+
+.selectable {
+	cursor:pointer;
+}
+
+/*==============================================
+	14. Team Units Calculator
+==============================================*/
+.tu-units-container {
+	max-height:400px;
+	overflow-y:auto;
+	margin:10px 0;
+	background:#fff;
+	border:1px solid #ccc;
+}
+
+.tu-unit {
+	border-bottom:1px solid #e0e0e0;
+	padding:5px 8px;
+	transition:all linear 100ms;
+	clear:both;
+}
+
+.tu-unit:last-child {
+	border-bottom:0;
+}
+
+.tu-unit:hover {
+	background:#ddd;
+	padding-left:14px;
+	color:#000;
+	cursor:pointer;
+}
+.tu-unit:hover .tu-cost {
+	color:#000;
+}
+
+.tu-unit.empty  {
+	font-style:italic;
+	color:#aaa;
+	background:#f0f0f0;
+}
+
+.tu-title {
+	display:inline-block;
+	margin-left:5px;
+}
+
+.tu-cost {
+	display:inline-block;
+	float:right;
+	color:#aaa;
+	text-transform:uppercase;
+	font-size:13px;
+	padding:13px 3px;
+	transition:all linear 100ms;
+}
+
+.tu-cost:after {
+	clear:both;
+}
+
+.tu-total-title {
+	font-size:20px;
+	text-transform:uppercase;
+	float:left;
+	letter-spacing:-1px;
+}
+
+.tu-total-number {
+	font-size:20px;
+	color:#000;
+	float:right;
+}
+
+.tu-units-total {
+	background:#fff;
+	border:1px solid #ccc;
+	float:left;
+	width:100%;
+	padding:10px;
+	margin:5px 0;
+}
+
+.tu-units-total:after {
+	clear:both;
+}
+
+/*==============================================
+	15. Map
+==============================================*/
+.map {
+	padding:0;
+}
+
+#map_canvas {
+	width: 100%;
+	height: 450px;
+	background: #f8fdfd;
+	z-index: 0;
+	position: relative;
+}
+
+/*==============================================
+	16. Form
+==============================================*/
+
+.lenasia-form-group {
+	box-shadow:1px 1px 2px rgba(0,0,0,0.25);
+	
+	.input-group-addon {
+		border:0;
+		background:@main-color;
+		color:#fff;
+		border-radius:0;
+		min-width:45px;
+	}
+	
+	.form-control {
+		box-shadow:0 0 0;
+	}
+}
+
+.contact-textarea {
+	height:180px !important;
+	outline:0;
+	
+	&:focus {
+		box-shadow:1px 1px 2px rgba(0,0,0,0.25);
+		outline:0;
+	}
+}
+
+.contact-illust {
+	text-align:center;
+	font-size:40px;
+}
+
+/*==============================================
+	17. Buttons
+==============================================*/
+.btn-lux {
+	background:transparent;
+	box-shadow:none;
+	color:#777;
+	border:2px solid #777;
+	border-radius:3px;
+	padding:10px 15px; 
+	font-weight:bold;
+	transition:all ease-in-out 200ms;
+	text-transform:uppercase;
+	
+	&:focus,
+	&:hover {
+		color:@main-color;
+		outline:0;
+		border-color:@main-color;
+	}
+	
+	&.white {
+		color:#fff;
+		border-color:#fff;
+		
+		&:hover {
+			color:#fff;
+			border-color:transparent;
+			background:rgba(0,0,0,0.9);
+			box-shadow:0 0 10px rgba(0,0,0,0.5);
+		}
+	}
+}
+
+.btn.btn-round {
+	border-radius:50px;
+}
+
+.learn-more {
+	padding-top:50px;
+	
+	a {
+		color:#fff;
+		color:rgba(255,255,255,0.75);
+		
+		&:hover,
+		&:focus { color:#fff; outline:0; }
+	}
+	
+	i { font-size:50px; }
+}
+
+/*==============================================
+	18. News List
+==============================================*/
+.news-list {
+	margin:0;
+	padding:0;
+	list-style:none;
+	
+	.news {
+		margin:0;
+		padding:15px 20px;
+		list-style:none;
+		line-height:150%;
+		border-bottom:1px solid #eee;
+		transition:all ease-in-out 200ms;
+		
+		&:last-child {
+			border-bottom:0;
+		}
+		
+		&:hover {
+			background:#f0f0f0;
+			padding-left:30px;
+		}
+		
+		h4 {
+			margin:0 0 10px;
+		}
+	}
+}
+
+.news-date {
+	text-transform:uppercase;
+	color:#777;
+	font-size:12px;
+}
+
+/*==============================================
+	19. Blogs
+==============================================*/
+.blog {
+	margin:10px 0;
+	
+	.featured-image {
+		text-align:center;
+		margin-bottom:10px;
+	}
+	
+	.entry-title {
+		text-align:center;
+		border-top:1px solid #555;
+		border-bottom:1px solid #555;
+		padding:15px 0;
+		font-weight:bold;
+		margin:10px 0;
+		
+		a {
+			color:#333;
+			
+			&:hover {
+				color:#444;
+			}
+		}
+	}
+	
+	.entry-date {
+		text-align:center;
+		font-size:20px;
+		color:#999;
+	}
+}
+
+/*==============================================
+	20. Explanation
+==============================================*/
+.explanation {
+	margin-bottom:30px;
+	
+	&.right {
+		.explanation-illust {
+			float:right;
+			text-align:center;
+		}
+		
+		.explanation-desc {
+			margin-right:47px;
+			text-align:right;
+		}
+	}
+	
+	&.left {
+		.explanation-illust {
+			float:left;
+			text-align:center;
+		}
+		
+		.explanation-desc {
+			margin-left:47px;
+			text-align:left;
+		}
+	}
+	
+	.explanation-illust {
+		width:42px;
+	
+		.fa {
+			font-size:20px;
+			transition:all ease-in-out 200ms;
+		}
+	}
+	
+	.explanation-desc {
+		h1,h2,h3,h4,h5,h6 {
+			font-size:18px;
+			font-weight:bold;
+			transition:all ease-in-out 200ms;
+		}
+	}
+	
+	&:hover {
+		.fa,h1,h2,h3,h4,h5,h6 {
+			color:#d4633e;
+		}
+	}
+}
+
+/*==============================================
+	21. Services
+==============================================*/
+.service {
+	margin-bottom:10px; 
+	
+	.featured-image {
+		border:2px solid @main-color;
+		border-radius:50px;
+		display:inline-block;
+		width:75px;
+		height:75px;
+		text-align:center;
+		float:left;
+		margin-right:20px;
+		margin-bottom:20px;
+		padding-top:10px;
+		transition:all ease-in-out 200ms;
+	}
+		
+	.ico-type {
+		font-size:35px;
+		color:@main-color;
+	}
+	
+	&:hover {
+		.featured-image {
+			box-shadow:0 0 8px @main-color;
+		}
+	}
+}
+
+.service-2 {
+	margin-bottom:10px; 
+	
+	.featured-image {
+		text-align:center;
+		transition:all ease-in-out 200ms;
+	}
+		
+	.ico-type {
+		font-size:60px;
+		color:@main-color;
+	}
+	
+	.entry-title {
+		text-align:center;
+		border-bottom:2px solid #333;
+		padding-bottom:15px;
+		font-weight:800;
+		color:#333;
+		
+		a {
+			color:#333;
+			
+			&:hover {
+				text-decoration:underline;
+			}
+		}
+	}
+	
+	.entry-excerpt {
+		text-align:center;
+	}
+}
+
+/*==============================================
+	22. Owl Carousels (Project)
+==============================================*/
+.project {
+	background:#fff;
+	float:left;
+	margin:10px;
+	box-shadow:3px 1px 5px rgba(0,0,0,0.5);
+	
+	.big-image {
+		padding:0;
+		margin:0;
+		background-size:cover;
+		background-position:top center;
+		height:373px;
+	}
+	
+	.project-detail {
+		padding:0;
+		margin:0;
+	}
+	
+	.project-description {
+		padding:35px;
+		border-bottom:2px solid #ddd;
+	}
+	
+	.project-text {
+		height:95px;
+		width:100%;
+		position:relative;
+		overflow: hidden;
+	}
+	
+	.project-title {
+		margin:0;
+		padding:0;
+	}
+	
+	.project-meta {
+		color:@main-color;
+		text-transform:uppercase;
+		margin-bottom:20px;
+	}
+	
+	.project-thumbnail {
+		background:#f0f0f0;
+		text-align:center;
+		padding:10px;
+		
+		a {
+			display:inline-block;
+			margin:10px;
+		}
+		
+		img {
+			border-radius:50px;
+			width:100px;
+			height:100px;
+			border:5px solid #fff;
+			box-shadow:1px 1px 2px rgba(0,0,0,0.5);
+			transition:all ease-in-out 200ms;
+			
+			&:hover {
+				box-shadow:1px 1px 8px rgba(0,0,0,0.5);
+			}
+		}
+	}
+}
+
+.projects {
+	.owl-theme .owl-controls .owl-page:hover span,
+	.owl-theme .owl-controls .owl-page.active span {
+		background:#fff !important;
+	}
+	
+	.owl-theme .owl-controls .owl-page span {
+		opacity:1;
+		background:rgba(255,255,255,0.1);
+		border:2px solid #fff !important;
+		transition:all ease-in-out 200ms;
+		width:20px;
+		height:20px;
+	}
+	
+	.owl-theme .owl-controls {
+		margin-top:25px;
+	}
+}
+
+.owl-navigation-custom {
+	text-align:right;
+	padding:10px;
+	
+	.button {
+		background:#fff;
+		color:#333;
+		display:inline-block;
+		padding:10px;
+		text-align:center;
+		width:35px;
+		
+		&:hover {
+			background:@main-color;
+			cursor:pointer;
+			color:#fff;
+		}
+	}
+}
+
+.modal-lenasia {
+	.owl-theme .owl-controls .owl-page span {
+		background:@main-color !important;
+	}
+}
+
+/*==============================================
+	23. Modals Lenasia
+==============================================*/
+.modal-lenasia .modal-content {
+    padding: 100px 0;
+    min-height: 100%;
+    border: 0;
+    border-radius: 0;
+    background-clip: border-box;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+	
+	h2 {
+		margin: 0;
+		font-size: 3em;
+	}
+	
+	img {
+		margin-bottom: 15px;
+	}
+	
+	.item-details {
+		margin: 30px 0;
+		text-align:center;
+		font-size:0;
+		
+		li {
+			display:inline-block;
+			padding:0 10px 0 11px;
+			margin:0 1px 0 0;
+			border-right:1px dashed #aaa;
+			font-size:14px;
+			
+			&:last-child {
+				border-right:0;
+			}
+		}
+	}
+}
+
+.modal-lenasia .close-modal {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 75px;
+    height: 75px;
+    background-color: transparent;
+    cursor: pointer;
+	
+	&:hover {
+		opacity: .3;
+	}
+}
+
+.modal-lenasia .close-modal .lr {
+    z-index: 1051;
+    width: 1px;
+    height: 75px;
+    margin-left: 35px;
+    background-color: #2c3e50;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.modal-lenasia .close-modal .lr .rl {
+    z-index: 1052;
+    width: 1px;
+    height: 75px;
+    background-color: #2c3e50;
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+/*==============================================
+	24. Contact Form
+==============================================*/
+#contact-form {
+	label {
+		&.error,
+		&.valid {
+			display: inline-block;
+			max-width: 100%;;
+			position: absolute;
+			right: 10px;
+			z-index: 100;
+			top: 15px;
+		}
+		
+		&.error {
+			color:#e84c3d;
+		}
+		
+		&.valid {
+			color:#66b943 !important;
+		}
+	}
+}
+
+.contact-message-container {
+	display:none;
+	background:@main-color;
+	background: #d4633e;
+	color: #fff;
+	padding: 10px;
+	margin-bottom: 15px;
+	text-align: center;
+	box-shadow:1px 1px 2px rgba(0,0,0,.25);
+}
+
+/*==============================================
+	25. Social Buttons
+==============================================*/
+.social-buttons {
+	font-size:0;
+	text-align:center;
+	margin-bottom:10px;
+}
+
+.social-btn {
+	font-size:25px;
+	color:#fff;
+	width:50px;
+	height:50px;
+	padding:8px 0 0 0;
+	background:#333;
+	transition:all ease-in-out 150ms;
+	display:inline-block;
+	border-radius:50px;
+	margin:5px;
+	
+	&:hover {
+		background:@main-color;
+	}
+}
+
+/*==============================================
+	26. Utility
+==============================================*/
+.block { display:block; }
+.inline-block { display:inline-block; }
+.inline { display:inline; }
+
+.margin-0 { margin-bottom:0px; }
+.margin-10 { margin-bottom:10px; }
+.margin-20 { margin-bottom:20px; }
+.margin-30 { margin-bottom:30px; }
+.margin-40 { margin-bottom:40px; }
+.margin-50 { margin-bottom:50px; }
+.margin-60 { margin-bottom:60px; }
+.margin-70 { margin-bottom:70px; }
+
+/* ==========================================================================
+   27. Mobile styles
+   ========================================================================== */ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+	// Splash
+	.splash-title {
+		font-size:30px;
+		
+		small {
+			font-size:16px;
+			letter-spacing:1px;
+		}
+	}
+	
+	.splash {
+		p {
+			font-size:14px;
+		}
+	}
+	
+	
+	// Hexagon
+	.hexagon {
+		width: 150px; 
+		height: 86.60px;
+		margin: 43.30px 0;
+		background-size: auto 173.2051px;
+	}
+
+	.hexTop,
+	.hexBottom {
+		width: 106.07px;
+		height: 106.07px;
+		-webkit-transform: scaleY(0.5774) rotate(-45deg);
+		-ms-transform: scaleY(0.5774) rotate(-45deg);
+		transform: scaleY(0.5774) rotate(-45deg);
+		left: 21.97px;
+	}
+
+	/*counter transform the bg image on the caps*/
+	.hexTop:after,
+	.hexBottom:after {
+		width: 150.0000px;
+		height: 86.60254037844388px;
+		-webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-43.3013px);
+		-ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-43.3013px);
+		transform:          rotate(45deg) scaleY(1.7321) translateY(-43.3013px);
+		-webkit-transform-origin: 0 0;
+		-ms-transform-origin: 0 0;
+		transform-origin: 0 0;
+	}
+
+	.hexTop {
+		top: -53.0330px;
+	}
+
+	.hexBottom {
+		bottom: -53.0330px;
+	}
+
+	.hexagon:after {
+		top: 0.0000px;
+		left: 0;
+		width: 150.0000px;
+		height: 86.6025px;
+	}
+	
+	// Blog
+	.blog {
+		margin:25px 0;
+	}
+}
+@media (min-width: 481px) and (max-width: 767px) { 
+	// Splash
+	.splash-title {
+		font-size:30px;
+		
+		small {
+			font-size:16px;
+			letter-spacing:1px;
+		}
+	}
+	
+	.splash {
+		p {
+			font-size:14px;
+		}
+	}
+	
+	
+	// Hexagon
+	.hexagon {
+		width: 150px; 
+		height: 86.60px;
+		margin: 43.30px 0;
+		background-size: auto 173.2051px;
+	}
+
+	.hexTop,
+	.hexBottom {
+		width: 106.07px;
+		height: 106.07px;
+		-webkit-transform: scaleY(0.5774) rotate(-45deg);
+		-ms-transform: scaleY(0.5774) rotate(-45deg);
+		transform: scaleY(0.5774) rotate(-45deg);
+		left: 21.97px;
+	}
+
+	/*counter transform the bg image on the caps*/
+	.hexTop:after,
+	.hexBottom:after {
+		width: 150.0000px;
+		height: 86.60254037844388px;
+		-webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-43.3013px);
+		-ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-43.3013px);
+		transform:          rotate(45deg) scaleY(1.7321) translateY(-43.3013px);
+		-webkit-transform-origin: 0 0;
+		-ms-transform-origin: 0 0;
+		transform-origin: 0 0;
+	}
+
+	.hexTop {
+		top: -53.0330px;
+	}
+
+	.hexBottom {
+		bottom: -53.0330px;
+	}
+
+	.hexagon:after {
+		top: 0.0000px;
+		left: 0;
+		width: 150.0000px;
+		height: 86.6025px;
+	}
+	
+	// Blog
+	.blog {
+		margin:25px 0;
+	}
+}
+
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+
+/* Desktops and laptops ----------- */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+     
+
+/* Large screens ----------- */
+@media (min-width: 1200px) and (max-width: 3000px) {
+
+}    
