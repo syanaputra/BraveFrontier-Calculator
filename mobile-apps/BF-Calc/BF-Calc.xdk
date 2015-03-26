@@ -8,7 +8,7 @@
       "src": "blankproject",
       "sourceDirectory": "www",
       "projectGuid": "b19419e3-5bb7-4fc1-a58d-dd0cf61a175e",
-      "lastModifiedDate": 1425355361004,
+      "lastModifiedDate": 1427349778397,
       "creationDate": 1414471919694
     },
     "sourceDirectory": "www",
@@ -186,10 +186,10 @@
         "iosProvs_": [],
         "cordovaCLIVersion_": "4.1.2",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.2.1",
+        "appVersion_": "1.2.2",
         "appAuthor_": "Stephanus Yanaputra",
         "appDescription_": "Brave Frontier Calculator (BF-Calc) is a fan made tool that is created to help Brave Frontier players, based on Brave Frontier Wikia. We want Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.",
-        "appVersionCode_": "24"
+        "appVersionCode_": "25"
       },
       "Android-Crosswalk": {
         "platform_": "android",

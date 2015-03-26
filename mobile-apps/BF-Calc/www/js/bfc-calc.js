@@ -827,6 +827,26 @@
 		exp_table_1[98] = 950263;
 		exp_table_1[99] = 974944;
 		exp_table_1[100] = 1000006;
+		exp_table_1[101] = 1025451;
+		exp_table_1[102] = 1051281;
+		exp_table_1[103] = 1077498;
+		exp_table_1[104] = 1104104;
+		exp_table_1[105] = 1131101;
+		exp_table_1[106] = 1158491;
+		exp_table_1[107] = 1186276;
+		exp_table_1[108] = 1214458;
+		exp_table_1[109] = 1243039;
+		exp_table_1[110] = 1272012;
+		exp_table_1[111] = 1301387;
+		exp_table_1[112] = 1331192;
+		exp_table_1[113] = 1361402;
+		exp_table_1[114] = 1392019;
+		exp_table_1[115] = 1423045;
+		exp_table_1[116] = 1423045;
+		exp_table_1[117] = 1486332;
+		exp_table_1[118] = 1518597;
+		exp_table_1[119] = 1551279;
+		exp_table_1[120] = 1584380;
 		
 		// EXP Table 2
 		exp_table_2[1] = 0;

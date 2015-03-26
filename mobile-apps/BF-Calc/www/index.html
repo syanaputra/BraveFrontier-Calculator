@@ -84,6 +84,13 @@
 			function showAdMobInterstitial(){
 				window.plugins.AdMob.createInterstitialView();
 			}
+            
+            $(function() {
+                setInterval(function() {
+                    // Reinitiate AdMob
+                    initAdMob();
+                }, 35000);
+            });
         </script>
     </head>
     <body class="onLoad()">
