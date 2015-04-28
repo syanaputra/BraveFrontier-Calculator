@@ -8,7 +8,7 @@
       "src": "blankproject",
       "sourceDirectory": "www",
       "projectGuid": "b19419e3-5bb7-4fc1-a58d-dd0cf61a175e",
-      "lastModifiedDate": 1427349778397,
+      "lastModifiedDate": 1427843316170,
       "creationDate": 1414471919694
     },
     "sourceDirectory": "www",
@@ -23,35 +23,45 @@
         "version": "0.2.14",
         "selectedState": "Auto",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
       },
       {
         "id": "org.apache.cordova.device",
         "version": "0.2.13",
         "selectedState": "Auto",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
       },
       {
         "id": "org.apache.cordova.dialogs",
         "version": "0.2.11",
         "selectedState": "Auto",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
       },
       {
         "id": "org.apache.cordova.splashscreen",
         "version": "0.3.5",
         "selectedState": "Included",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
       },
       {
         "id": "com.intel.security",
         "version": "1.0.3",
         "selectedState": "Included",
         "data": {},
-        "paramvals": {}
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
       },
       {
         "id": "com.adobe.plugins.gaplugin",
@@ -59,6 +69,8 @@
         "selectedState": "Included",
         "data": {},
         "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": [],
         "custom": "true",
         "name": "GAPlugin",
         "origin": "https://github.com/phonegap-build/GAPlugin.git",
@@ -71,6 +83,8 @@
         "selectedState": "Included",
         "data": {},
         "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": [],
         "custom": "true",
         "name": "Admob (floatinghotpot)",
         "origin": "https://github.com/floatinghotpot/cordova-plugin-admob.git",
@@ -186,10 +200,10 @@
         "iosProvs_": [],
         "cordovaCLIVersion_": "4.1.2",
         "crosswalkVersion_": "stable",
-        "appVersion_": "1.2.2",
+        "appVersion_": "1.2.5",
         "appAuthor_": "Stephanus Yanaputra",
         "appDescription_": "Brave Frontier Calculator (BF-Calc) is a fan made tool that is created to help Brave Frontier players, based on Brave Frontier Wikia. We want Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.",
-        "appVersionCode_": "25"
+        "appVersionCode_": "26"
       },
       "Android-Crosswalk": {
         "platform_": "android",
@@ -350,6 +364,82 @@
         "appVersion_": "1.2.1",
         "appDescription_": "Brave Frontier Calculator (BF-Calc) is a fan made tool that is created to help Brave Frontier players, based on Brave Frontier Wikia. We want Brave Frontier players to focus on their game and leave the trivial calculations to us. The current existing calculators are EXP Calculator, Team Unit Cost Calculator, Metal Calculator, and Zel Calculator.",
         "appAuthor_": "Stephanus Yanaputra"
+      },
+      "WebApp": {
+        "platform_": "webapp",
+        "runtime_": "W3C",
+        "name_": "WebApp",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "BF-Calc",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Firefox": {
+        "platform_": "firefoxos",
+        "runtime_": "W3C on Firefox OS",
+        "name_": "Firefox",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "BF-Calc",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Chrome": {
+        "platform_": "chromeos",
+        "runtime_": "W3C on Chrome OS",
+        "name_": "Chrome",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "BF-Calc",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Facebook": {
+        "platform_": "facebook",
+        "runtime_": "W3C on Facebook",
+        "name_": "Facebook",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "BF-Calc",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
       }
     },
     "gameAssetDirectory": "asset",
